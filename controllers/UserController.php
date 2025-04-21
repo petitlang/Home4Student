@@ -40,7 +40,7 @@ switch ($action) {
 
                 $_SESSION['user'] = $user;
                 $_SESSION['role'] = $role;
-                header('Location: ../views/index2.html');
+                header('Location: ../views/index2.php');
                 exit;
             } else {
                 echo "<p>Email déjà utilisé pour ce type de compte. <a href='../views/register.html'>Retour</a></p>";
@@ -70,7 +70,7 @@ switch ($action) {
             if ($user) {
                 $_SESSION['user'] = $user;
                 $_SESSION['role'] = $role;
-                header('Location: ../views/index2.html');
+                header('Location: ../views/index2.php');
                 exit;
             } else {
                 echo "<p>Identifiants incorrects. <a href='../views/login.html'>Retour</a></p>";
@@ -80,7 +80,7 @@ switch ($action) {
 
     case 'logout':
         session_destroy();
-        header('Location: ../views/index.html');
+        header('Location: ../views/index.php');
         exit;
 
     case 'reset_password':
@@ -131,7 +131,7 @@ switch ($action) {
                 UserModel::updateProprietaire($user['IdPropietaire'], $_POST, $photoPath);
             }
 
-            echo "<script>alert('Profil mis à jour !'); window.location.href = '../views/index2.html';</script>";
+            echo "<script>alert('Profil mis à jour !'); window.location.href = '../views/index2.php';</script>";
             exit;
         }
         break;

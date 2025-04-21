@@ -1,7 +1,7 @@
 
 <?php
 // models/UserModel.php
-require_once __DIR__ . '/connection.php';
+require_once __DIR__ . '/init_database.php';
 
 class UserModel {
 

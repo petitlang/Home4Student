@@ -1,3 +1,11 @@
+<?php
+session_start();
+if (!isset($_SESSION['user'])) {
+    header("Location: index.php");
+    exit;
+}
+$user = $_SESSION['user'];
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -200,14 +208,7 @@
         }
     </style>
 </head>
-<?php
-session_start();
-if (!isset($_SESSION['user'])) {
-    header("Location: index.php");
-    exit;
-}
-$user = $_SESSION['user'];
-?>
+
 <body>
     <header>
         <div class="logo">SeLogerFacilement</div>
@@ -219,7 +220,7 @@ $user = $_SESSION['user'];
                 <a href="#offres">Offres</a>
             </div>
             <div class="user-section">
-                <div id="userProfile" class="user-profile" onclick="window.location.href='/views/profile-edit.html'">
+                <div id="userProfile" class="user-profile" onclick="window.location.href='/views/profile-edit.php'">
                     <?php echo htmlspecialchars($user["prenom"] . " " . $user["nom"]); ?>
                     <div id="userAvatar">
                         <?php if (!empty($user["photo"])): ?>

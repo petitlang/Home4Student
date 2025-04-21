@@ -1,4 +1,4 @@
-Home4Student/public/resources/photo_etudiant/*.jpg
-Home4Student/public/resources/photo_admin/*.jpg
-Home4Student/public/resources/photo_ad/*.jpg
-Home4Student/public/resources/photo_proprietaire/*.jpg
+public/resources/photo_etudiant/*.jpg
+public/resources/photo_admin/*.jpg
+public/resources/photo_ad/*.jpg
+public/resources/photo_proprietaire/*.jpg

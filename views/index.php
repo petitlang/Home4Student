@@ -1,8 +1,8 @@
 <?php
-require_once __DIR__ . '/config/init_database.php';
+require_once __DIR__ . '/../models/init_database.php';
 session_start();
 if (isset($_SESSION['user'])) {
-    header('Location: index2.html');
+    header('Location: index2.php');
     exit;
 }
 ?>
@@ -179,10 +179,10 @@ if (isset($_SESSION['user'])) {
             <a href="#faq">FAQ</a>
             <a href="#offres">Offres</a>
             <?php if (!isset($_SESSION['user'])): ?>
-                <a href="login.html" class="btn btn-secondary">Se connecter</a>
-                <a href="register.html" class="btn btn-primary">S'inscrire</a>
+                <a href="/views/login.html" class="btn btn-secondary">Se connecter</a>
+                <a href="/views/register.html" class="btn btn-primary">S'inscrire</a>
             <?php else: ?>
-                <a href="index2.html" class="btn btn-primary">Vers mon espace</a>
+                <a href="/views/index2.php" class="btn btn-primary">Vers mon espace</a>
             <?php endif; ?>
         </nav>
     </header>
@@ -201,7 +201,7 @@ if (isset($_SESSION['user'])) {
                 <p>✓ Inspection mensuelle</p>
                 <p>✓ Garantie de sécurité</p>
             </div>
-            <a href="ads_list.html" class="btn btn-primary">Voir les annonces</a>
+            <a href="/views/ads_list.html" class="btn btn-primary">Voir les annonces</a>
         </div>
 
         <div class="card">
@@ -212,7 +212,7 @@ if (isset($_SESSION['user'])) {
                 <p>✔ Mettez en avant les atouts</p>
                 <p>✔ Publication instantanée</p>
             </div>
-            <a href="login.html" class="btn btn-secondary">Déposer une annonce</a>
+            <a href="/views/login.html" class="btn btn-secondary">Déposer une annonce</a>
         </div>
     </div>
 
@@ -238,7 +238,7 @@ if (isset($_SESSION['user'])) {
             </div>
             <div class="footer-section">
                 <h4>Légal</h4>
-                <a href="cgu.html">CGU</a> 
+                <a href="/views/cgu.html">CGU</a> 
                 <a href="#privacy">Confidentialité</a>
                 <a href="#cookies">Cookies</a>
             </div>

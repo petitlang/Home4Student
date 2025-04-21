@@ -184,7 +184,7 @@
     <header>
         <div class="logo">SeLogerFacilement</div>
         <nav>
-            <a href="index.html" class="btn btn-primary">Retour à l'accueil</a>
+            <a href="/views/index.php" class="btn btn-primary">Retour à l'accueil</a>
         </nav>
     </header>
 
@@ -217,7 +217,7 @@
                             <p><strong>Prix :</strong> ${ad.price} €</p>
                             <p><strong>Description :</strong> ${ad.description}</p>
                             <p><strong>Déposée par :</strong> ${ad.email}</p>
-                            ${connectedEmail && connectedEmail === ad.email ? `<a href="edit_ad.html?index=${index}" class="btn btn-accent">Modifier</a>` : ''}
+                            ${connectedEmail && connectedEmail === ad.email ? `<a href="/views/edit_ad.html?index=${index}" class="btn btn-accent">Modifier</a>` : ''}
                         </div>
                         <div class="ad-images" data-index="${index}"></div>
                     `;

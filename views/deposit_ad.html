@@ -151,7 +151,7 @@
     <header>
         <div class="logo">SeLogerFacilement</div>
         <nav>
-            <a href="index2.html" class="btn btn-primary">Retour à l'accueil</a>
+            <a href="/views/index2.php" class="btn btn-primary">Retour à l'accueil</a>
         </nav>
     </header>
 
@@ -196,7 +196,7 @@
 
             if (!user) {
                 alert('Veuillez vous connecter pour déposer une annonce.');
-                window.location.href = 'login.html';
+                window.location.href = '/views/login.html';
             }
 
             // Initialisation de la carte Leaflet
@@ -286,7 +286,7 @@
                 });
                 localStorage.setItem('ads', JSON.stringify(ads));
                 alert('Annonce déposée avec succès !');
-                window.location.href = 'index2.html';
+                window.location.href = '/views/index2.php';
                 return;
             }
 
@@ -323,7 +323,7 @@
                     localStorage.setItem('ads', JSON.stringify(ads));
                     console.log('Annonce sauvegardée avec succès');
                     alert('Annonce déposée avec succès !');
-                    window.location.href = 'index2.html';
+                    window.location.href = '/views/index2.php';
                 } catch (storageError) {
                     console.error('Erreur lors de la sauvegarde dans localStorage:', storageError);
                     alert('Erreur : espace de stockage insuffisant dans localStorage.');

@@ -28,7 +28,7 @@
     <header>
         <div class="logo">SeLogerFacilement</div>
         <nav>
-            <a href="index2.html" class="btn btn-primary">Page d'accueil</a>
+            <a href="#" id="homePageLink" class="btn btn-primary">Page d'accueil</a>
         </nav>
     </header>
 
@@ -36,26 +36,26 @@
         <div class="login-container">
             <h2>Compléter mon profil</h2>
             
-<form action="../controllers/UserController.php?action=update_profile" method="POST" enctype="multipart/form-data">
-    <div class="input-group">
-        <label for="prenom">Prénom</label>
-        <input type="text" name="prenom" id="prenom" required placeholder="Votre prénom">
-    </div>
-    <div class="input-group">
-        <label for="nom">Nom</label>
-        <input type="text" name="nom" id="nom" required placeholder="Votre nom">
-    </div>
-    <div class="input-group">
-        <label for="tele">Numéro de téléphone</label>
-        <input type="tel" name="tele" id="tele" required placeholder="Votre téléphone">
-    </div>
-    <div class="input-group">
-        <label for="photo">Photo de profil</label>
-        <input type="file" name="photo" id="photo" accept="image/*">
-    </div>
-    <input type="hidden" name="role" value="<?php echo $_SESSION['role']; ?>">
-    <button type="submit" class="btn btn-primary">Sauvegarder</button>
-</form>
+            <form action="../controllers/UserController.php?action=update_profile" method="POST" enctype="multipart/form-data">
+                <div class="input-group">
+                    <label for="prenom">Prénom</label>
+                    <input type="text" name="prenom" id="prenom" required placeholder="Votre prénom">
+                </div>
+                <div class="input-group">
+                    <label for="nom">Nom</label>
+                    <input type="text" name="nom" id="nom" required placeholder="Votre nom">
+                </div>
+                <div class="input-group">
+                    <label for="tele">Numéro de téléphone</label>
+                    <input type="tel" name="tele" id="tele" required placeholder="Votre téléphone">
+                </div>
+                <div class="input-group">
+                    <label for="photo">Photo de profil</label>
+                    <input type="file" name="photo" id="photo" accept="image/*">
+                </div>
+                <input type="hidden" name="role" value="<?php echo $_SESSION['role']; ?>">
+                <button type="submit" class="btn btn-primary">Sauvegarder</button>
+            </form>
 
         </div>
     </div>
@@ -67,7 +67,7 @@
             var user = users.find(u => u.email === email);
 
             if (!email || !user) {
-                window.location.href = 'login.html';
+                window.location.href = '/views/login.html';
             } else {
                 // Pré-remplir les champs si le profil existe
                 document.getElementById('firstName').value = user.firstName || '';
@@ -88,7 +88,7 @@
             var phoneNumber = document.getElementById('phoneNumber').value;
             var file = document.getElementById('profileImage').files[0];
 
-            // Validation supplémentaire pour s'assurer que le numéro est rempli
+            // Validation supplémentaire pour s'assurer que le numéro de téléphone est rempli
             if (!phoneNumber) {
                 alert('Veuillez entrer votre numéro de téléphone.');
                 return;
@@ -105,7 +105,7 @@
                         profileImage: e.target.result
                     };
                     localStorage.setItem('users', JSON.stringify(users));
-                    window.location.href = 'index2.html';
+                    window.location.href = '/views/index2.php';
                 };
                 reader.readAsDataURL(file);
             } else {
@@ -117,7 +117,22 @@
                     profileImage: users[userIndex].profileImage || ''
                 };
                 localStorage.setItem('users', JSON.stringify(users));
-                window.location.href = 'index2.html';
+                window.location.href = '/views/index2.php';
+            }
+        });
+
+        // Ajout de la vérification avant la redirection
+        document.getElementById('homePageLink').addEventListener('click', function(e) {
+            e.preventDefault();
+
+            var firstName = document.getElementById('firstName').value;
+            var lastName = document.getElementById('lastName').value;
+            var phoneNumber = document.getElementById('phoneNumber').value;
+
+            if (!firstName && !lastName && !phoneNumber) {
+                window.location.href = '/views/index.php';
+            } else {
+                window.location.href = '/views/index2.php';
             }
         });
     </script>

@@ -203,7 +203,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['user'])) {
-    header("Location: index.html");
+    header("Location: index.php");
     exit;
 }
 $user = $_SESSION['user'];
@@ -219,7 +219,7 @@ $user = $_SESSION['user'];
                 <a href="#offres">Offres</a>
             </div>
             <div class="user-section">
-                <div id="userProfile" class="user-profile" onclick="window.location.href='profile-edit.html'">
+                <div id="userProfile" class="user-profile" onclick="window.location.href='/views/profile-edit.html'">
                     <?php echo htmlspecialchars($user["prenom"] . " " . $user["nom"]); ?>
                     <div id="userAvatar">
                         <?php if (!empty($user["photo"])): ?>
@@ -249,7 +249,7 @@ $user = $_SESSION['user'];
                 <p>✓ Inspection mensuelle</p>
                 <p>✓ Garantie de sécurité</p>
             </div>
-            <a href="ads_list.html" class="btn btn-primary">Voir les annonces</a>
+            <a href="/views/ads_list.html" class="btn btn-primary">Voir les annonces</a>
         </div>
 
         <div class="card">
@@ -260,7 +260,7 @@ $user = $_SESSION['user'];
                 <p>✔ Mettez en avant les atouts</p>
                 <p>✔ Publication instantanée</p>
             </div>
-            <a href="deposit_ad.html" class="btn btn-secondary">Déposer une annonce</a>
+            <a href="/views/deposit_ad.html" class="btn btn-secondary">Déposer une annonce</a>
         </div>
     </div>
 
@@ -286,7 +286,7 @@ $user = $_SESSION['user'];
             </div>
             <div class="footer-section">
                 <h4>Légal</h4>
-                <a href="cgu.html">CGU</a> <!-- Lien corrigé vers cgu.html -->
+                <a href="/views/cgu.html">CGU</a> <!-- Lien corrigé vers cgu.html -->
                 <a href="#privacy">Confidentialité</a>
                 <a href="#cookies">Cookies</a>
             </div>

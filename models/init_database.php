@@ -6,7 +6,7 @@
 require_once __DIR__ . '/connection.php';
 try {
     // Connexion au serveur MySQL (sans spécifier de base de données)
-    $pdo = new PDO("mysql:host=$host;charset=utf8mb4", $user, $pass);
+    $pdo = new PDO("mysql:host=$host;charset=utf8mb4", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Vérifie si la base de données existe déjà

@@ -148,12 +148,19 @@ class UserModel {
 
     public static function emailExiste($email, $role = 'etudiant') {
         global $pdo;
-        $table = match($role) {
-            'etudiant' => 'Etudiant',
-            'proprietaire' => 'Propietaire',
-            'admin' => 'Administrateur',
-            default => null
-        };
+        switch ($role) {
+            case 'etudiant':
+                $table = 'Etudiant';
+                break;
+            case 'proprietaire':
+                $table = 'Propietaire';
+                break;
+            case 'admin':
+                $table = 'Administrateur';
+                break;
+            default:
+                $table = null;
+        }
         if (!$table) return false;
         $stmt = $pdo->prepare("SELECT COUNT(*) FROM $table WHERE Email = :email");
         $stmt->execute([':email' => $email]);

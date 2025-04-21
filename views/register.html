@@ -187,6 +187,16 @@
             <form action="../controllers/UserController.php?action=register" method="POST" enctype="multipart/form-data">
                 <div class="input-group"><label for="nom">Nom</label><input type="text" name="nom" placeholder="Entrez votre nom" required></div>
                 <div class="input-group"><label for="prenom">Prénom</label><input type="text" name="prenom" placeholder="Entrez votre prénom" required></div>
+                
+                <div class="input-group">
+                    <label for="role">Je suis :</label>
+                    <select name="role" required>
+                        <option value="etudiant">Étudiant</option>
+                        <option value="proprietaire">Propriétaire</option>
+                        <!-- <option value="admin">Administrateur</option> -->
+                    </select>
+                </div>
+
                 <div class="input-group"><label for="email">Email</label><input type="email" name="email" placeholder="Entrez votre email" required></div>
                 <div class="input-group"><label for="mdp">Mot de passe</label><input type="password" name="mdp" placeholder="Créez un mot de passe" required></div>
                 <div class="input-group"><label for="tele">Téléphone</label><input type="text" name="tele" placeholder="Entrez votre numéro de téléphone" required></div>

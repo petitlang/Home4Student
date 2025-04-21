@@ -183,68 +183,29 @@
     <div class="login-section">
         <div class="login-container">
             <h2>S'inscrire</h2>
-            <form id="registerForm">
-                <div class="input-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required placeholder="Entrez votre email">
-                </div>
-                <div class="input-group">
-                    <label for="password">Mot de passe</label>
-                    <input type="password" id="password" name="password" required placeholder="Entrez votre mot de passe">
-                    <span id="togglePassword" class="password-toggle">👁️</span>
-                </div>
+            
+            <form action="../controllers/UserController.php?action=register" method="POST" enctype="multipart/form-data">
+                <div class="input-group"><label for="nom">Nom</label><input type="text" name="nom" placeholder="Entrez votre nom" required></div>
+                <div class="input-group"><label for="prenom">Prénom</label><input type="text" name="prenom" placeholder="Entrez votre prénom" required></div>
+                <div class="input-group"><label for="email">Email</label><input type="email" name="email" placeholder="Entrez votre email" required></div>
+                <div class="input-group"><label for="mdp">Mot de passe</label><input type="password" name="mdp" placeholder="Créez un mot de passe" required></div>
+                <div class="input-group"><label for="tele">Téléphone</label><input type="text" name="tele" placeholder="Entrez votre numéro de téléphone" required></div>
+                <div class="input-group"><label for="genre">Genre</label><input type="text" name="genre" placeholder="Homme / Femme / Autre" required></div>
+                <div class="input-group"><label for="rue">Rue</label><input type="text" name="rue" placeholder="Adresse de la rue" required></div>
+                <div class="input-group"><label for="codepostal">Code postal</label><input type="text" name="codepostal" placeholder="75000" required></div>
+                <div class="input-group"><label for="ville">Ville</label><input type="text" name="ville" placeholder="Paris, Lyon, etc." required></div>
+                <div class="input-group"><label for="pays">Pays</label><input type="text" name="pays" placeholder="France, Belgique, ..." required></div>
+                <div class="input-group"><label for="photo">Photo</label><input type="file" name="photo" accept="image/*"></div>
                 <div class="cgu-group">
                     <input type="checkbox" id="cgu" name="cgu" required>
                     <label for="cgu">J'accepte les <a href="cgu.html">CGU</a> et les conditions d'utilisation du site.</label>
                 </div>
                 <button type="submit" class="btn btn-primary">S'inscrire</button>
             </form>
+
         </div>
     </div>
 
-    <script>
-        // Gérer l'enregistrement de l'utilisateur dans le LocalStorage
-        document.getElementById('registerForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            var email = document.getElementById('email').value;
-            var password = document.getElementById('password').value;
-            var cguChecked = document.getElementById('cgu').checked;
-
-            if (!cguChecked) {
-                alert('Vous devez accepter les CGU pour vous inscrire.');
-                return;
-            }
-
-            if (password.length < 6) {
-                alert('Le mot de passe doit contenir au moins 6 caractères.');
-                return;
-            }
-
-            var users = JSON.parse(localStorage.getItem('users')) || [];
-            var userExists = users.some(user => user.email === email);
-
-            if (userExists) {
-                alert('Cet email est déjà utilisé !');
-            } else {
-                users.push({ email: email, password: password });
-                localStorage.setItem('users', JSON.stringify(users));
-                localStorage.setItem('connectedUserEmail', email);
-                alert('Compte créé avec succès !');
-                window.location.href = 'profile-edit.html';
-            }
-        });
-
-        // Gérer l'affichage du mot de passe
-        document.getElementById('togglePassword').addEventListener('click', function() {
-            var passwordInput = document.getElementById('password');
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                this.textContent = '🙈';
-            } else {
-                passwordInput.type = 'password';
-                this.textContent = '👁️';
-            }
-        });
-    </script>
+    
 </body>
 </html>

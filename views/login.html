@@ -174,7 +174,8 @@
     <div class="login-section">
         <div class="login-container">
             <h2>Se connecter</h2>
-            <form id="loginForm">
+            
+            <form action="../controllers/UserController.php?action=login" method="POST">
                 <div class="input-group">
                     <label for="email">Email</label>
                     <input type="email" id="email" name="email" required placeholder="Entrez votre email">
@@ -191,39 +192,6 @@
         </div>
     </div>
 
-    <script>
-        // Gérer la connexion de l'utilisateur
-        document.getElementById('loginForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            var email = document.getElementById('email').value;
-            var password = document.getElementById('password').value;
-            var users = JSON.parse(localStorage.getItem('users')) || [];
-            var user = users.find(user => user.email === email && user.password === password);
-
-            if (user) {
-                alert('Connexion réussie !');
-                localStorage.setItem('connectedUserEmail', email);
-                if (user.firstName && user.lastName) {
-                    window.location.href = 'index2.html';
-                } else {
-                    window.location.href = 'profile-edit.html';
-                }
-            } else {
-                alert('Email ou mot de passe incorrect.');
-            }
-        });
-
-        // Gérer l'affichage du mot de passe
-        document.getElementById('togglePassword').addEventListener('click', function() {
-            var passwordInput = document.getElementById('password');
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                this.textContent = '🙈';
-            } else {
-                passwordInput.type = 'password';
-                this.textContent = '👁️';
-            }
-        });
-    </script>
+    
 </body>
 </html>

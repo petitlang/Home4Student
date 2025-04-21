@@ -35,11 +35,11 @@ class UserModel {
     }
 
     public static function enregistrerPhotoEtudiant($id, $file) {
-        $uploadDir = __DIR__ . '/resources/photo_etudiant/';
+        $uploadDir = __DIR__ . '/../public/resources/photo_etudiant/';
         $filename = "etudiant_" . intval($id) . ".jpg";
         $targetPath = $uploadDir . $filename;
         if (move_uploaded_file($file['tmp_name'], $targetPath)) {
-            return "models/resources/photo_etudiant/$filename";
+            return "public/resources/photo_etudiant/$filename";
         }
         return false;
     }
@@ -93,11 +93,11 @@ class UserModel {
     }
 
     public static function enregistrerPhotoProprietaire($id, $file) {
-        $uploadDir = __DIR__ . '/resources/photo_proprietaire/';
+        $uploadDir = __DIR__ . '/../public/resources/photo_proprietaire/';
         $filename = "proprietaire_" . intval($id) . ".jpg";
         $targetPath = $uploadDir . $filename;
         if (move_uploaded_file($file['tmp_name'], $targetPath)) {
-            return "models/resources/photo_proprietaire/$filename";
+            return "public/resources/photo_proprietaire/$filename";
         }
         return false;
     }

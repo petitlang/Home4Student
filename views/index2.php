@@ -194,17 +194,21 @@ $user = $_SESSION['user'];
         }
 
         .user-profile img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            object-fit: cover;
+            width: 50px;
+            height: 50px;
+            object-fit: contain;      /* 缩放显示，不裁剪 */
+            border-radius: 50%;       /* 如果你仍希望头像为圆形，可保留 */
+            border: 2px solid #fff;
+            background-color: #000;   /* 避免图片背景透明时变黑 */
         }
 
         .user-profile .default-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: black;
+            width: 50px;
+            height: 50px;
+            object-fit: contain;      /* 缩放显示，不裁剪 */
+            border-radius: 50%;       /* 如果你仍希望头像为圆形，可保留 */
+            border: 2px solid #fff;
+            background-color: #fff;   /* 避免图片背景透明时变黑 */
         }
     </style>
 </head>
@@ -224,11 +228,10 @@ $user = $_SESSION['user'];
                     <?php echo htmlspecialchars($user["prenom"] . " " . $user["nom"]); ?>
                     <div id="userAvatar">
                         <?php if (!empty($user["photo"])): ?>
-                        <img src="<?php echo htmlspecialchars($user["photo"]); ?>" alt="Photo de profil" class="profile-img">
+                            <img src="<?php echo htmlspecialchars($user["photo"]); ?>" alt="Photo de profil" class="profile-img">
                         <?php else: ?>
-                        <div class="default-avatar"></div>
+                            <div class="default-avatar"></div>
                         <?php endif; ?>
-                        <div id="defaultAvatar" class="default-avatar"></div>
                     </div>
                 </div>
                 <a href="../controllers/UserController.php?action=logout" class="btn btn-secondary">Se déconnecter</a>

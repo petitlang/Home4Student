@@ -132,7 +132,7 @@
     <header>
         <div class="logo">SeLogerFacilement</div>
         <nav>
-            <a href="ads_list.html" class="btn btn-accent">Retour aux annonces</a>
+            <a href="/views/ads_list.html" class="btn btn-accent">Retour aux annonces</a>
         </nav>
     </header>
 
@@ -166,7 +166,7 @@
             var email = localStorage.getItem('connectedUserEmail');
             if (!email) {
                 alert('Veuillez vous connecter pour modifier une annonce.');
-                window.location.href = 'login.html';
+                window.location.href = '/views/login.html';
                 return;
             }
 
@@ -175,7 +175,7 @@
 
             if (adIndex === null) {
                 alert('Aucune annonce sélectionnée.');
-                window.location.href = 'ads_list.html';
+                window.location.href = '/views/ads_list.html';
                 return;
             }
 
@@ -185,7 +185,7 @@
 
             if (!ad || ad.email !== email) {
                 alert('Vous ne pouvez modifier que vos propres annonces.');
-                window.location.href = 'ads_list.html';
+                window.location.href = '/views/ads_list.html';
                 return;
             }
 
@@ -248,7 +248,7 @@
                 }
 
                 alert(data.message);
-                window.location.href = 'ads_list.html';
+                window.location.href = '/views/ads_list.html';
             } catch (error) {
                 console.error('Erreur lors de l’envoi de l’annonce:', error);
                 alert('Une erreur est survenue. Vérifiez la console.');

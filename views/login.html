@@ -167,18 +167,29 @@
     <header>
         <div class="logo">SeLogerFacilement</div>
         <nav>
-            <a href="index.html" class="btn btn-secondary">Page d'accueil</a>
+            <a href="/views/index.php" class="btn btn-secondary">Page d'accueil</a>
         </nav>
     </header>
 
     <div class="login-section">
         <div class="login-container">
             <h2>Se connecter</h2>
-            <form id="loginForm">
+            
+            <form action="../controllers/UserController.php?action=login" method="POST">
                 <div class="input-group">
                     <label for="email">Email</label>
                     <input type="email" id="email" name="email" required placeholder="Entrez votre email">
                 </div>
+                
+                <div class="input-group">
+                    <label for="role">Je suis :</label>
+                    <select name="role" required>
+                        <option value="etudiant">Étudiant</option>
+                        <option value="proprietaire">Propriétaire</option>
+                        <option value="admin">Administrateur</option>
+                    </select>
+                </div>
+
                 <div class="input-group">
                     <label for="password">Mot de passe</label>
                     <input type="password" id="password" name="password" required placeholder="Entrez votre mot de passe">
@@ -186,44 +197,11 @@
                 </div>
                 <button type="submit" class="btn btn-primary">Se connecter</button>
             </form>
-            <p style="color: black;">Pas encore de compte ? <a href="register.html">S'inscrire</a></p>
-            <p><a href="reset_password.html" class="forgot-password">Mot de passe oublié ?</a></p>
+            <p style="color: black;">Pas encore de compte ? <a href="/views/register.html">S'inscrire</a></p>
+            <p><a href="/views/reset_password.html" class="forgot-password">Mot de passe oublié ?</a></p>
         </div>
     </div>
 
-    <script>
-        // Gérer la connexion de l'utilisateur
-        document.getElementById('loginForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            var email = document.getElementById('email').value;
-            var password = document.getElementById('password').value;
-            var users = JSON.parse(localStorage.getItem('users')) || [];
-            var user = users.find(user => user.email === email && user.password === password);
-
-            if (user) {
-                alert('Connexion réussie !');
-                localStorage.setItem('connectedUserEmail', email);
-                if (user.firstName && user.lastName) {
-                    window.location.href = 'index2.html';
-                } else {
-                    window.location.href = 'profile-edit.html';
-                }
-            } else {
-                alert('Email ou mot de passe incorrect.');
-            }
-        });
-
-        // Gérer l'affichage du mot de passe
-        document.getElementById('togglePassword').addEventListener('click', function() {
-            var passwordInput = document.getElementById('password');
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                this.textContent = '🙈';
-            } else {
-                passwordInput.type = 'password';
-                this.textContent = '👁️';
-            }
-        });
-    </script>
+    
 </body>
 </html>

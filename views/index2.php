@@ -1,3 +1,11 @@
+<?php
+session_start();
+if (!isset($_SESSION['user'])) {
+    header("Location: index.php");
+    exit;
+}
+$user = $_SESSION['user'];
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -186,20 +194,25 @@
         }
 
         .user-profile img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            object-fit: cover;
+            width: 50px;
+            height: 50px;
+            object-fit: contain;      /* 缩放显示，不裁剪 */
+            border-radius: 50%;       /* 如果你仍希望头像为圆形，可保留 */
+            border: 2px solid #fff;
+            background-color: #000;   /* 避免图片背景透明时变黑 */
         }
 
         .user-profile .default-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: black;
+            width: 50px;
+            height: 50px;
+            object-fit: contain;      /* 缩放显示，不裁剪 */
+            border-radius: 50%;       /* 如果你仍希望头像为圆形，可保留 */
+            border: 2px solid #fff;
+            background-color: #fff;   /* 避免图片背景透明时变黑 */
         }
     </style>
 </head>
+
 <body>
     <header>
         <div class="logo">SeLogerFacilement</div>
@@ -211,20 +224,23 @@
                 <a href="#offres">Offres</a>
             </div>
             <div class="user-section">
-                <div id="userProfile" class="user-profile" onclick="window.location.href='profile-edit.html'">
-                    <span id="userName"></span>
+                <div id="userProfile" class="user-profile" onclick="window.location.href='/views/profile-edit.php'">
+                    <?php echo htmlspecialchars($user["prenom"] . " " . $user["nom"]); ?>
                     <div id="userAvatar">
-                        <img id="userAvatarImage" src="" alt="Photo de profil">
-                        <div id="defaultAvatar" class="default-avatar"></div>
+                        <?php if (!empty($user["photo"])): ?>
+                            <img src="<?php echo htmlspecialchars($user["photo"]); ?>" alt="Photo de profil" class="profile-img">
+                        <?php else: ?>
+                            <div class="default-avatar"></div>
+                        <?php endif; ?>
                     </div>
                 </div>
-                <a href="#" id="logoutBtn" class="btn btn-secondary">Se déconnecter</a>
+                <a href="../controllers/UserController.php?action=logout" class="btn btn-secondary">Se déconnecter</a>
             </div>
         </nav>
     </header>
 
     <div class="hero-slogan">
-        <h1>Bienvenue, <span id="welcomeUserName"></span> !</h1>
+        <h1>Bienvenue, <?php echo htmlspecialchars($user["prenom"]); ?> !</h1>
     </div>
 
     <div class="main-grid">
@@ -237,7 +253,7 @@
                 <p>✓ Inspection mensuelle</p>
                 <p>✓ Garantie de sécurité</p>
             </div>
-            <a href="ads_list.html" class="btn btn-primary">Voir les annonces</a>
+            <a href="/views/ads_list.html" class="btn btn-primary">Voir les annonces</a>
         </div>
 
         <div class="card">
@@ -248,7 +264,7 @@
                 <p>✔ Mettez en avant les atouts</p>
                 <p>✔ Publication instantanée</p>
             </div>
-            <a href="deposit_ad.html" class="btn btn-secondary">Déposer une annonce</a>
+            <a href="/views/deposit_ad.html" class="btn btn-secondary">Déposer une annonce</a>
         </div>
     </div>
 
@@ -274,40 +290,13 @@
             </div>
             <div class="footer-section">
                 <h4>Légal</h4>
-                <a href="cgu.html">CGU</a> <!-- Lien corrigé vers cgu.html -->
+                <a href="/views/cgu.html">CGU</a> <!-- Lien corrigé vers cgu.html -->
                 <a href="#privacy">Confidentialité</a>
                 <a href="#cookies">Cookies</a>
             </div>
         </div>
     </footer>
 
-    <script>
-        window.addEventListener('load', function() {
-            var email = localStorage.getItem('connectedUserEmail');
-            var users = JSON.parse(localStorage.getItem('users')) || [];
-            var user = users.find(user => user.email === email);
-
-            if (user) {
-                document.getElementById('userName').textContent = user.firstName + ' ' + user.lastName;
-                document.getElementById('welcomeUserName').textContent = user.firstName;
-                if (user.profileImage) {
-                    document.getElementById('userAvatarImage').src = user.profileImage;
-                    document.getElementById('defaultAvatar').style.display = 'none';
-                } else {
-                    document.getElementById('userAvatarImage').style.display = 'none';
-                    document.getElementById('defaultAvatar').style.display = 'block';
-                }
-            } else {
-                window.location.href = 'index.html';
-            }
-        });
-
-        document.getElementById('logoutBtn').addEventListener('click', function(e) {
-            e.preventDefault();
-            localStorage.removeItem('connectedUserEmail');
-            alert('Vous êtes déconnecté !');
-            window.location.href = 'index.html';
-        });
-    </script>
+    
 </body>
 </html>

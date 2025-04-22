@@ -35,25 +35,28 @@
     <div class="login-section">
         <div class="login-container">
             <h2>Compléter mon profil</h2>
-            <form id="profileForm">
+            
+            <form action="../controllers/UserController.php?action=update_profile" method="POST" enctype="multipart/form-data">
                 <div class="input-group">
-                    <label for="firstName">Prénom</label>
-                    <input type="text" id="firstName" required placeholder="Entrez votre prénom">
+                    <label for="prenom">Prénom</label>
+                    <input type="text" name="prenom" id="prenom" required placeholder="Votre prénom">
                 </div>
                 <div class="input-group">
-                    <label for="lastName">Nom</label>
-                    <input type="text" id="lastName" required placeholder="Entrez votre nom">
+                    <label for="nom">Nom</label>
+                    <input type="text" name="nom" id="nom" required placeholder="Votre nom">
                 </div>
                 <div class="input-group">
-                    <label for="phoneNumber">Numéro de téléphone</label>
-                    <input type="tel" id="phoneNumber" required placeholder="Entrez votre numéro de téléphone">
+                    <label for="tele">Numéro de téléphone</label>
+                    <input type="tel" name="tele" id="tele" required placeholder="Votre téléphone">
                 </div>
                 <div class="input-group">
-                    <label for="profileImage">Photo de profil</label>
-                    <input type="file" id="profileImage" accept="image/*">
+                    <label for="photo">Photo de profil</label>
+                    <input type="file" name="photo" id="photo" accept="image/*">
                 </div>
+                <input type="hidden" name="role" value="<?php echo $_SESSION['role']; ?>">
                 <button type="submit" class="btn btn-primary">Sauvegarder</button>
             </form>
+
         </div>
     </div>
 
@@ -64,7 +67,7 @@
             var user = users.find(u => u.email === email);
 
             if (!email || !user) {
-                window.location.href = 'login.html';
+                window.location.href = '/views/login.html';
             } else {
                 // Pré-remplir les champs si le profil existe
                 document.getElementById('firstName').value = user.firstName || '';
@@ -102,7 +105,7 @@
                         profileImage: e.target.result
                     };
                     localStorage.setItem('users', JSON.stringify(users));
-                    window.location.href = 'index2.html';
+                    window.location.href = '/views/index2.php';
                 };
                 reader.readAsDataURL(file);
             } else {
@@ -114,7 +117,7 @@
                     profileImage: users[userIndex].profileImage || ''
                 };
                 localStorage.setItem('users', JSON.stringify(users));
-                window.location.href = 'index2.html';
+                window.location.href = '/views/index2.php';
             }
         });
 
@@ -127,9 +130,9 @@
             var phoneNumber = document.getElementById('phoneNumber').value;
 
             if (!firstName && !lastName && !phoneNumber) {
-                window.location.href = 'index.html';
+                window.location.href = '/views/index.php';
             } else {
-                window.location.href = 'index2.html';
+                window.location.href = '/views/index2.php';
             }
         });
     </script>

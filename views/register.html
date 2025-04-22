@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Réinitialiser le mot de passe</title>
+    <title>S'inscrire</title>
     <style>
         * {
             margin: 0;
@@ -80,6 +80,7 @@
 
         .input-group {
             margin-bottom: 1.5rem;
+            position: relative;
         }
 
         .input-group label {
@@ -89,7 +90,7 @@
 
         .input-group input {
             width: 100%;
-            padding: 1rem;
+            padding: 1rem 2.5rem 1rem 1rem;
             border: 1px solid #ddd;
             border-radius: 5px;
             margin-top: 0.5rem;
@@ -144,8 +145,30 @@
             text-decoration: underline;
         }
 
-        .noir-text {
-            color: #000;
+        .password-toggle {
+            position: absolute;
+            right: 10px;
+            top: 65%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: var(--dark);
+        }
+
+        .cgu-group {
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .cgu-group label {
+            font-size: 0.9rem;
+            color: var(--dark);
+        }
+
+        .cgu-group input[type="checkbox"] {
+            width: auto;
         }
     </style>
 </head>
@@ -153,50 +176,46 @@
     <header>
         <div class="logo">SeLogerFacilement</div>
         <nav>
-            <a href="login.html" class="btn btn-secondary">Retour à la connexion</a>
+            <a href="/views/login.html" class="btn btn-secondary">Se connecter</a>
         </nav>
     </header>
 
     <div class="login-section">
         <div class="login-container">
-            <h2>Réinitialiser le mot de passe</h2>
-            <form id="resetPasswordForm">
+            <h2>S'inscrire</h2>
+            
+            <form action="../controllers/UserController.php?action=register" method="POST" enctype="multipart/form-data">
+                <div class="input-group"><label for="nom">Nom</label><input type="text" name="nom" placeholder="Entrez votre nom" required></div>
+                <div class="input-group"><label for="prenom">Prénom</label><input type="text" name="prenom" placeholder="Entrez votre prénom" required></div>
+                
                 <div class="input-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required placeholder="Entrez votre email">
+                    <label for="role">Je suis :</label>
+                    <select name="role" required>
+                        <option value="etudiant">Étudiant</option>
+                        <option value="proprietaire">Propriétaire</option>
+                        <!-- <option value="admin">Administrateur</option> -->
+                    </select>
                 </div>
-                <button type="submit" class="btn btn-primary">Envoyer le lien de réinitialisation</button>
+
+                <div class="input-group"><label for="email">Email</label><input type="email" name="email" placeholder="Entrez votre email" required></div>
+                <div class="input-group"><label for="mdp">Mot de passe</label><input type="password" name="mdp" placeholder="Créez un mot de passe" required></div>
+                <div class="input-group"><label for="tele">Téléphone</label><input type="text" name="tele" placeholder="Entrez votre numéro de téléphone" required></div>
+                <div class="input-group"><label for="genre">Genre</label><input type="text" name="genre" placeholder="Homme / Femme / Autre" required></div>
+                <div class="input-group"><label for="rue">Rue</label><input type="text" name="rue" placeholder="Adresse de la rue" required></div>
+                <div class="input-group"><label for="codepostal">Code postal</label><input type="text" name="codepostal" placeholder="75000" required></div>
+                <div class="input-group"><label for="ville">Ville</label><input type="text" name="ville" placeholder="Paris, Lyon, etc." required></div>
+                <div class="input-group"><label for="pays">Pays</label><input type="text" name="pays" placeholder="France, Belgique, ..." required></div>
+                <div class="input-group"><label for="photo">Photo</label><input type="file" name="photo" accept="image/*"></div>
+                <div class="cgu-group">
+                    <input type="checkbox" id="cgu" name="cgu" required>
+                    <label for="cgu">J'accepte les <a href="/views/cgu.html">CGU</a> et les conditions d'utilisation du site.</label>
+                </div>
+                <button type="submit" class="btn btn-primary">S'inscrire</button>
             </form>
-            <p><span class="noir-text">Retour à la connexion ?</span> <a href="login.html">Se connecter</a></p>
+
         </div>
     </div>
 
-    <script>
-        document.getElementById('resetPasswordForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-
-            var email = document.getElementById('email').value;
-
-            // Envoyer une requête POST au serveur
-            fetch('http://localhost:3000/send-reset-email', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ email: email })
-            })
-            .then(response => response.json())
-            .then(data => {
-                alert(data.message);
-                if (data.message.includes('lien de réinitialisation')) {
-                    window.location.href = 'login.html';
-                }
-            })
-            .catch(error => {
-                console.error('Erreur:', error);
-                alert('Une erreur est survenue. Veuillez réessayer.');
-            });
-        });
-    </script>
+    
 </body>
 </html>

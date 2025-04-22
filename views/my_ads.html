@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mes annonces</title>
+  <style>
+    :root {
+      --primary: #2ecc71;
+      --accent: #3498db;
+      --danger: #e74c3c;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+        url('https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&w=1600&q=80');
+      background-size: cover;
+      background-position: center;
+      min-height: 100vh;
+      padding: 2rem;
+      color: white;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: var(--primary);
+    }
+
+    .back-link {
+      color: white;
+      text-decoration: underline;
+      font-size: 0.95rem;
+    }
+
+    h2 {
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background-color: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      overflow: hidden;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      transition: transform 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+    }
+
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .card-content {
+      padding: 1rem;
+      flex: 1;
+    }
+
+    .title {
+      font-weight: bold;
+      font-size: 1.1rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .meta {
+      font-size: 0.95rem;
+      color: #555;
+      margin-bottom: 0.6rem;
+    }
+
+    .price {
+      color: var(--primary);
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+
+    .actions {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: opacity 0.2s ease;
+    }
+
+    .btn-modifier {
+      background-color: var(--accent);
+      color: white;
+    }
+
+    .btn-supprimer {
+      background-color: var(--danger);
+      color: white;
+    }
+
+    .btn-voir {
+      background-color: var(--primary);
+      color: white;
+    }
+
+    .btn:hover {
+      opacity: 0.85;
+    }
+
+    .loading {
+      margin-top: 2rem;
+      text-align: center;
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">SeLogerFacilement</div>
+    <a class="back-link" href="profile.html">Retour au profil</a>
+  </header>
+
+  <h2>🏠 Mes annonces publiées</h2>
+
+  <div class="grid" id="adGrid">
+    <!-- JS 插入卡片 Carte d'insertion JS-->
+  </div>
+
+  <div class="loading" id="loading">Chargement des annonces...</div>
+
+  <script>
+    const adData = Array.from({ length: 50 }).map((_, i) => ({
+      id: 100 + i,
+      img: `https://source.unsplash.com/random/600x400?sig=${i + 60}`,
+      title: `Appartement ${i + 1} avec terrasse`,
+      meta: `Ville ${75000 + i}`,
+      price: `${700 + i} € / mois`
+    }));
+
+    let index = 0;
+    const step = 8;
+    const grid = document.getElementById("adGrid");
+    const loading = document.getElementById("loading");
+
+    function loadMore() {
+      const next = adData.slice(index, index + step);
+      next.forEach(item => {
+        const card = document.createElement("div");
+        card.classList.add("card");
+        card.innerHTML = `
+          <img src="${item.img}" alt="${item.title}" />
+          <div class="card-content">
+            <div class="title">${item.title}</div>
+            <div class="meta">${item.meta}</div>
+            <div class="price">${item.price}</div>
+            <div class="actions">
+              <a href="edit_ad.html?id=${item.id}">
+                <button class="btn btn-modifier">Modifier</button>
+              </a>
+              <a href="#">
+                <button class="btn btn-supprimer">Supprimer</button>
+              </a>
+              <a href="ad.html?id=${item.id}">
+                <button class="btn btn-voir">Voir</button>
+              </a>
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+
+      index += step;
+      if (index >= adData.length) {
+        observer.disconnect();
+        loading.textContent = "Toutes les annonces sont chargées.";
+      }
+    }
+
+    const observer = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) loadMore();
+    }, {
+      rootMargin: "100px"
+    });
+
+    observer.observe(loading);
+  </script>
+</body>
+</html>

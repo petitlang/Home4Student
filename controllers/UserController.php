@@ -120,8 +120,12 @@ switch ($action) {
             if (isset($_FILES['photo']) && $_FILES['photo']['error'] === 0) {
                 if ($role === 'etudiant') {
                     $photoPath = UserModel::enregistrerPhotoEtudiant($user['IdEtudiant'], $_FILES['photo']);
+                    echo "<script>alert('photo etudiant mis a jour !, path est " . $photoPath . "');</script>";
                 } elseif ($role === 'proprietaire') {
                     $photoPath = UserModel::enregistrerPhotoProprietaire($user['IdPropietaire'], $_FILES['photo']);
+                    echo "<script>alert('photo proprietaire mis a jour !, path est " . $photoPath . "');</script>";
+                } else {
+                    echo "<script>alert('Erreur lors de l\'enregistrement de la photo !, path est " . $photoPath . "');</script>";
                 }
             }
 

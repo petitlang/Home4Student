@@ -38,9 +38,18 @@ class UserModel {
         $uploadDir = __DIR__ . '/../public/resources/photo_etudiant/';
         $filename = "etudiant_" . intval($id) . ".jpg";
         $targetPath = $uploadDir . $filename;
-        if (move_uploaded_file($file['tmp_name'], $targetPath)) {
-            return "public/resources/photo_etudiant/$filename";
+        if (!is_dir($uploadDir)) {
+            mkdir($uploadDir, 0777, true);
         }
+        if (move_uploaded_file($file['tmp_name'], $targetPath)) {
+            return "/public/resources/photo_etudiant/$filename";
+        }
+        /*
+        if (!move_uploaded_file($file['tmp_name'], $targetPath)) {
+            var_dump(error_get_last());
+            exit;
+        }
+        */
         return false;
     }
 
@@ -96,9 +105,23 @@ class UserModel {
         $uploadDir = __DIR__ . '/../public/resources/photo_proprietaire/';
         $filename = "proprietaire_" . intval($id) . ".jpg";
         $targetPath = $uploadDir . $filename;
-        if (move_uploaded_file($file['tmp_name'], $targetPath)) {
-            return "public/resources/photo_proprietaire/$filename";
+        if (!is_dir($uploadDir)) {
+            //echo "<script>alert('Le dossier n\'existe pas, création du dossier...');</script>";
+            mkdir($uploadDir, 0777, true);
         }
+        /*else {
+            echo "<script>alert('Le dossier existe déjà.');</script>";
+        }
+        */
+        if (move_uploaded_file($file['tmp_name'], $targetPath)) {
+            return "/public/resources/photo_proprietaire/$filename";
+        }
+        /*
+        if (!move_uploaded_file($file['tmp_name'], $targetPath)) {
+            var_dump(error_get_last());
+            exit;
+        }
+        */
         return false;
     }
 

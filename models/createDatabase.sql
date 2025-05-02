@@ -97,6 +97,7 @@ CREATE TABLE IF NOT EXISTS FAQ (
 -- Table Chat (expediteur/destinateur polymorphique, à gérer côté code PHP)
 CREATE TABLE IF NOT EXISTS Chat (
     IdChat INT AUTO_INCREMENT PRIMARY KEY,
+    IdMsg INT,
     message TEXT,
     temps DATETIME DEFAULT CURRENT_TIMESTAMP,
     expediteur INT,

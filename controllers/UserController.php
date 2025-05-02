@@ -65,7 +65,7 @@ switch ($action) {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $email = $_POST['email'];
             $mdp = $_POST['password'];
-            $role = $_POST['role'] ?? 'etudiant';
+            $role = $_POST['role'];
             echo "<script>alert('Rôle login usercontroller est : " . $role . "');</script>";
             //$role = (isset($_POST['role']) && trim($_POST['role']) !== '') ? $_POST['role'] : $user['role'];
             $user = null;
@@ -80,14 +80,20 @@ switch ($action) {
                 case 'admin':
                     $user = UserModel::verifierConnexionAdmin($email, $mdp);
                     break;
+
+                default:
+                    echo "<p>Rôle non reconnu. <a href='../views/login.html'>Retour</a></p>";
+                    exit;
             }
 
-            if ($user) {
+            if ($user && $user !== false) {
                 $_SESSION['user'] = $user;
                 $_SESSION['role'] = $role;
                 header('Location: ../views/index2.php');
                 exit;
             } else {
+                unset($user);
+                session_destroy();
                 echo "<p>Identifiants incorrects. <a href='../views/login.html'>Retour</a></p>";
             }
         }
@@ -132,7 +138,7 @@ switch ($action) {
             //$role = $_POST['role'] ?? $user['role'];
             $role = (isset($_POST['role']) && trim($_POST['role']) !== '') ? $_POST['role'] : $user['role'];
 
-            echo "<script>alert('Rôle est : " . $role . "; User est " . $user['role'] . "');</script>";
+            echo "<script>alert('update_profile : Rôle est : " . $role . "; User est " . $user['role'] . " ; Email est " . $user['Email'] . " ');</script>";
             $photoPath = null;
 
             if (isset($_FILES['photo']) && $_FILES['photo']['error'] === 0) {
@@ -159,8 +165,10 @@ switch ($action) {
 
             if ($role === 'etudiant') {
                 UserModel::updateEtudiant($user['IdEtudiant'], $_POST, $photoPath);
+                UserModel::verifierConnexionEtudiant($user['Email'], $_POST['mdp']);
             } elseif ($role === 'proprietaire') {
                 UserModel::updateProprietaire($user['IdPropietaire'], $_POST, $photoPath);
+                UserModel::verifierConnexionProprietaire($user['Email'], $_POST['mdp']);
             }
 
             echo "<script>alert('Profil mis à jour !'); window.location.href = '../views/index2.php';</script>";

@@ -67,15 +67,15 @@ class UserModel {
 
         $stmt = $pdo->prepare($sql);
         $params = [
-            ':nom'         => isset($data['nom']) ? $data['nom'] : $user['nom'],
-            ':prenom'      => isset($data['prenom']) ? $data['prenom'] : $user['prenom'],
-            ':email'       => isset($data['email']) ? $data['email'] : $user['email'],
-            ':tele'        => isset($data['tele']) ? $data['tele'] : $user['tele'],
-            ':genre'       => isset($data['genre']) ? $data['genre'] : $user['genre'],
-            ':rue'         => isset($data['rue']) ? $data['rue'] : $user['rue'],
-            ':codepostal'  => isset($data['codepostal']) ? $data['codepostal'] : $user['codepostal'],
-            ':ville'       => isset($data['ville']) ? $data['ville'] : $user['ville'],
-            ':pays'        => isset($data['pays']) ? $data['pays'] : $user['pays'],
+            ':nom'         => array_key_exists('nom', $data) && !is_null($data['nom']) ? $data['nom'] : $user['nom'],
+            ':prenom'      => array_key_exists('prenom', $data) && !is_null($data['prenom']) ? $data['prenom'] : $user['prenom'],
+            ':email'       => array_key_exists('email', $data) && !is_null($data['email']) ? $data['email'] : $user['Email'],
+            ':tele'        => array_key_exists('tele', $data) && !is_null($data['tele']) ? $data['tele'] : $user['tele'],
+            ':genre'       => array_key_exists('genre', $data) && !is_null($data['genre']) ? $data['genre'] : $user['genre'],
+            ':rue'         => array_key_exists('rue', $data) && !is_null($data['rue']) ? $data['rue'] : $user['rue'],
+            ':codepostal'  => array_key_exists('codepostal', $data) && !is_null($data['codepostal']) ? $data['codepostal'] : $user['codepostal'],
+            ':ville'       => array_key_exists('ville', $data) && !is_null($data['ville']) ? $data['ville'] : $user['ville'],
+            ':pays'        => array_key_exists('pays', $data) && !is_null($data['pays']) ? $data['pays'] : $user['pays'],
             ':id'          => $id
         ];
         if ($photoPath) {
@@ -140,15 +140,15 @@ class UserModel {
 
         $stmt = $pdo->prepare($sql);
         $params = [
-            ':nom'         => isset($data['nom']) ? $data['nom'] : $user['nom'],
-            ':prenom'      => isset($data['prenom']) ? $data['prenom'] : $user['prenom'],
-            ':email'       => isset($data['email']) ? $data['email'] : $user['email'],
-            ':tele'        => isset($data['tele']) ? $data['tele'] : $user['tele'],
-            ':genre'       => isset($data['genre']) ? $data['genre'] : $user['genre'],
-            ':rue'         => isset($data['rue']) ? $data['rue'] : $user['rue'],
-            ':codepostal'  => isset($data['codepostal']) ? $data['codepostal'] : $user['codepostal'],
-            ':ville'       => isset($data['ville']) ? $data['ville'] : $user['ville'],
-            ':pays'        => isset($data['pays']) ? $data['pays'] : $user['pays'],
+            ':nom'         => array_key_exists('nom', $data) && !is_null($data['nom']) ? $data['nom'] : $user['nom'],
+            ':prenom'      => array_key_exists('prenom', $data) && !is_null($data['prenom']) ? $data['prenom'] : $user['prenom'],
+            ':email'       => array_key_exists('email', $data) && !is_null($data['email']) ? $data['email'] : $user['Email'],
+            ':tele'        => array_key_exists('tele', $data) && !is_null($data['tele']) ? $data['tele'] : $user['tele'],
+            ':genre'       => array_key_exists('genre', $data) && !is_null($data['genre']) ? $data['genre'] : $user['genre'],
+            ':rue'         => array_key_exists('rue', $data) && !is_null($data['rue']) ? $data['rue'] : $user['rue'],
+            ':codepostal'  => array_key_exists('codepostal', $data) && !is_null($data['codepostal']) ? $data['codepostal'] : $user['codepostal'],
+            ':ville'       => array_key_exists('ville', $data) && !is_null($data['ville']) ? $data['ville'] : $user['ville'],
+            ':pays'        => array_key_exists('pays', $data) && !is_null($data['pays']) ? $data['pays'] : $user['pays'],
             ':id'          => $id
         ];
         if ($photoPath) {

@@ -206,6 +206,11 @@
                 <div class="input-group"><label for="ville">Ville</label><input type="text" name="ville" placeholder="Paris, Lyon, etc." required></div>
                 <div class="input-group"><label for="pays">Pays</label><input type="text" name="pays" placeholder="France, Belgique, ..." required></div>
                 <div class="input-group"><label for="photo">Photo</label><input type="file" name="photo" accept="image/*"></div>
+                <div class="input-group"><label for="code">Code vérification</label><input type="text" name="code" placeholder="Entrez le code vérification" required></div>
+                <button type="button" onclick="sendVerificationCode()" style="margin-top: 10px;">Envoyer le code</button>
+                <p id="code-msg" style="color: green; font-size: 0.9rem;"></p>
+                <p id="error-msg" style="color: red; text-align: center;"></p>
+                
                 <div class="cgu-group">
                     <input type="checkbox" id="cgu" name="cgu" required>
                     <label for="cgu">J'accepte les <a href="/views/cgu.html">CGU</a> et les conditions d'utilisation du site.</label>
@@ -219,3 +224,43 @@
     
 </body>
 </html>
+
+
+<script>
+const params = new URLSearchParams(window.location.search);
+if (params.get("error") === "verification") {
+    document.getElementById("error-msg").textContent = "Code de vérification incorrect ou expiré.";
+    alert("Code de vérification incorrect ou expiré.");
+}
+</script>
+
+
+<script>
+    function sendVerificationCode() {
+        const email = document.querySelector('input[name="email"]').value;
+        const msg = document.getElementById("code-msg");
+    
+        if (!email) {
+            msg.style.color = "red";
+            msg.textContent = "Veuillez entrer votre email avant d'envoyer le code.";
+            return;
+        }
+    
+        fetch("../controllers/verification_code.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: `email=${encodeURIComponent(email)}`
+        })
+        .then(response => response.text())
+        .then(text => {
+            msg.style.color = "green";
+            msg.textContent = text;
+        })
+        .catch(error => {
+            msg.style.color = "red";
+            msg.textContent = "Erreur lors de l'envoi du code.";
+        });
+    }
+    </script>

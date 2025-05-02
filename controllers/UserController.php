@@ -8,10 +8,21 @@ $action = $_GET['action'] ?? $_POST['action'] ?? null;
 
 switch ($action) {
     case 'register':
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {   
+
             $data = $_POST;
             $role = $_POST['role'] ?? 'etudiant';
             $photoPath = null;
+
+            if (
+                !isset($_POST['code'], $_SESSION['email_verification_code'], $_SESSION['email_verification_target'], $_SESSION['email_verification_time']) ||
+                $_POST['email'] !== $_SESSION['email_verification_target'] ||
+                $_POST['code'] !== strval($_SESSION['email_verification_code']) ||
+                time() - $_SESSION['email_verification_time'] > 300 // 超过5分钟
+            ) {
+                header("Location: /views/register.html?error=verification");
+                exit;
+            }   
 
             if (isset($_FILES['photo']) && $_FILES['photo']['error'] === 0) {
                 $photoPath = 'temp'; // temporaire
@@ -24,6 +35,7 @@ switch ($action) {
                     if ($user && isset($_FILES['photo'])) {
                         $photoPath = UserModel::enregistrerPhotoEtudiant($user['IdEtudiant'], $_FILES['photo']);
                         UserModel::updateEtudiant($user['IdEtudiant'], $data, $photoPath);
+                        $user = UserModel::verifierConnexionEtudiant($data['email'], $data['mdp']);
                     }
                 } elseif ($role === 'proprietaire') {
                     UserModel::creerProprietaire($data, $photoPath);
@@ -31,6 +43,7 @@ switch ($action) {
                     if ($user && isset($_FILES['photo'])) {
                         $photoPath = UserModel::enregistrerPhotoProprietaire($user['IdPropietaire'], $_FILES['photo']);
                         UserModel::updateProprietaire($user['IdPropietaire'], $data, $photoPath);
+                        $user = UserModel::verifierConnexionEtudiant($data['email'], $data['mdp']);
                     }
                 } elseif ($role === 'admin') {
                     // TODO: Ajouter une méthode creerAdministrateur si nécessaire, pour securite +> NON !!

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact</title>
+  <link rel="stylesheet" href="contact.css">
+  
+</head>
+<body>
+  <header>
+    <div class="logo"><a href="index.php"><img src="logo-removebg-preview.png" alt="logo"></div>
+    <nav class="nav-bar">
+      <button class="nav-btn">Accueil</button>
+        <button class="nav-btn">Offres</button>
+        <button class="nav-btn">À propos</button>
+        <button class="nav-btn">Contact</button>
+        <a href="index.html"><button class="nav-btn" >CGU</button></a>
+        <button class="nav-btn">Connexion</button>
+    </nav>
+    <a id="back-link" href="index.php">Retour à l'accueil</a>
+  </header>
+
+  <div class="contact-card">
+    <h2>📬 Contactez-nous</h2>
+    <form action="submit_contact.php" method="POST">
+      <div class="form-group">
+        <label for="nom">Nom</label>
+        <input type="text" name="nom" id="nom" required>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email" required>
+      </div>
+
+      <div class="form-group">
+        <label for="sujet">Sujet</label>
+        <input type="text" name="sujet" id="sujet" required>
+      </div>
+
+      <div class="form-group">
+        <label for="message">Message</label>
+        <textarea name="message" id="message" required></textarea>
+      </div>
+
+      <button class="submit-btn" type="submit">Envoyer</button>
+    </form>
+  </div>
+</body>
+</html>

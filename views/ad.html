@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Détail de l'annonce</title>
+ <link rel="stylesheet" href="ad.css">
+</head>
+<body>
+  <header>
+    <div class="logo">SeLogerFacilement</div>
+  </header>
+
+  <!-- Bouton d'autorisations supérieur -->
+  <div class="top-edit">
+    <button>Edit</button>
+    <button>Save</button>
+  </div>
+
+  <!-- Corps de la page -->
+  <div class="main-container">
+    <!-- Zone d'image -->
+    <div class="gallery">
+      <img src="https://images.unsplash.com/photo-1560448071-6d6985da6f03" alt="Photo principale" />
+      <div style="display: grid; gap: 1rem;">
+        <img src="https://images.unsplash.com/photo-1598928506312-cfbd5482d8c0" alt="Photo secondaire" />
+        <img src="https://images.unsplash.com/photo-1598928476643-38d6a11be4cd" alt="Photo secondaire" />
+      </div>
+    </div>
+
+    <!-- Carte de réservation/candidat côté droit -->
+    <div class="action-box">
+      <div class="price">1200 € / mois</div>
+      <div class="date-select">
+        <label>Date de début</label>
+        <input type="date" />
+      </div>
+      <div class="date-select">
+        <label>Date de fin</label>
+        <input type="date" />
+      </div>
+      <div class="people-select">
+        <label>Nombre de personnes</label>
+        <input type="number" min="1" max="10" />
+      </div>
+      <button class="btn btn-primary">Candidat(e)</button>
+      <button class="btn btn-accent">Ajouter aux favoris</button>
+    </div>
+  </div>
+
+  <!-- Informations sur la liste ci-dessous -->
+  <div class="main-container" style="margin-top: 2rem;">
+    <div class="info-section">
+      <h1>Appartement lumineux - 3 pièces</h1>
+      <div class="address">45 Rue Victor Hugo, 75016 Paris, France</div>
+
+      <div class="details-row">
+        <div>3 chambres</div>
+        <div>2 salles de bain</div>
+        <div>1 cuisine équipée</div>
+      </div>
+
+      <div class="description">
+        Bel appartement situé dans un quartier calme, proche des commerces et transports. Idéal pour une famille ou des colocataires.
+      </div>
+
+      <div class="owner">
+        <p><span>Propriétaire :</span> Rubens</p>
+        <p><span>Email :</span> rubens@example.com</p>
+        <p><span>Téléphone :</span> 06 00 00 00 00</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

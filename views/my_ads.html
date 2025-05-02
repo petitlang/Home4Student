@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mes annonces</title>
+  <link rel="stylesheet" href="my_ads.css">
+</head>
+<body>
+  <header>
+    <div class="logo">SeLogerFacilement</div>
+    <a class="back-link" href="profile.html">Retour au profil</a>
+  </header>
+
+  <h2>🏠 Mes annonces publiées</h2>
+
+  <div class="grid" id="adGrid">
+    <!-- JS 插入卡片 Carte d'insertion JS-->
+  </div>
+
+  <div class="loading" id="loading">Chargement des annonces...</div>
+
+  <script>
+    const adData = Array.from({ length: 50 }).map((_, i) => ({
+      id: 100 + i,
+      img: `https://source.unsplash.com/random/600x400?sig=${i + 60}`,
+      title: `Appartement ${i + 1} avec terrasse`,
+      meta: `Ville ${75000 + i}`,
+      price: `${700 + i} € / mois`
+    }));
+
+    let index = 0;
+    const step = 8;
+    const grid = document.getElementById("adGrid");
+    const loading = document.getElementById("loading");
+
+    function loadMore() {
+      const next = adData.slice(index, index + step);
+      next.forEach(item => {
+        const card = document.createElement("div");
+        card.classList.add("card");
+        card.innerHTML = `
+          <img src="${item.img}" alt="${item.title}" />
+          <div class="card-content">
+            <div class="title">${item.title}</div>
+            <div class="meta">${item.meta}</div>
+            <div class="price">${item.price}</div>
+            <div class="actions">
+              <a href="edit_ad.html?id=${item.id}">
+                <button class="btn btn-modifier">Modifier</button>
+              </a>
+              <a href="#">
+                <button class="btn btn-supprimer">Supprimer</button>
+              </a>
+              <a href="ad.html?id=${item.id}">
+                <button class="btn btn-voir">Voir</button>
+              </a>
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+
+      index += step;
+      if (index >= adData.length) {
+        observer.disconnect();
+        loading.textContent = "Toutes les annonces sont chargées.";
+      }
+    }
+
+    const observer = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) loadMore();
+    }, {
+      rootMargin: "100px"
+    });
+
+    observer.observe(loading);
+  </script>
+</body>
+</html>

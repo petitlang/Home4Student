@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mes favoris</title>
+  <style>
+    :root {
+      --primary: #2ecc71;
+      --accent: #3498db;
+      --dark: #2c3e50;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+                  url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80');
+      background-size: cover;
+      background-position: center;
+      min-height: 100vh;
+      color: white;
+      padding: 1.5rem;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: var(--primary);
+    }
+
+    .back-link {
+      color: white;
+      text-decoration: underline;
+      font-size: 0.95rem;
+    }
+
+    h2 {
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+    }
+
+    h2::before {
+      content: "❤️";
+      margin-right: 0.5rem;
+    }
+
+    .favorites-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .favorite-card {
+      background-color: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s ease;
+    }
+
+    .favorite-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .favorite-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .favorite-content {
+      padding: 1rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .favorite-title {
+      font-weight: bold;
+      font-size: 1.1rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .favorite-meta {
+      font-size: 0.95rem;
+      color: #555;
+      margin-bottom: 0.4rem;
+    }
+
+    .favorite-price {
+      color: var(--primary);
+      font-weight: bold;
+      margin-bottom: 0.8rem;
+    }
+
+    .btn-remove {
+      padding: 0.5rem 1rem;
+      background-color: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      align-self: flex-start;
+      transition: background 0.2s ease;
+    }
+
+    .btn-remove:hover {
+      background-color: #2980b9;
+    }
+
+    .loading {
+      text-align: center;
+      color: #ccc;
+      margin: 2rem auto;
+    }
+
+    @media (max-width: 768px) {
+      .logo {
+        font-size: 1.4rem;
+      }
+
+      .favorite-card img {
+        height: 160px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">SeLogerFacilement</div>
+    <a class="back-link" href="profile.html">Retour au profil</a>
+  </header>
+
+  <h2>Mes favoris</h2>
+
+  <div class="favorites-grid" id="favoritesGrid"></div>
+  <div class="loading" id="loading">Chargement...</div>
+
+  <script>
+    const favoritesData = Array.from({ length: 60 }).map((_, i) => ({
+      img: `https://source.unsplash.com/random/600x400?sig=${i}`,
+      title: `Appartement n°${i + 1}`,
+      meta: `Paris ${75000 + i} - ${1 + (i % 4)} pièces`,
+      price: `${850 + i} € / mois`
+    }));
+
+    let index = 0;
+    const pageSize = 8;
+    const grid = document.getElementById("favoritesGrid");
+    const loading = document.getElementById("loading");
+
+    function loadMoreFavorites() {
+      const nextItems = favoritesData.slice(index, index + pageSize);
+      nextItems.forEach(item => {
+        const card = document.createElement("div");
+        card.classList.add("favorite-card");
+        card.innerHTML = `
+          <img src="${item.img}" alt="Photo logement" />
+          <div class="favorite-content">
+            <div>
+              <div class="favorite-title">${item.title}</div>
+              <div class="favorite-meta">${item.meta}</div>
+              <div class="favorite-price">${item.price}</div>
+            </div>
+            <button class="btn-remove">Retirer des favoris</button>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+
+      index += pageSize;
+
+      if (index >= favoritesData.length) {
+        observer.disconnect();
+        loading.textContent = "Plus de favoris à charger.";
+      }
+    }
+
+    const observer = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) {
+        loadMoreFavorites();
+      }
+    }, {
+      rootMargin: '100px'
+    });
+
+    observer.observe(loading);
+  </script>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modifier une annonce</title>
+    <link rel="stylesheet" href="edit_ad.css">
+</head>
+<body>
+    <header>
+        <div class="logo">SeLogerFacilement</div>
+        <nav>
+            <a href="/views/ads_list.html" class="btn btn-accent">Retour aux annonces</a>
+        </nav>
+    </header>
+
+    <div class="edit-section">
+        <div class="edit-container">
+            <h2>Modifier une annonce</h2>
+            <form id="editForm">
+                <div class="input-group">
+                    <label for="title">Titre</label>
+                    <input type="text" id="title" name="title" required placeholder="Entrez le titre de l'annonce">
+                </div>
+                <div class="input-group">
+                    <label for="price">Prix/mois (€)</label>
+                    <input type="number" id="price" name="price" required placeholder="Entrez le prix">
+                </div>
+                <div class="input-group">
+                    <label for="description">Description</label>
+                    <textarea id="description" name="description" required placeholder="Décrivez votre bien"></textarea>
+                </div>
+                <div class="input-group">
+                    <label for="photos">Photos (max 5, remplace les précédentes)</label>
+                    <input type="file" id="photos" name="photos" accept="image/*" multiple>
+                </div>
+                <button type="submit" class="btn btn-accent">Sauvegarder les modifications</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        window.addEventListener('load', async function() {
+            var email = localStorage.getItem('connectedUserEmail');
+            if (!email) {
+                alert('Veuillez vous connecter pour modifier une annonce.');
+                window.location.href = '/views/login.html';
+                return;
+            }
+
+            var urlParams = new URLSearchParams(window.location.search);
+            var adIndex = urlParams.get('index');
+
+            if (adIndex === null) {
+                alert('Aucune annonce sélectionnée.');
+                window.location.href = '/views/ads_list.html';
+                return;
+            }
+
+            const response = await fetch('http://localhost:3000/ads');
+            const ads = await response.json();
+            var ad = ads[adIndex];
+
+            if (!ad || ad.email !== email) {
+                alert('Vous ne pouvez modifier que vos propres annonces.');
+                window.location.href = '/views/ads_list.html';
+                return;
+            }
+
+            document.getElementById('title').value = ad.title;
+            document.getElementById('price').value = ad.price;
+            document.getElementById('description').value = ad.description;
+        });
+
+        document.getElementById('editForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            var email = localStorage.getItem('connectedUserEmail');
+            var title = document.getElementById('title').value;
+            var price = document.getElementById('price').value;
+            var description = document.getElementById('description').value;
+            var files = document.getElementById('photos').files;
+
+            console.log('Nombre de photos sélectionnées:', files.length);
+
+            if (files.length > 5) {
+                alert('Vous ne pouvez uploader que 5 photos maximum.');
+                return;
+            }
+
+            var urlParams = new URLSearchParams(window.location.search);
+            var adIndex = urlParams.get('index');
+
+            try {
+                var photos = [];
+                for (let i = 0; i < files.length; i++) {
+                    const file = files[i];
+                    console.log(`Traitement de la photo ${i + 1}:`, file.name, file.size / 1024, 'Ko');
+                    const photoData = await new Promise((resolve, reject) => {
+                        var reader = new FileReader();
+                        reader.onload = function(e) {
+                            console.log(`Photo ${file.name} lue avec succès`);
+                            resolve(e.target.result);
+                        };
+                        reader.onerror = function(e) {
+                            console.error(`Erreur lors de la lecture de ${file.name}:`, e);
+                            reject(new Error(`Erreur de lecture pour ${file.name}`));
+                        };
+                        reader.readAsDataURL(file);
+                    });
+                    photos.push(photoData);
+                }
+
+                console.log('Envoi au serveur:', { email, title, price, description, photos: photos.length, index: adIndex });
+                const response = await fetch('http://localhost:3000/edit-ad', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email, title, price, description, photos, index: adIndex })
+                });
+
+                const data = await response.json();
+                if (!response.ok) {
+                    throw new Error(data.message || 'Erreur serveur');
+                }
+
+                alert(data.message);
+                window.location.href = '/views/ads_list.html';
+            } catch (error) {
+                console.error('Erreur lors de l’envoi de l’annonce:', error);
+                alert('Une erreur est survenue. Vérifiez la console.');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Messagerie</title>
+  <link rel="stylesheet" href="chat.css">
+</head>
+<body>
+  <header>
+    <div class="logo">SeLogerFacilement</div>
+  </header>
+
+  <div class="chat-container">
+    <!-- Liste de contacts à gauche -->
+    <div class="sidebar">
+      <h3>Messages</h3>
+
+      <div class="chat-preview">
+        <div class="chat-preview-content">
+          <img src="/images/avatar_alice.png" class="avatar" />
+          <div>
+            <strong>Alice</strong><br/>
+            Bonjour, ce logement est-il dispo ?
+          </div>
+        </div>
+      </div>
+
+      <div class="chat-preview">
+        <div class="chat-preview-content">
+          <img src="/images/avatar_bob.png" class="avatar" />
+          <div>
+            <strong>Bob</strong><br/>
+            Merci pour votre réponse rapide !
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contenu du chat à droite -->
+    <div class="chat-box">
+      <div class="chat-header">
+        <div class="contact-name">Contact : Rubens</div>
+        <button class="back-btn" onclick="window.location.href='ads_list.html'">Retour</button>
+      </div>
+
+      <div class="chat-messages" id="chatMessages">
+        <!-- Message : L'autre partie -->
+        <div class="message-container received">
+          <img src="/images/avatar_alice.png" class="avatar-msg" />
+          <div class="message received">Bonjour, l'annonce m'intéresse beaucoup.</div>
+        </div>
+
+        <!-- Message : Moi-même -->
+        <div class="message-container sent">
+          <div class="message sent">Merci ! Vous pouvez me poser vos questions ici :)</div>
+          <img src="/images/avatar_me.png" class="avatar-msg" />
+        </div>
+
+        <div class="message-container received">
+          <img src="/images/avatar_alice.png" class="avatar-msg" />
+          <div class="message received">Est-ce que le logement est libre en juin ?</div>
+        </div>
+      </div>
+
+      <div class="chat-input">
+        <input type="text" id="messageInput" placeholder="Écrivez votre message..."/>
+        <button onclick="sendMessage()">Envoyer</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function sendMessage() {
+      const input = document.getElementById("messageInput");
+      const msg = input.value.trim();
+      if (!msg) return;
+
+      const container = document.createElement("div");
+      container.classList.add("message-container", "sent");
+
+      const msgDiv = document.createElement("div");
+      msgDiv.classList.add("message", "sent");
+      msgDiv.innerText = msg;
+
+      const avatar = document.createElement("img");
+      avatar.src = "/images/avatar_me.png";
+      avatar.classList.add("avatar-msg");
+
+      container.appendChild(msgDiv);
+      container.appendChild(avatar);
+
+      document.getElementById("chatMessages").appendChild(container);
+      input.value = "";
+      document.getElementById("chatMessages").scrollTop = document.getElementById("chatMessages").scrollHeight;
+    }
+  </script>
+</body>
+</html>

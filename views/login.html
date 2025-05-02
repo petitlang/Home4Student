@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Se connecter</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <header>
+        <div class="logo">SeLogerFacilement</div>
+        <nav>
+            <a href="/Home4Student-mvc/views/index.php" class="btn btn-secondary">Page d'accueil</a>
+        </nav>
+    </header>
+
+    <div class="login-section">
+        <div class="login-container">
+            <h2>Se connecter</h2>
+            
+            <form action="../controllers/UserController.php?action=login" method="POST">
+                <div class="input-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required placeholder="Entrez votre email">
+                </div>
+                
+                <div class="input-group">
+                    <label for="role">Je suis :</label>
+                    <select name="role" required>
+                        <option value="etudiant">Étudiant</option>
+                        <option value="proprietaire">Propriétaire</option>
+                        <option value="admin">Administrateur</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="password">Mot de passe</label>
+                    <input type="password" id="password" name="password" required placeholder="Entrez votre mot de passe">
+                    <span id="togglePassword" class="password-toggle">👁️</span>
+                </div>
+                <button type="submit" class="btn btn-primary">Se connecter</button>
+            </form>
+            <p style="color: black;">Pas encore de compte ? <a href="/views/register.html">S'inscrire</a></p>
+            <p><a href="/views/reset_password.html" class="forgot-password">Mot de passe oublié ?</a></p>
+        </div>
+    </div>
+
+    
+</body>
+</html>

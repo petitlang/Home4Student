@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Déposer une annonce</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="deposit_ad.css">
+</head>
+<body>
+    <header>
+        <div class="logo">SeLogerFacilement</div>
+        <nav>
+            <a href="/Home4Student-mvc/views/index2.php" class="btn btn-primary">Retour à l'accueil</a>
+        </nav>
+    </header>
+
+    <div class="deposit-section">
+        <div class="deposit-container">
+            <h2>Déposer une annonce</h2>
+            <form id="depositForm">
+                <div class="input-group">
+                    <label for="title">Titre</label>
+                    <input type="text" id="title" name="title" required placeholder="Entrez le titre de l'annonce">
+                </div>
+                <div class="input-group">
+                    <label for="price">Prix/mois (€)</label>
+                    <input type="number" id="price" name="price" required placeholder="Entrez le prix">
+                </div>
+                <div class="input-group">
+                    <label for="description">Description</label>
+                    <textarea id="description" name="description" required placeholder="Décrivez votre bien"></textarea>
+                </div>
+                <div class="input-group">
+                    <label for="location">Localisation</label>
+                    <input type="text" id="location" name="location" placeholder="Entrez l'adresse (ex. 123 Rue Exemple, Paris)" required>
+                    <button type="button" id="getLocationBtn" class="btn btn-accent">Utiliser ma position actuelle</button>
+                    <div id="mapPreview"></div>
+                </div>
+                <div class="input-group">
+                    <label for="photos">Photos (max 5)</label>
+                    <input type="file" id="photos" name="photos" accept="image/*" multiple>
+                </div>
+                <button type="submit" class="btn btn-primary">Publier l'annonce</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let map = null;
+
+        window.addEventListener('load', function() {
+            var email = localStorage.getItem('connectedUserEmail');
+            var users = JSON.parse(localStorage.getItem('users')) || [];
+            var user = users.find(user => user.email === email);
+
+            if (!user) {
+                alert('Veuillez vous connecter pour déposer une annonce.');
+                window.location.href = '/views/login.html';
+            }
+
+            // Initialisation de la carte Leaflet
+            map = L.map('mapPreview').setView([48.8566, 2.3522], 13); // Paris par défaut
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            }).addTo(map);
+
+            // Gestion de la géolocalisation
+            document.getElementById('getLocationBtn').addEventListener('click', function() {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(
+                        async (position) => {
+                            const latitude = position.coords.latitude;
+                            const longitude = position.coords.longitude;
+                            console.log('Position obtenue:', { latitude, longitude });
+
+                            try {
+                                const response = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`);
+                                const data = await response.json();
+                                const address = data.display_name || `${latitude}, ${longitude}`;
+                                document.getElementById('location').value = address;
+
+                                // Mettre à jour la carte
+                                map.setView([latitude, longitude], 13);
+                                L.marker([latitude, longitude]).addTo(map).bindPopup('Votre position').openPopup();
+                            } catch (error) {
+                                console.error('Erreur lors de la conversion en adresse:', error);
+                                document.getElementById('location').value = `${latitude}, ${longitude}`;
+                                map.setView([latitude, longitude], 13);
+                                L.marker([latitude, longitude]).addTo(map).bindPopup('Votre position').openPopup();
+                            }
+                        },
+                        (error) => {
+                            console.error('Erreur de géolocalisation:', error);
+                            alert('Impossible d’obtenir votre position. Veuillez entrer l’adresse manuellement.');
+                        }
+                    );
+                } else {
+                    alert('La géolocalisation n’est pas supportée par votre navigateur.');
+                }
+            });
+
+            // Mise à jour de la carte lors de la saisie manuelle
+            document.getElementById('location').addEventListener('change', async function() {
+                const location = this.value;
+                try {
+                    const response = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(location)}&format=json&limit=1`);
+                    const data = await response.json();
+                    if (data.length > 0) {
+                        const { lat, lon } = data[0];
+                        map.setView([lat, lon], 13);
+                        L.marker([lat, lon]).addTo(map).bindPopup(location).openPopup();
+                    }
+                } catch (error) {
+                    console.error('Erreur lors de la recherche de l’adresse:', error);
+                }
+            });
+        });
+
+        // Code original inchangé à partir d'ici
+        document.getElementById('depositForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            var email = localStorage.getItem('connectedUserEmail');
+            var title = document.getElementById('title').value;
+            var price = document.getElementById('price').value;
+            var description = document.getElementById('description').value;
+            var files = document.getElementById('photos').files;
+
+            console.log('Nombre de photos sélectionnées:', files.length);
+
+            if (files.length > 5) {
+                alert('Vous ne pouvez uploader que 5 photos maximum.');
+                return;
+            }
+
+            if (files.length === 0) {
+                var ads = JSON.parse(localStorage.getItem('ads')) || [];
+                ads.push({
+                    email: email,
+                    title: title,
+                    price: price,
+                    description: description,
+                    photos: []
+                });
+                localStorage.setItem('ads', JSON.stringify(ads));
+                alert('Annonce déposée avec succès !');
+                window.location.href = '/views/index2.php';
+                return;
+            }
+
+            try {
+                var photos = [];
+                for (let i = 0; i < files.length; i++) {
+                    const file = files[i];
+                    console.log(`Traitement de la photo ${i + 1}:`, file.name, file.size / 1024, 'Ko');
+                    const photoData = await new Promise((resolve, reject) => {
+                        var reader = new FileReader();
+                        reader.onload = function(e) {
+                            console.log(`Photo ${file.name} lue avec succès`);
+                            resolve(e.target.result);
+                        };
+                        reader.onerror = function(e) {
+                            console.error(`Erreur lors de la lecture de ${file.name}:`, e);
+                            reject(new Error(`Erreur de lecture pour ${file.name}`));
+                        };
+                        reader.readAsDataURL(file);
+                    });
+                    photos.push(photoData);
+                }
+
+                console.log('Toutes les photos ont été converties:', photos.length);
+                var ads = JSON.parse(localStorage.getItem('ads')) || [];
+                ads.push({
+                    email: email,
+                    title: title,
+                    price: price,
+                    description: description,
+                    photos: photos
+                });
+                try {
+                    localStorage.setItem('ads', JSON.stringify(ads));
+                    console.log('Annonce sauvegardée avec succès');
+                    alert('Annonce déposée avec succès !');
+                    window.location.href = '/views/index2.php';
+                } catch (storageError) {
+                    console.error('Erreur lors de la sauvegarde dans localStorage:', storageError);
+                    alert('Erreur : espace de stockage insuffisant dans localStorage.');
+                }
+            } catch (error) {
+                console.error('Erreur globale lors du traitement des photos:', error);
+                alert('Une erreur est survenue lors de l’ajout des photos. Vérifiez la console.');
+            }
+        });
+    </script>
+</body>
+</html>

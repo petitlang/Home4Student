@@ -55,7 +55,7 @@
                 </div>
                 <input type="hidden" name="role" value="<?php echo $user['role']; ?>">
                 <script>
-                    alert("Votre rôle est : <?php echo $user['role']; ?>");
+                    alert("Votre rôle est : <?php echo $_SESSION['role']; ?>");
                 </script>
                 <button type="submit" class="btn btn-primary">Sauvegarder</button>
             </form>

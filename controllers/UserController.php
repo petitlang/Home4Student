@@ -66,29 +66,25 @@ switch ($action) {
             $email = $_POST['email'];
             $mdp = $_POST['password'];
             $role = $_POST['role'] ?? 'etudiant';
+            echo "<script>alert('Rôle login usercontroller est : " . $role . "');</script>";
             //$role = (isset($_POST['role']) && trim($_POST['role']) !== '') ? $_POST['role'] : $user['role'];
             $user = null;
 
             switch ($role) {
                 case 'etudiant':
                     $user = UserModel::verifierConnexionEtudiant($email, $mdp);
-                    $user['role'] = 'etudiant';
-                    echo "<script>alert('Rôle est : " . $role . "; User est " . $user['role'] . "');</script>";
                     break;
                 case 'proprietaire':
                     $user = UserModel::verifierConnexionProprietaire($email, $mdp);
-                    $user['role'] = 'proprietaire';
-                    echo "<script>alert('Rôle est : " . $role . "; User est " . $user['role'] . "');</script>";
                     break;
                 case 'admin':
                     $user = UserModel::verifierConnexionAdmin($email, $mdp);
-                    $user['role'] = 'admin';
                     break;
             }
 
             if ($user) {
                 $_SESSION['user'] = $user;
-                $user['role'] = $role;
+                $_SESSION['role'] = $role;
                 header('Location: ../views/index2.php');
                 exit;
             } else {

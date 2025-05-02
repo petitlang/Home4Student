@@ -31,6 +31,8 @@ class UserModel {
         $stmt = $pdo->prepare("SELECT * FROM Etudiant WHERE Email = :email");
         $stmt->execute([':email' => $email]);
         $user = $stmt->fetch();
+        $user['role'] = 'etudiant';
+        $_SESSION['user'] = $user;
         return ($user && password_verify($mdp, $user['MDP'])) ? $user : false;
     }
 
@@ -55,6 +57,7 @@ class UserModel {
 
     public static function updateEtudiant($id, $data, $photoPath = null) {
         global $pdo;
+        $user = $_SESSION['user'];
         $sql = "UPDATE Etudiant SET nom = :nom, prenom = :prenom, Email = :email, Tele = :tele,
                 genre = :genre, rue = :rue, codepostal = :codepostal, ville = :ville, Pays = :pays";
         if ($photoPath) {
@@ -64,16 +67,16 @@ class UserModel {
 
         $stmt = $pdo->prepare($sql);
         $params = [
-            ':nom' => $data['nom'],
-            ':prenom' => $data['prenom'],
-            ':email' => $data['email'],
-            ':tele' => $data['tele'],
-            ':genre' => $data['genre'],
-            ':rue' => $data['rue'],
-            ':codepostal' => $data['codepostal'],
-            ':ville' => $data['ville'],
-            ':pays' => $data['pays'],
-            ':id' => $id
+            ':nom'         => isset($data['nom']) ? $data['nom'] : $user['nom'],
+            ':prenom'      => isset($data['prenom']) ? $data['prenom'] : $user['prenom'],
+            ':email'       => isset($data['email']) ? $data['email'] : $user['email'],
+            ':tele'        => isset($data['tele']) ? $data['tele'] : $user['tele'],
+            ':genre'       => isset($data['genre']) ? $data['genre'] : $user['genre'],
+            ':rue'         => isset($data['rue']) ? $data['rue'] : $user['rue'],
+            ':codepostal'  => isset($data['codepostal']) ? $data['codepostal'] : $user['codepostal'],
+            ':ville'       => isset($data['ville']) ? $data['ville'] : $user['ville'],
+            ':pays'        => isset($data['pays']) ? $data['pays'] : $user['pays'],
+            ':id'          => $id
         ];
         if ($photoPath) {
             $params[':photo'] = $photoPath;
@@ -127,6 +130,7 @@ class UserModel {
 
     public static function updateProprietaire($id, $data, $photoPath = null) {
         global $pdo;
+        $user = $_SESSION['user'];
         $sql = "UPDATE Propietaire SET nom = :nom, prenom = :prenom, Email = :email, Tele = :tele,
                 rue = :rue, codepostal = :codepostal, ville = :ville, Pays = :pays";
         if ($photoPath) {
@@ -136,15 +140,16 @@ class UserModel {
 
         $stmt = $pdo->prepare($sql);
         $params = [
-            ':nom' => $data['nom'],
-            ':prenom' => $data['prenom'],
-            ':email' => $data['email'],
-            ':tele' => $data['tele'],
-            ':rue' => $data['rue'],
-            ':codepostal' => $data['codepostal'],
-            ':ville' => $data['ville'],
-            ':pays' => $data['pays'],
-            ':id' => $id
+            ':nom'         => isset($data['nom']) ? $data['nom'] : $user['nom'],
+            ':prenom'      => isset($data['prenom']) ? $data['prenom'] : $user['prenom'],
+            ':email'       => isset($data['email']) ? $data['email'] : $user['email'],
+            ':tele'        => isset($data['tele']) ? $data['tele'] : $user['tele'],
+            ':genre'       => isset($data['genre']) ? $data['genre'] : $user['genre'],
+            ':rue'         => isset($data['rue']) ? $data['rue'] : $user['rue'],
+            ':codepostal'  => isset($data['codepostal']) ? $data['codepostal'] : $user['codepostal'],
+            ':ville'       => isset($data['ville']) ? $data['ville'] : $user['ville'],
+            ':pays'        => isset($data['pays']) ? $data['pays'] : $user['pays'],
+            ':id'          => $id
         ];
         if ($photoPath) {
             $params[':photo'] = $photoPath;
@@ -158,6 +163,8 @@ class UserModel {
         $stmt = $pdo->prepare("SELECT * FROM Propietaire WHERE Email = :email");
         $stmt->execute([':email' => $email]);
         $user = $stmt->fetch();
+        $user['role'] = 'proprietaire';
+        $_SESSION['user'] = $user;
         return ($user && password_verify($mdp, $user['MDP'])) ? $user : false;
     }
 
@@ -166,6 +173,8 @@ class UserModel {
         $stmt = $pdo->prepare("SELECT * FROM Administrateur WHERE Email = :email");
         $stmt->execute([':email' => $email]);
         $user = $stmt->fetch();
+        $user['role'] = 'admin';
+        $_SESSION['user'] = $user;
         return ($user && password_verify($mdp, $user['MDP'])) ? $user : false;
     }
 

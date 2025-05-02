@@ -66,23 +66,29 @@ switch ($action) {
             $email = $_POST['email'];
             $mdp = $_POST['password'];
             $role = $_POST['role'] ?? 'etudiant';
+            //$role = (isset($_POST['role']) && trim($_POST['role']) !== '') ? $_POST['role'] : $user['role'];
             $user = null;
 
             switch ($role) {
                 case 'etudiant':
                     $user = UserModel::verifierConnexionEtudiant($email, $mdp);
+                    $user['role'] = 'etudiant';
+                    echo "<script>alert('Rôle est : " . $role . "; User est " . $user['role'] . "');</script>";
                     break;
                 case 'proprietaire':
                     $user = UserModel::verifierConnexionProprietaire($email, $mdp);
+                    $user['role'] = 'proprietaire';
+                    echo "<script>alert('Rôle est : " . $role . "; User est " . $user['role'] . "');</script>";
                     break;
                 case 'admin':
                     $user = UserModel::verifierConnexionAdmin($email, $mdp);
+                    $user['role'] = 'admin';
                     break;
             }
 
             if ($user) {
                 $_SESSION['user'] = $user;
-                $_SESSION['role'] = $role;
+                $user['role'] = $role;
                 header('Location: ../views/index2.php');
                 exit;
             } else {
@@ -127,19 +133,32 @@ switch ($action) {
     case 'update_profile':
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['user'])) {
             $user = $_SESSION['user'];
-            $role = $_POST['role'] ?? $_SESSION['role'];
+            //$role = $_POST['role'] ?? $user['role'];
+            $role = (isset($_POST['role']) && trim($_POST['role']) !== '') ? $_POST['role'] : $user['role'];
+
+            echo "<script>alert('Rôle est : " . $role . "; User est " . $user['role'] . "');</script>";
             $photoPath = null;
 
             if (isset($_FILES['photo']) && $_FILES['photo']['error'] === 0) {
                 if ($role === 'etudiant') {
                     $photoPath = UserModel::enregistrerPhotoEtudiant($user['IdEtudiant'], $_FILES['photo']);
-                    echo "<script>alert('photo etudiant mis a jour !, path est " . $photoPath . "');</script>";
+                    if ($photoPath) {
+                        echo "<script>alert('Photo étudiant mise à jour ! Path: " . $photoPath . "');</script>";
+                    } else {
+                        echo "<script>alert('Erreur lors de l\'enregistrement de la photo étudiant.');</script>";
+                    }
                 } elseif ($role === 'proprietaire') {
                     $photoPath = UserModel::enregistrerPhotoProprietaire($user['IdPropietaire'], $_FILES['photo']);
-                    echo "<script>alert('photo proprietaire mis a jour !, path est " . $photoPath . "');</script>";
+                    if ($photoPath) {
+                        echo "<script>alert('Photo propriétaire mise à jour ! Path: " . $photoPath . "');</script>";
+                    } else {
+                        echo "<script>alert('Erreur lors de l\'enregistrement de la photo propriétaire.');</script>";
+                    }
                 } else {
-                    echo "<script>alert('Erreur lors de l\'enregistrement de la photo !, path est " . $photoPath . "');</script>";
+                    echo "<script>alert('Rôle non reconnu : " . $role . "; User est " . $user['role'] . "');</script>";
                 }
+            } else {
+                echo "<script>alert('Aucune photo téléchargée ou erreur lors du téléchargement. Code erreur: " . ($_FILES['photo']['error'] ?? 'non défini') . "');</script>";
             }
 
             if ($role === 'etudiant') {

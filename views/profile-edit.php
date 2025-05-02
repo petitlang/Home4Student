@@ -53,7 +53,10 @@
                     <label for="photo">Photo de profil</label>
                     <input type="file" name="photo" id="photo" accept="image/*">
                 </div>
-                <input type="hidden" name="role" value="<?php echo $_SESSION['role']; ?>">
+                <input type="hidden" name="role" value="<?php echo $user['role']; ?>">
+                <script>
+                    alert("Votre rôle est : <?php echo $user['role']; ?>");
+                </script>
                 <button type="submit" class="btn btn-primary">Sauvegarder</button>
             </form>
 

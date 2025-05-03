@@ -22,7 +22,7 @@
 
     body {
       background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
-                  url('https://images.unsplash.com/photo-1515165562835-c4b34a124baa?auto=format&fit=crop&w=1350&q=80');
+      url('https://images.unsplash.com/photo-1515165562835-c4b34a124baa?auto=format&fit=crop&w=1350&q=80');
       background-size: cover;
       background-position: center;
       height: 100vh;
@@ -196,93 +196,93 @@
   </style>
 </head>
 <body>
-  <header>
-    <div class="logo">SeLogerFacilement</div>
-  </header>
+<header>
+  <div class="logo">SeLogerFacilement</div>
+</header>
 
-  <div class="chat-container">
-    <!-- Liste de contacts à gauche -->
-    <div class="sidebar">
-      <h3>Messages</h3>
+<div class="chat-container">
+  <!-- 左侧联系人列表 -->
+  <div class="sidebar">
+    <h3>Messages</h3>
 
-      <div class="chat-preview">
-        <div class="chat-preview-content">
-          <img src="/images/avatar_alice.png" class="avatar" />
-          <div>
-            <strong>Alice</strong><br/>
-            Bonjour, ce logement est-il dispo ?
-          </div>
-        </div>
-      </div>
-
-      <div class="chat-preview">
-        <div class="chat-preview-content">
-          <img src="/images/avatar_bob.png" class="avatar" />
-          <div>
-            <strong>Bob</strong><br/>
-            Merci pour votre réponse rapide !
-          </div>
+    <div class="chat-preview">
+      <div class="chat-preview-content">
+        <img src="/images/avatar_alice.png" class="avatar" />
+        <div>
+          <strong>Alice</strong><br/>
+          Bonjour, ce logement est-il dispo ?
         </div>
       </div>
     </div>
 
-    <!-- Contenu du chat à droite -->
-    <div class="chat-box">
-      <div class="chat-header">
-        <div class="contact-name">Contact : Rubens</div>
-        <button class="back-btn" onclick="window.location.href='ads_list.html'">Retour</button>
-      </div>
-
-      <div class="chat-messages" id="chatMessages">
-        <!-- Message : L'autre partie -->
-        <div class="message-container received">
-          <img src="/images/avatar_alice.png" class="avatar-msg" />
-          <div class="message received">Bonjour, l'annonce m'intéresse beaucoup.</div>
+    <div class="chat-preview">
+      <div class="chat-preview-content">
+        <img src="/images/avatar_bob.png" class="avatar" />
+        <div>
+          <strong>Bob</strong><br/>
+          Merci pour votre réponse rapide !
         </div>
-
-        <!-- Message : Moi-même -->
-        <div class="message-container sent">
-          <div class="message sent">Merci ! Vous pouvez me poser vos questions ici :)</div>
-          <img src="/images/avatar_me.png" class="avatar-msg" />
-        </div>
-
-        <div class="message-container received">
-          <img src="/images/avatar_alice.png" class="avatar-msg" />
-          <div class="message received">Est-ce que le logement est libre en juin ?</div>
-        </div>
-      </div>
-
-      <div class="chat-input">
-        <input type="text" id="messageInput" placeholder="Écrivez votre message..."/>
-        <button onclick="sendMessage()">Envoyer</button>
       </div>
     </div>
   </div>
 
-  <script>
-    function sendMessage() {
-      const input = document.getElementById("messageInput");
-      const msg = input.value.trim();
-      if (!msg) return;
+  <!-- 右侧聊天内容 -->
+  <div class="chat-box">
+    <div class="chat-header">
+      <div class="contact-name">Contact : Rubens</div>
+      <button class="back-btn" onclick="window.location.href='ads_list.html'">Retour</button>
+    </div>
 
-      const container = document.createElement("div");
-      container.classList.add("message-container", "sent");
+    <div class="chat-messages" id="chatMessages">
+      <!-- 消息：对方 -->
+      <div class="message-container received">
+        <img src="/images/avatar_alice.png" class="avatar-msg" />
+        <div class="message received">Bonjour, l'annonce m'intéresse beaucoup.</div>
+      </div>
 
-      const msgDiv = document.createElement("div");
-      msgDiv.classList.add("message", "sent");
-      msgDiv.innerText = msg;
+      <!-- 消息：自己 -->
+      <div class="message-container sent">
+        <div class="message sent">Merci ! Vous pouvez me poser vos questions ici :)</div>
+        <img src="/images/avatar_me.png" class="avatar-msg" />
+      </div>
 
-      const avatar = document.createElement("img");
-      avatar.src = "/images/avatar_me.png";
-      avatar.classList.add("avatar-msg");
+      <div class="message-container received">
+        <img src="/images/avatar_alice.png" class="avatar-msg" />
+        <div class="message received">Est-ce que le logement est libre en juin ?</div>
+      </div>
+    </div>
 
-      container.appendChild(msgDiv);
-      container.appendChild(avatar);
+    <div class="chat-input">
+      <input type="text" id="messageInput" placeholder="Écrivez votre message..."/>
+      <button onclick="sendMessage()">Envoyer</button>
+    </div>
+  </div>
+</div>
 
-      document.getElementById("chatMessages").appendChild(container);
-      input.value = "";
-      document.getElementById("chatMessages").scrollTop = document.getElementById("chatMessages").scrollHeight;
-    }
-  </script>
+<script>
+  function sendMessage() {
+    const input = document.getElementById("messageInput");
+    const msg = input.value.trim();
+    if (!msg) return;
+
+    const container = document.createElement("div");
+    container.classList.add("message-container", "sent");
+
+    const msgDiv = document.createElement("div");
+    msgDiv.classList.add("message", "sent");
+    msgDiv.innerText = msg;
+
+    const avatar = document.createElement("img");
+    avatar.src = "/images/avatar_me.png";
+    avatar.classList.add("avatar-msg");
+
+    container.appendChild(msgDiv);
+    container.appendChild(avatar);
+
+    document.getElementById("chatMessages").appendChild(container);
+    input.value = "";
+    document.getElementById("chatMessages").scrollTop = document.getElementById("chatMessages").scrollHeight;
+  }
+</script>
 </body>
 </html>

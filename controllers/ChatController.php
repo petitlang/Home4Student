@@ -1,39 +1,54 @@
 <?php
+require_once __DIR__.'/../models/ChatModel.php';
+
 session_start();
-require_once '../models/ChatModel.php';
+header('Content-Type: application/json; charset=utf-8');
 
-if (!isset($_SESSION['user']) || !isset($_SESSION['role'])) {
-    http_response_code(401);
-    echo json_encode(['error' => 'Non autorisé']);
-    exit;
-}
+$action = $_GET['action'] ?? $_POST['action'] ?? null;
+switch ($action) {
 
-$user = $_SESSION['user'];
-$role = $_SESSION['role'];
-$userId = ($role === 'etudiant') ? $user['IdEtudiant'] : $user['IdPropietaire'];
+    /* ---------- 1. 左侧联系人列表 ---------- */
+    case 'getNav':
+        // 来自 form.html 的第一次 POST 会带 id/role
+        $me = $_POST['id'] ?? $_SESSION['user_id'] ?? null;
+        if (!$me) {
+            http_response_code(400);
+            exit(json_encode(['error'=>'missing id']));
+        }
+        $_SESSION['expediteur'] = $me;                 // 记 session
+        $nav = ChatModel::getNav($me);
 
-header('Content-Type: application/json');
+        $_SESSION['chatList'] = $nav;
 
-if ($_GET['action'] === 'load') {
-    $otherId = $_GET['with'];
-    $otherRole = $_GET['role'];
+        header('Location: ../views/chat.php');
 
-    $messages = ChatModel::getMessages($userId, $role, $otherId, $otherRole);
-    echo json_encode($messages);
-    exit;
-}
-
-if ($_GET['action'] === 'send' && $_SERVER['REQUEST_METHOD'] === 'POST') {
-    $message = $_POST['message'] ?? '';
-    $toId = $_POST['to_id'];
-    $toRole = $_POST['to_role'];
-
-    if (trim($message) === '') {
-        echo json_encode(['success' => false, 'error' => 'Message vide']);
         exit;
-    }
 
-    $success = ChatModel::envoyerMessage($message, $userId, $role, $toId, $toRole);
-    echo json_encode(['success' => $success]);
-    exit;
+    /* ---------- 2. 取聊天记录 ---------- */
+    case 'getMessages':
+        $idMsg = intval($_GET['idMsg'] ?? 0);
+        if (!$idMsg) {
+            http_response_code(400);
+            exit(json_encode(['error'=>'missing idMsg']));
+        }
+        exit(json_encode(ChatModel::getMessages($idMsg)));
+
+    /* ---------- 3. 发送消息 ---------- */
+    case 'sendMessage':
+        $payload     = json_decode(file_get_contents('php://input'), true) ?? $_POST;
+        $idMsg       = intval($payload['idMsg']       ?? 0);
+        $message     = trim($payload['message']       ?? '');
+        $expediteur  = $payload['expediteur']         ?? ($_SESSION['user_id'] ?? null);
+        $destinateur = $payload['destinateur']        ?? null;
+
+        if (!$idMsg || !$expediteur || !$destinateur || $message==='') {
+            http_response_code(400);
+            exit(json_encode(['error'=>'missing fields']));
+        }
+        ChatModel::envoyerMessage($idMsg, $message, $expediteur, $destinateur);
+        exit(json_encode(['success'=>true]));
+
+    default:
+        http_response_code(400);
+        exit(json_encode(['error'=>'unknown action']));
 }

@@ -41,8 +41,8 @@ switch ($action) {
                     UserModel::creerProprietaire($data, $photoPath);
                     $user = UserModel::verifierConnexionProprietaire($data['email'], $data['mdp']);
                     if ($user && isset($_FILES['photo'])) {
-                        $photoPath = UserModel::enregistrerPhotoProprietaire($user['IdPropietaire'], $_FILES['photo']);
-                        UserModel::updateProprietaire($user['IdPropietaire'], $data, $photoPath);
+                        $photoPath = UserModel::enregistrerPhotoProprietaire($user['IdProprietaire'], $_FILES['photo']);
+                        UserModel::updateProprietaire($user['IdProprietaire'], $data, $photoPath);
                         $user = UserModel::verifierConnexionEtudiant($data['email'], $data['mdp']);
                     }
                 } elseif ($role === 'admin') {
@@ -135,14 +135,14 @@ switch ($action) {
 
             $hashedPwd = password_hash($newPwd, PASSWORD_DEFAULT);
             $user = $_SESSION['user'];
-            $id = ($role === 'etudiant') ? $user['IdEtudiant'] : $user['IdPropietaire'];
+            $id = ($role === 'etudiant') ? $user['IdEtudiant'] : $user['IdProprietaire'];
 
             // update password in the database
             if ($role === 'etudiant') {
                 $pdo->prepare("UPDATE Etudiant SET MDP = :mdp WHERE IdEtudiant = :id")
                     ->execute([':mdp' => $hashedPwd, ':id' => $id]);
             } elseif ($role === 'proprietaire') {
-                $pdo->prepare("UPDATE Propietaire SET MDP = :mdp WHERE IdPropietaire = :id")
+                $pdo->prepare("UPDATE Proprietaire SET MDP = :mdp WHERE IdProprietaire = :id")
                     ->execute([':mdp' => $hashedPwd, ':id' => $id]);
             }
 
@@ -172,7 +172,7 @@ switch ($action) {
                         echo "<script>alert('Erreur lors de l\'enregistrement de la photo étudiant.');</script>";
                     }
                 } elseif ($role === 'proprietaire') {
-                    $photoPath = UserModel::enregistrerPhotoProprietaire($user['IdPropietaire'], $_FILES['photo']);
+                    $photoPath = UserModel::enregistrerPhotoProprietaire($user['IdProprietaire'], $_FILES['photo']);
                     if ($photoPath) {
                         echo "<script>alert('Photo propriétaire mise à jour ! Path: " . $photoPath . "');</script>";
                     } else {
@@ -189,7 +189,7 @@ switch ($action) {
                 UserModel::updateEtudiant($user['IdEtudiant'], $_POST, $photoPath);
                 UserModel::verifierConnexionEtudiant($user['Email'], $_POST['mdp']);
             } elseif ($role === 'proprietaire') {
-                UserModel::updateProprietaire($user['IdPropietaire'], $_POST, $photoPath);
+                UserModel::updateProprietaire($user['IdProprietaire'], $_POST, $photoPath);
                 UserModel::verifierConnexionProprietaire($user['Email'], $_POST['mdp']);
             }
 

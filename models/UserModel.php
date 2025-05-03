@@ -87,7 +87,7 @@ class UserModel {
     // ===== PROPRIÉTAIRE =====
     public static function creerProprietaire($data, $photoPath) {
         global $pdo;
-        $sql = "INSERT INTO Propietaire (nom, prenom, Email, Tele, MDP, photo, rue, codepostal, ville, Pays)
+        $sql = "INSERT INTO Proprietaire (nom, prenom, Email, Tele, MDP, photo, rue, codepostal, ville, Pays)
                 VALUES (:nom, :prenom, :email, :tele, :mdp, :photo, :rue, :codepostal, :ville, :pays)";
         $stmt = $pdo->prepare($sql);
         return $stmt->execute([
@@ -131,12 +131,12 @@ class UserModel {
     public static function updateProprietaire($id, $data, $photoPath = null) {
         global $pdo;
         $user = $_SESSION['user'];
-        $sql = "UPDATE Propietaire SET nom = :nom, prenom = :prenom, Email = :email, Tele = :tele,
+        $sql = "UPDATE Proprietaire SET nom = :nom, prenom = :prenom, Email = :email, Tele = :tele,
                 rue = :rue, codepostal = :codepostal, ville = :ville, Pays = :pays";
         if ($photoPath) {
             $sql .= ", photo = :photo";
         }
-        $sql .= " WHERE IdPropietaire = :id";
+        $sql .= " WHERE IdProprietaire = :id";
 
         $stmt = $pdo->prepare($sql);
         $params = [
@@ -160,7 +160,7 @@ class UserModel {
     // ===== AUTH =====
     public static function verifierConnexionProprietaire($email, $mdp) {
         global $pdo;
-        $stmt = $pdo->prepare("SELECT * FROM Propietaire WHERE Email = :email");
+        $stmt = $pdo->prepare("SELECT * FROM Proprietaire WHERE Email = :email");
         $stmt->execute([':email' => $email]);
         $user = $stmt->fetch();
         $user['role'] = 'proprietaire';
@@ -185,7 +185,7 @@ class UserModel {
                 $table = 'Etudiant';
                 break;
             case 'proprietaire':
-                $table = 'Propietaire';
+                $table = 'Proprietaire';
                 break;
             case 'admin':
                 $table = 'Administrateur';

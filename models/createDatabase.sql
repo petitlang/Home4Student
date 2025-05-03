@@ -20,8 +20,8 @@ CREATE TABLE IF NOT EXISTS Etudiant (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Table Propriétaire
-CREATE TABLE IF NOT EXISTS Propietaire (
-    IdPropietaire INT AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS Proprietaire (
+    IdProprietaire INT AUTO_INCREMENT PRIMARY KEY,
     nom VARCHAR(50),
     prenom VARCHAR(50),
     Email VARCHAR(100) UNIQUE,
@@ -46,6 +46,7 @@ CREATE TABLE IF NOT EXISTS Administrateur (
 -- Table Annonce
 CREATE TABLE IF NOT EXISTS Annonce (
     IdAnnonce INT AUTO_INCREMENT PRIMARY KEY,
+    Titre VARCHAR(100),
     Type VARCHAR(50),
     Prix DECIMAL(10,2),
     Etat VARCHAR(20),
@@ -54,8 +55,8 @@ CREATE TABLE IF NOT EXISTS Annonce (
     ville VARCHAR(50),
     Pays VARCHAR(50),
     Descriptions TEXT,
-    IdPropietaire INT,
-    FOREIGN KEY (IdPropietaire) REFERENCES Propietaire(IdPropietaire) ON DELETE CASCADE
+    IdProprietaire INT,
+    FOREIGN KEY (IdProprietaire) REFERENCES Proprietaire(IdProprietaire) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Table Signaler

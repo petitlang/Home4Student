@@ -105,18 +105,39 @@ switch ($action) {
         exit;
 
     case 'reset_password':
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['user']) && $_POST['code_ok'] == '1') {
+        
+        echo "<script>alert('Session ID: " . session_id() . "');</script>";
+
+        //echo "<script>alert('reset_password : Rôle est : " . $_POST['role'] . ", code est : " . $_POST['code'] . " ,user est : " . $_SESSION['email_verification_code'] . "');</script>";
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $newPwd = $_POST['new_password'];
             $email = $_POST['email'];
             $role = $_POST['role'];
+            /*
+            $code = $_POST['code'] ?? null;
+            $verificationCode = $_SESSION['email_verification_code'] ?? null;
+            */
+
+            // verification du code de vérification
+            $_SESSION['POST_CODE'] = $_POST['code'];
+            if (!isset($_SESSION['email_verification_time']) || time() - $_SESSION['email_verification_time'] > 300) {
+                header("Location: ../views/reset_password.php?error=timeout");
+                exit;
+            }
+            if (!isset($_SESSION['email_verification_target']) || $_POST['email'] !== $_SESSION['email_verification_target']) {
+                header("Location: ../views/reset_password.php?error=email");
+                exit;
+            }
+            if (!isset($_SESSION['email_verification_code']) || $_POST['code'] !== strval($_SESSION['email_verification_code'])) {
+                header("Location: ../views/reset_password.php?error=verification");
+                exit;
+            }
 
             $hashedPwd = password_hash($newPwd, PASSWORD_DEFAULT);
             $user = $_SESSION['user'];
             $id = ($role === 'etudiant') ? $user['IdEtudiant'] : $user['IdPropietaire'];
 
-            $data = $user;
-            $data['mdp'] = $newPwd; // reset password
-
+            // update password in the database
             if ($role === 'etudiant') {
                 $pdo->prepare("UPDATE Etudiant SET MDP = :mdp WHERE IdEtudiant = :id")
                     ->execute([':mdp' => $hashedPwd, ':id' => $id]);
@@ -131,6 +152,7 @@ switch ($action) {
             echo "<p>Échec de la vérification. Reconnectez-vous ou code invalide.</p>";
         }
         break;
+
 
     case 'update_profile':
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['user'])) {

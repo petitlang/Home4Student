@@ -11,12 +11,6 @@ $user = $_SESSION['user'];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< Updated upstream
-    <title>Déposer une annonce</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <link rel="stylesheet" href="deposit_ad.css">
-=======
     <title>Se loger Facilement</title>
     <style>
         * {
@@ -217,16 +211,12 @@ $user = $_SESSION['user'];
             background-color: #fff;   /* 避免图片背景透明时变黑 */
         }
     </style>
->>>>>>> Stashed changes
 </head>
 
 <body>
     <header>
         <div class="logo">SeLogerFacilement</div>
         <nav>
-<<<<<<< Updated upstream
-            <a href="/Home4Student-mvc/views/index2.php" class="btn btn-primary">Retour à l'accueil</a>
-=======
             <div class="nav-links">
                 <a href="#contact">Contact</a>
                 <a href="#messagerie">Messagerie</a>
@@ -246,7 +236,6 @@ $user = $_SESSION['user'];
                 </div>
                 <a href="../controllers/UserController.php?action=logout" class="btn btn-secondary">Se déconnecter</a>
             </div>
->>>>>>> Stashed changes
         </nav>
     </header>
 

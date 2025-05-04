@@ -1,55 +1,101 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>S'inscrire</title>
-    <link rel="stylesheet" href="register.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inscription - Home4Student</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="register.css" />
 </head>
 <body>
-    <header>
-        <div class="logo">SeLogerFacilement</div>
-        <nav>
-            <a href="/Home4Student-mvc/views/login.html" class="btn btn-secondary">Se connecter</a>
-        </nav>
-    </header>
 
-    <div class="login-section">
-        <div class="login-container">
-            <h2>S'inscrire</h2>
-            
-            <form action="../controllers/UserController.php?action=register" method="POST" enctype="multipart/form-data">
-                <div class="input-group"><label for="nom">Nom</label><input type="text" name="nom" placeholder="Entrez votre nom" required></div>
-                <div class="input-group"><label for="prenom">Prénom</label><input type="text" name="prenom" placeholder="Entrez votre prénom" required></div>
-                
-                <div class="input-group">
-                    <label for="role">Je suis :</label>
-                    <select name="role" required>
-                        <option value="etudiant">Étudiant</option>
-                        <option value="proprietaire">Propriétaire</option>
-                        <!-- <option value="admin">Administrateur</option> -->
-                    </select>
-                </div>
+  <header>
+    <div class="logo">
+      <img src="hlogo-removebg-preview.png" alt="Logo Home4Student" />
+      <span class="logo-text">Home4Student</span>
+    </div>
+    <div class="header-right">
+      <a href="/views/index.php">Page d'accueil</a>
+    </div>
+  </header>
 
-                <div class="input-group"><label for="email">Email</label><input type="email" name="email" placeholder="Entrez votre email" required></div>
-                <div class="input-group"><label for="mdp">Mot de passe</label><input type="password" name="mdp" placeholder="Créez un mot de passe" required></div>
-                <div class="input-group"><label for="tele">Téléphone</label><input type="text" name="tele" placeholder="Entrez votre numéro de téléphone" required></div>
-                <div class="input-group"><label for="genre">Genre</label><input type="text" name="genre" placeholder="Homme / Femme / Autre" required></div>
-                <div class="input-group"><label for="rue">Rue</label><input type="text" name="rue" placeholder="Adresse de la rue" required></div>
-                <div class="input-group"><label for="codepostal">Code postal</label><input type="text" name="codepostal" placeholder="75000" required></div>
-                <div class="input-group"><label for="ville">Ville</label><input type="text" name="ville" placeholder="Paris, Lyon, etc." required></div>
-                <div class="input-group"><label for="pays">Pays</label><input type="text" name="pays" placeholder="France, Belgique, ..." required></div>
-                <div class="input-group"><label for="photo">Photo</label><input type="file" name="photo" accept="image/*"></div>
-                <div class="cgu-group">
-                    <input type="checkbox" id="cgu" name="cgu" required>
-                    <label for="cgu">J'accepte les <a href="/Home4Student-mvc/views/CGU.html">CGU</a> et les conditions d'utilisation du site.</label>
-                </div>
-                <button type="submit" class="btn btn-primary">S'inscrire</button>
-            </form>
-
-        </div>
+  <section class="form-section">
+    <div class="tagline">
+      <h3>Se Loger Facilement</h3>
+      <p>Pour les étudiants par des étudiants</p>
     </div>
 
-    
+    <div class="form-container">
+      <h2>Créer un compte</h2>
+      <form action="#" method="POST">
+        <div class="input-group">
+          <label for="name">Nom complet</label>
+          <input type="text" id="name" name="name" required placeholder="Votre nom complet" />
+        </div>
+
+        <div class="input-group">
+          <label for="email">Adresse e-mail</label>
+          <input type="email" id="email" name="email" required placeholder="Votre email" />
+        </div>
+
+        <div class="input-group">
+          <label for="password">Mot de passe</label>
+          <input type="password" id="password" name="password" required placeholder="Choisissez un mot de passe" />
+        </div>
+
+        <div class="input-group">
+          <label for="role">Rôle</label>
+          <select id="role" name="role" required>
+            <option value="etudiant">Étudiant</option>
+            <option value="proprietaire">Propriétaire</option>
+            <option value="admin">Administrateur</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn">S'inscrire</button>
+      </form>
+      <p>Déjà inscrit ? <a href="/views/login.html">Connectez-vous</a></p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-section">
+        <div class="footer-logo">
+          <i class="fas fa-graduation-cap" style="color: #2fb863; font-size: 1.5rem;"></i>
+          <span class="footer-logo-text">Home4Student</span>
+        </div>
+        <div class="social-icons">
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+
+      <div class="footer-section">
+        <h4>L'entreprise</h4>
+        <div><a href="#">Qui sommes-nous ?</a></div>
+        <div><a href="/Home4Student-mvc/views/contact.html">Nous contacter</a></div>
+      </div>
+
+      <div class="footer-section">
+        <h4>Services pro</h4>
+        <div><a href="#">Accès client</a></div>
+      </div>
+
+      <div class="footer-section">
+        <h4>À découvrir</h4>
+        <div><a href="#">Tout l'immobilier</a></div>
+        <div><a href="#">Toutes les villes</a></div>
+        <div><a href="#">Tous les départements</a></div>
+        <div><a href="#">Toutes les régions</a></div>
+      </div>
+    </div>
+    <div class="copyright">
+      &copy; 2023 Home4Student - Se loger Facilement. Tous droits réservés.
+    </div>
+  </footer>
+
 </body>
 </html>

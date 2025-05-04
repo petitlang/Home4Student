@@ -1,207 +1,328 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Se connecter</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', sans-serif;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Se connecter</title>
+  <style>
+    /* ==== STYLE GLOBAL UNIFIÉ ==== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
 
-        :root {
-            --primary: #2ecc71;
-            --secondary: #e74c3c;
-            --accent: #3498db;
-            --dark: #2c3e50;
-            --light: #ecf0f1;
-        }
+    :root {
+      --primary: #2ecc71;
+      --secondary: #e74c3c;
+      --accent: #3498db;
+      --dark: #2c3e50;
+      --light: #ecf0f1;
+    }
 
-        body {
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
-                        url('https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
-            background-size: cover;
-            background-position: center;
-            color: white;
-            min-height: 100vh;
-        }
+    body {
+      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+        url('https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+      background-size: cover;
+      background-position: center;
+      color: white;
+      min-height: 100vh;
+    }
 
-        header {
-            padding: 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(44, 62, 80, 0.95);
-        }
+    header {
+      padding: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(44, 62, 80, 0.95);
+    }
 
-        .logo {
-            font-size: 2rem;
-            font-weight: bold;
-            color: var(--primary);
-        }
+    footer {
+      background: rgba(44, 62, 80, 0.95);
+      padding: 3rem;
+      margin-top: auto;
+    }
 
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin-left: 2rem;
-            transition: color 0.3s;
-        }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
 
-        nav a:hover {
-            color: var(--primary);
-        }
+    .footer-section h4 {
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
 
-        .login-section {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background: rgba(44, 62, 80, 0.8);
-        }
+    .footer-section a {
+      color: var(--light);
+      text-decoration: none;
+      display: block;
+      margin: 0.5rem 0;
+    }
 
-        .login-container {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 3rem;
-            border-radius: 10px;
-            width: 100%;
-            max-width: 400px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
+    .footer-section a:hover {
+      color: white;
+    }
 
-        .login-container h2 {
-            text-align: center;
-            color: var(--primary);
-            margin-bottom: 2rem;
-            font-size: 2rem;
-        }
+    .logo {
+      font-size: 2rem;
+      font-weight: bold;
+      color: var(--primary);
+    }
 
-        .input-group {
-            margin-bottom: 1.5rem;
-            position: relative;
-        }
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+    }
 
-        .input-group label {
-            font-size: 1rem;
-            color: var(--dark);
-        }
+    nav a {
+      color: rgba(255, 255, 255, 0.9);
+      text-decoration: none;
+      margin-left: 2rem;
+      transition: color 0.3s;
+    }
 
-        .input-group input {
-            width: 100%;
-            padding: 1rem 2.5rem 1rem 1rem;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            margin-top: 0.5rem;
-            font-size: 1rem;
-        }
+    nav a:hover {
+      color: var(--primary);
+    }
 
-        .input-group input:focus {
-            border-color: var(--primary);
-            outline: none;
-        }
+    .login-section {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: calc(100vh - 100px); /* header height compensation */
+      padding: 2rem;
+    }
 
-        .btn {
-            width: 100%;
-            padding: 1rem;
-            border: none;
-            border-radius: 25px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: opacity 0.3s;
-        }
+    .login-container {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 3rem;
+      border-radius: 15px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      color: var(--dark);
+    }
 
-        .btn-primary {
-            background: var(--primary);
-            color: white;
-        }
+    .login-container h2 {
+      text-align: center;
+      color: var(--primary);
+      margin-bottom: 2rem;
+      font-size: 2rem;
+    }
 
-        .btn-primary:hover {
-            opacity: 0.8;
-        }
+    .input-group {
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
 
-        .btn-secondary {
-            background: var(--secondary);
-            color: white;
-        }
+    .input-group label {
+      font-size: 1rem;
+      color: var(--dark);
+    }
 
-        .btn-secondary:hover {
-            opacity: 0.8;
-        }
+    .input-group input,
+    .input-group select {
+      width: 100%;
+      padding: 1rem 2.5rem 1rem 1rem;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      margin-top: 0.5rem;
+      font-size: 1rem;
+    }
 
-        p {
-            text-align: center;
-            margin-top: 1rem;
-        }
+    .input-group input:focus {
+      border-color: var(--primary);
+      outline: none;
+    }
 
-        a {
-            color: var(--primary);
-            font-weight: bold;
-            text-decoration: none;
-        }
+    .btn {
+      display: inline-block;
+      padding: 1rem;
+      border-radius: 25px;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 1rem;
+      transition: all 0.3s;
+    }
 
-        a:hover {
-            text-decoration: underline;
-        }
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
 
-        .password-toggle {
-            position: absolute;
-            right: 10px;
-            top: 65%;
-            transform: translateY(-50%);
-            cursor: pointer;
-            font-size: 1.2rem;
-            color: var(--dark);
-        }
+    .btn-primary:hover {
+      background: #27ae60;
+    }
 
-        /* Style pour "Mot de passe oublié ?" */
-        .forgot-password {
-            color: var(--primary);
-            text-decoration: underline;
-            font-weight: normal;
-        }
-    </style>
+    .btn-secondary {
+      background: var(--secondary);
+      color: white;
+    }
+
+    .btn-secondary:hover {
+      background: #c0392b;
+    }
+
+    .password-toggle {
+      position: absolute;
+      right: 10px;
+      top: 65%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      font-size: 1.2rem;
+      color: var(--dark);
+    }
+
+    p {
+      text-align: center;
+      margin-top: 1rem;
+      color: var(--dark);
+    }
+
+    a {
+      color: var(--primary);
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .forgot-password {
+      color: var(--primary);
+      text-decoration: underline;
+      font-weight: normal;
+    }
+
+    /* ==== PARTIE RESPONSIVE ==== */
+
+    @media (max-width: 768px) {
+      header, footer {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .nav-links {
+        flex-direction: column;
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+
+      .login-container {
+        padding: 2rem;
+        width: 90%;
+      }
+
+      .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .login-container {
+        padding: 1.5rem;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .btn {
+        width: 100%;
+        text-align: center;
+      }
+
+      .password-toggle {
+        top: 70%;
+      }
+
+      nav a {
+        margin-left: 0;
+      }
+
+      header {
+        padding: 1rem;
+      }
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <div class="logo">SeLogerFacilement</div>
-        <nav>
-            <a href="/views/index.php" class="btn btn-secondary">Page d'accueil</a>
-        </nav>
-    </header>
 
-    <div class="login-section">
-        <div class="login-container">
-            <h2>Se connecter</h2>
-            
-            <form action="../controllers/UserController.php?action=login" method="POST">
-                <div class="input-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required placeholder="Entrez votre email">
-                </div>
-                
-                <div class="input-group">
-                    <label for="role">Je suis :</label>
-                    <select name="role" required>
-                        <option value="etudiant">Étudiant</option>
-                        <option value="proprietaire">Propriétaire</option>
-                        <option value="admin">Administrateur</option>
-                    </select>
-                </div>
+  <header>
+    <div class="logo">SeLogerFacilement</div>
+    <nav>
+      <div><a href="/views/index.php" class="btn btn-secondary">Page d'accueil</a></div>
+    </nav>
+  </header>
 
-                <div class="input-group">
-                    <label for="password">Mot de passe</label>
-                    <input type="password" id="password" name="password" required placeholder="Entrez votre mot de passe">
-                    <span id="togglePassword" class="password-toggle">👁️</span>
-                </div>
-                <button type="submit" class="btn btn-primary">Se connecter</button>
-            </form>
-            <p style="color: black;">Pas encore de compte ? <a href="/views/register.html">S'inscrire</a></p>
-            <p><a href="/views/reset_password.html" class="forgot-password">Mot de passe oublié ?</a></p>
+  <div class="login-section">
+    <div class="login-container">
+      <h2>Se connecter</h2>
+
+      <form action="../controllers/UserController.php?action=login" method="POST">
+        <div class="input-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required placeholder="Entrez votre email">
         </div>
-    </div>
 
-    
+        <div class="input-group">
+          <label for="role">Je suis :</label>
+          <select name="role" required>
+            <option value="etudiant">Étudiant</option>
+            <option value="proprietaire">Propriétaire</option>
+            <option value="admin">Administrateur</option>
+          </select>
+        </div>
+
+        <div class="input-group">
+          <label for="password">Mot de passe</label>
+          <input type="password" id="password" name="password" required placeholder="Entrez votre mot de passe">
+          <span id="togglePassword" class="password-toggle">👁️</span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Se connecter</button>
+      </form>
+
+      <p>Pas encore de compte ? <a href="/views/register.html">S'inscrire</a></p>
+      <p><a href="/views/reset_password.html" class="forgot-password">Mot de passe oublié ?</a></p>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-section">
+        <h4>Notre entreprise</h4>
+        <a href="#about">Qui sommes-nous ?</a>
+        <a href="#team">Notre équipe</a>
+        <a href="#press">Presse</a>
+      </div>
+      <div class="footer-section">
+        <h4>Services pro</h4>
+        <a href="#partners">Partenariats</a>
+        <a href="#agencies">Agences</a>
+        <a href="#pro-tools">Outils professionnels</a>
+      </div>
+      <div class="footer-section">
+        <h4>Aide</h4>
+        <a href="#contact">Contact</a>
+        <a href="#faq">FAQ</a>
+        <a href="#guides">Guides</a>
+      </div>
+      <div class="footer-section">
+        <h4>Légal</h4>
+        <a href="/views/cgu.html">CGU</a>
+        <a href="#privacy">Confidentialité</a>
+        <a href="#cookies">Cookies</a>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>

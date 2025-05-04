@@ -45,6 +45,20 @@ function ad_get(int $id): ?array
     return $row ?: null;
 }
 
+function ad_photos(int $id): array
+{
+    global $pdo;
+    $stmt = $pdo->prepare(
+        'SELECT chemin
+           FROM PhotoAnnonce         -- ⚠️  确认表名与字段大小写
+          WHERE IdAnnonce = :id
+          ORDER BY IdPhoto'
+    );
+    $stmt->execute([':id' => $id]);
+    // fetchAll(PDO::FETCH_COLUMN) → renvoie un tableau simple de chaînes
+    return $stmt->fetchAll(PDO::FETCH_COLUMN);
+}
+
 // ────────────────────────────────
 //  Tiny JSON API fallback.
 //  Only runs when this file is *directly* requested, not when included.

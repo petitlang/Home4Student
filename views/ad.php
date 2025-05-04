@@ -17,6 +17,7 @@ if (!$id) {
 }
 
 $ad = ad_get($id);
+$photos  = ad_photos($id);
 if (!$ad) {
     http_response_code(404);
     exit('Annonce introuvable');
@@ -75,10 +76,10 @@ $adresse      = trim("$rue, $postal $ville, $pays", ', ');
     .owner { margin-top:2rem; padding-top:1rem; border-top:1px solid #ddd; }
     .owner span { font-weight:bold; }
 
-    .action-box { flex:1.2; background:rgba(255,255,255,0.95); padding:2rem; border-radius:10px; height:fit-content; display:flex; flex-direction:column; justify-content:space-between; }
+    .action-box { flex:1.2; background: rgb(255, 255, 255); padding:2rem; border-radius:10px; height:fit-content; display:flex; flex-direction:column; justify-content:space-between; }
     .price { font-size:1.5rem; font-weight:bold; color:var(--dark); margin-bottom:1rem; }
-    .date-select, .people-select { margin-bottom:1rem; }
-    .date-select input, .people-select input { width:100%; padding:0.8rem; border-radius:5px; border:1px solid #ccc; font-size:1rem; }
+    .date-select, .people-select { color:var(--dark);margin-bottom:1rem; }
+    .date-select input, .people-select input { width:100%; padding:0.8rem; border-radius:5px; border:1px solid #000000; font-size:1rem; }
     .btn { padding:1rem; border:none; border-radius:25px; font-weight:bold; cursor:pointer; transition:opacity 0.3s; }
     .btn-primary { background:var(--primary); color:white; margin-bottom:0.5rem; }
     .btn-primary:hover { opacity:0.85; }
@@ -92,14 +93,27 @@ $adresse      = trim("$rue, $postal $ville, $pays", ', ');
 </header>
 
 <div class="main-container">
-  <!-- Galerie d'images (placeholders pour l'instant) -->
-  <div class="gallery">
-    <img src="https://picsum.photos/seed/<?= $id ?>1/800/600" alt="Photo principale">
-    <div style="display:grid; gap:1rem;">
-      <img src="https://picsum.photos/seed/<?= $id ?>2/400/290" alt="Photo secondaire">
-      <img src="https://picsum.photos/seed/<?= $id ?>3/400/290" alt="Photo secondaire">
+    <!-- Galerie d'images (réelles) -->
+    <div class="gallery">
+        <?php if ($photos): ?>
+            <!-- ① photo principale -->
+            <img src="/<?= htmlspecialchars($photos[0], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>"
+                 alt="Photo annonce">
+
+            <!-- ② miniatures supplémentaires -->
+            <?php if (count($photos) > 1): ?>
+                <div style="display:grid; gap:1rem;">
+                    <?php foreach (array_slice($photos, 1) as $p): ?>
+                        <img src="/<?= htmlspecialchars($p, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>"
+                             alt="Photo annonce miniature">
+                    <?php endforeach; ?>
+                </div>
+            <?php endif; ?>
+        <?php else: ?>
+            <!-- Fallback : si aucune image n’est trouvée -->
+            <img src="https://picsum.photos/800/600?grayscale&random=1" alt="Placeholder">
+        <?php endif; ?>
     </div>
-  </div>
 
   <!-- Boîte d'action (prix + candidature) -->
   <div class="action-box">

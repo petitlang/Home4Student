@@ -1,4 +1,4 @@
-<?php
+ <?php
 session_start();
 if (!isset($_SESSION['user'])) {
     header("Location: index.php");
@@ -253,7 +253,7 @@ $user = $_SESSION['user'];
                 <p>✓ Inspection mensuelle</p>
                 <p>✓ Garantie de sécurité</p>
             </div>
-            <a href="/views/ads_list.html" class="btn btn-primary">Voir les annonces</a>
+            <a href="/views/search.html" class="btn btn-primary">Voir les annonces</a>
         </div>
 
         <div class="card">

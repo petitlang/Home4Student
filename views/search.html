@@ -72,8 +72,9 @@
     <select id="city">
       <option value="All">All Cities</option>
     </select>
+    <input type="number" id="priceMin" placeholder="Prix min (€)"  min="0" step="1">
+    <input type="number" id="priceMax" placeholder="Prix max (€)"  min="0" step="1">
   </div>
-
   <div id="cards" class="cards"></div>
 </div>
 
@@ -86,6 +87,8 @@
   const categorySelect = document.getElementById('category');
   const citySelect = document.getElementById('city');
   const cardsContainer = document.getElementById('cards');
+  const priceMinInput = document.getElementById('priceMin');
+  const priceMaxInput = document.getElementById('priceMax');
 
   function populateFilters() {
     categories.forEach(cat => {
@@ -107,23 +110,36 @@
     const search = searchInput.value.toLowerCase();
     const category = categorySelect.value;
     const city = citySelect.value;
+    const priceMin = priceMinInput.value ? parseFloat(priceMinInput.value) : 0;
+    const priceMax = priceMaxInput.value ? parseFloat(priceMaxInput.value) : Infinity;
 
     const filtered = annonces.filter(item => {
       const matchText = item.Titre.toLowerCase().includes(search) || item.Descriptions.toLowerCase().includes(search);
       const matchCat = category === 'All' || item.Type === category;
       const matchCity = city === 'All' || item.ville === city;
-      return matchText && matchCat && matchCity;
+      const price      = parseFloat(item.Prix);
+      const matchPrice = price >= priceMin && price <= priceMax;
+      return matchText && matchCat && matchCity&& matchPrice;
     });
 
     cardsContainer.innerHTML = '';
     filtered.forEach(card => {
       const div = document.createElement('div');
       div.className = 'card';
+      div.dataset.id = card.IdAnnonce;
+
       div.innerHTML = `
           <h3>${card.Titre}</h3>
           <p>${card.ville} • ${card.Type} • ${card.Prix}€</p>
           <p>${card.Descriptions}</p>
         `;
+
+      div.addEventListener('click', () => {
+        window.location.href = '../controllers/AdController.php?action=show&id=' + div.dataset.id;
+        // 如果您打算直接跳 ad.html，也可以：
+        // window.location.href = '../views/ad.html?action=show&id=' + div.dataset.id;
+      });
+
       cardsContainer.appendChild(div);
     });
   }
@@ -131,6 +147,8 @@
   searchInput.addEventListener('input', renderCards);
   categorySelect.addEventListener('change', renderCards);
   citySelect.addEventListener('change', renderCards);
+  priceMinInput.addEventListener('input', renderCards);
+  priceMaxInput.addEventListener('input', renderCards);
 
   fetch('../models/Admodel.php')       // 路径按实际部署调整
           .then(res => res.json())

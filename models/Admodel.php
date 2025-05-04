@@ -15,4 +15,5 @@ $rows  = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // ❷ 输出 JSON（保持法语重音、不转义斜杠）
 echo json_encode($rows, JSON_UNESCAPED_UNICODE);
+
 ?>

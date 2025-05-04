@@ -36,6 +36,13 @@ class UserModel {
         return ($user && password_verify($mdp, $user['MDP'])) ? $user : false;
     }
 
+
+
+//路径选择
+
+
+
+
     public static function enregistrerPhotoEtudiant($id, $file) {
         $uploadDir = __DIR__ . '/../public/resources/photo_etudiant/';
         $filename = "etudiant_" . intval($id) . ".jpg";

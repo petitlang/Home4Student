@@ -6,15 +6,15 @@
 }
 
 :root {
-    --primary: #2ecc71;
+    --primary: #6b9080;
     --secondary: #e74c3c;
     --accent: #3498db;
-    --dark: #2c3e50;
+    --dark: #6b9080;
     --light: #ecf0f1;
 }
 
 body {
-    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+    background: linear-gradient(#6b9080, #6b9080),
                 url('https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
     background-size: cover;
     background-position: center;
@@ -27,7 +27,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: rgba(44, 62, 80, 0.95);
+    background: #6b9080;
 }
 
 .logo {
@@ -50,7 +50,7 @@ nav a:hover {
 .hero-slogan {
     text-align: center;
     padding: 4rem 2rem;
-    background: rgba(44, 62, 80, 0.9);
+    background: #6b9080;
     margin-bottom: 4rem;
 }
 
@@ -75,7 +75,7 @@ nav a:hover {
     background: rgba(255, 255, 255, 0.95);
     padding: 2.5rem;
     border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    box-shadow: 0 10px 30px #6b9080;
     color: var(--dark);
     transition: transform 0.3s;
 }
@@ -112,7 +112,7 @@ nav a:hover {
 }
 
 .btn-primary:hover {
-    background: #27ae60;
+    background: #6b9080;
 }
 
 .btn-secondary {
@@ -125,7 +125,7 @@ nav a:hover {
 }
 
 footer {
-    background: rgba(44, 62, 80, 0.95);
+    background: #6b9080;
     padding: 3rem;
     margin-top: auto;
 }
@@ -152,4 +152,53 @@ footer {
 
 .footer-section a:hover {
     color: white;
+}
+
+@media (max-width: 1024px) {
+    .main-grid {
+        grid-template-columns: 1fr;
+        padding: 2rem;
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .hero-slogan h1 {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 600px) {
+    header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    nav a {
+        margin: 1rem;
+        display: block;
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .hero-slogan {
+        padding: 2rem 1rem;
+    }
+
+    .hero-slogan h1 {
+        font-size: 1.6rem;
+    }
+
+    .card h2 {
+        font-size: 1.5rem;
+    }
+
+    .btn {
+        padding: 0.6rem 1.5rem;
+        font-size: 0.9rem;
+    }
 }

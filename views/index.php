@@ -20,11 +20,11 @@ if (isset($_SESSION['user'])) {
 <body class="bg-gray-100 text-gray-900">
 
   <!-- HEADER -->
-  <header class="bg-gray-800 text-white">
+  <header style="background-color: #6b9080;" class="text-white py-1">
     <div class="container mx-auto px-4 py-4 flex flex-wrap items-center justify-between">
       <div class="flex items-center space-x-4">
         <img src="logo-removebg-preview.png" alt="logo" class="h-10 w-auto"/>
-        <span class="text-xl font-bold text-green-400">HomeStudent</span>
+        <span class="text-xl font-bold text-white">Home4Student</span>
       </div>
       <nav class="flex flex-col sm:flex-row sm:space-x-6 space-y-2 sm:space-y-0 mt-4 sm:mt-0">
         <a href="#" class="hover:text-green-400">Offres</a>
@@ -40,7 +40,7 @@ if (isset($_SESSION['user'])) {
   </header>
 
   <!-- HERO -->
-  <section class="text-center bg-gray-700 text-white py-12">
+  <section class="text-xl font-bold text-[#6b9080] text-center py-12">
     <h1 class="text-3xl md:text-5xl font-bold mb-4">Bienvenue</h1>
     <p class="text-lg">Se loger facilement, pour les étudiants par des étudiants</p>
   </section>
@@ -52,20 +52,20 @@ if (isset($_SESSION['user'])) {
       <div>
         <div class="space-y-4">
           <div class="flex items-start space-x-3">
-            <i class="fas fa-check-circle text-green-500 text-xl"></i>
+            <i class="fas fa-check-circle text-xl"style="color: #6b9080;"></i>
             <p>Des logements fiables, vérifiés par nos équipes</p>
           </div>
           <div class="flex items-start space-x-3">
-            <i class="fas fa-check-circle text-green-500 text-xl"></i>
+            <i class="fas fa-check-circle text-xl"style="color: #6b9080;"></i>
             <p>Une communication directe avec le propriétaire</p>
           </div>
           <div class="flex items-start space-x-3">
-            <i class="fas fa-check-circle text-green-500 text-xl"></i>
+            <i class="fas fa-check-circle  text-xl "style="color: #6b9080;"></i>
             <p>Partout en France</p>
           </div>
         </div>
         <div class="mt-6">
-          <a href="/Home4Student-mvc/views/ads_list.html" class="inline-flex items-center bg-green-500 text-white px-6 py-2 rounded hover:bg-green-600">
+          <a href="/Home4Student-mvc/views/ads_list.html" class="inline-flex items-center text-white px-6 py-2 rounded hover:bg-opacity-80" style="background-color: #6b9080;">
             Accéder aux annonces <i class="fas fa-arrow-right ml-2"></i>
           </a>
         </div>
@@ -89,20 +89,20 @@ if (isset($_SESSION['user'])) {
         <h2 class="text-2xl font-bold mb-4">Vendez vous-même un bien immobilier !</h2>
         <div class="space-y-4">
           <div class="flex items-start space-x-3">
-            <i class="fas fa-check-circle text-green-500 text-xl"></i>
+            <i class="fas fa-check-circle text-xl"style="color: #6b9080;"></i>
             <p>Présentez votre bien et ses caractéristiques</p>
           </div>
           <div class="flex items-start space-x-3">
-            <i class="fas fa-check-circle text-green-500 text-xl"></i>
+            <i class="fas fa-check-circle text-xl"style="color: #6b9080;"></i>
             <p>Définissez un prix de vente</p>
           </div>
           <div class="flex items-start space-x-3">
-            <i class="fas fa-check-circle text-green-500 text-xl"></i>
+            <i class="fas fa-check-circle text-xl"style="color: #6b9080;"></i>
             <p>Mettez en avant ce qui le rend unique</p>
           </div>
         </div>
         <div class="mt-6">
-          <a href="/Home4Student-mvc/views/deposit_ad.html" class="inline-flex items-center bg-green-500 text-white px-6 py-2 rounded hover:bg-green-600">
+          <a href="/Home4Student-mvc/views/deposit_ad.html" class="inline-flex items-center text-white px-6 py-2 rounded hover:bg-opacity-80" style="background-color: #6b9080;">
             Déposer une annonce <i class="fas fa-upload ml-2"></i>
           </a>
         </div>
@@ -111,7 +111,7 @@ if (isset($_SESSION['user'])) {
   </section>
 
   <!-- FOOTER -->
-  <footer class="bg-gray-800 text-white py-8">
+  <footer class="text-white py-8" style="background-color: #6b9080;">
     <div class="container mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
       <div>
         <div class="flex items-center space-x-2 mb-4">

@@ -1,19 +1,70 @@
 <?php
-// get_annonces.php
-require './1/connection.php';      // 复用你已写好的 PDO 连接 :contentReference[oaicite:0]{index=0}:contentReference[oaicite:1]{index=1}
-header('Content-Type: application/json; charset=utf-8');
+// ────────────────────────────────────────────────────────────────
+//  models/Admodel.php — Data‑access layer for table `annonce`
+//  Exposes two functions and (optionally) acts as a tiny JSON API
+//      • ad_list()          → array<annonce>
+//      • ad_get(int $id)    → array|null
+//
+//  If the file is requested directly in the browser (not included)
+//  it will output JSON (all annonces or a single one when ?id=xx).
+// ────────────────────────────────────────────────────────────────
 
-// ❶ 如果你的表就叫 “annonce”——注意大小写与复数——直接查。
-//    若叫别的名字，改成对应表名即可。
-$sql = 'SELECT IdAnnonce, Titre, Type, Prix, Etat,
-               rue, codepostal, ville, Pays,
-               Descriptions, IdProprietaire
-        FROM annonce';
+require_once __DIR__ . '/1/connection.php';   // initialise $pdo (PDO instance)
 
-$stmt  = $pdo->query($sql);
-$rows  = $stmt->fetchAll(PDO::FETCH_ASSOC);
+/**
+ * Fetch all annonces from DB.
+ * @return array<int,array<string,mixed>>
+ */
+function ad_list(): array
+{
+    global $pdo;
+    $sql = 'SELECT IdAnnonce, Titre, Type, Prix, Etat,
+                   rue, codepostal, ville, Pays,
+                   Descriptions, IdProprietaire
+            FROM annonce';
+    return $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+}
 
-// ❷ 输出 JSON（保持法语重音、不转义斜杠）
-echo json_encode($rows, JSON_UNESCAPED_UNICODE);
+/**
+ * Fetch one annonce by primary key IdAnnonce.
+ * @param  int   $id
+ * @return array<string,mixed>|null  the row or null when not found
+ */
+function ad_get(int $id): ?array
+{
+    global $pdo;
+    $stmt = $pdo->prepare(
+        'SELECT IdAnnonce, Titre, Type, Prix, Etat,
+                rue, codepostal, ville, Pays,
+                Descriptions, IdProprietaire
+         FROM   annonce
+         WHERE  IdAnnonce = :id'
+    );
+    $stmt->execute([':id' => $id]);
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $row ?: null;
+}
 
+// ────────────────────────────────
+//  Tiny JSON API fallback.
+//  Only runs when this file is *directly* requested, not when included.
+// ────────────────────────────────
+if (basename(__FILE__) === basename($_SERVER['SCRIPT_FILENAME'])) {
+    header('Content-Type: application/json; charset=utf-8');
+
+    $id = isset($_GET['id']) ? (int)$_GET['id'] : null;
+
+    if ($id) {
+        $row = ad_get($id);
+        if ($row) {
+            echo json_encode($row, JSON_UNESCAPED_UNICODE);
+        } else {
+            http_response_code(404);
+            echo json_encode(['error' => 'Annonce not found'], JSON_UNESCAPED_UNICODE);
+        }
+    } else {
+        echo json_encode(ad_list(), JSON_UNESCAPED_UNICODE);
+    }
+    exit;
+}
 ?>

@@ -93,7 +93,7 @@ $user = $_SESSION['user'];
                             </div>
                         </div>
                         <div class="cta">
-                            <a href="/views/ads_list.html" class="btn btn-primary btn-icon">
+                            <a href="/views/search.html" class="btn btn-primary btn-icon">
                                 <span>Accéder aux annonces</span>
                                 <i class="fas fa-arrow-right"></i>
                             </a>

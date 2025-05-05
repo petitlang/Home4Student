@@ -2,35 +2,42 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Se connecter</title>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="login.css">
+  <title>Se connecter</title>
 </head>
 <body>
 
-<header>
-  <div class="logo">
-    <img src="logo-removebg-preview.png" alt="Logo">
-    <span class="logo-text">Home4Student</span>
-  </div>
-  <nav class="navbar-links">
-    <a href="/views/index.php" class="btn btn-secondary">Page d'accueil</a>
-  </nav>
-</header>
-
-<div class="login-section">
-  <div class="login-header">
-    <div class="brand-title">
-      <span class="main-title">Se Loger Facilement</span>
-      <div class="underline"></div>
-      <div class="subtitle">Pour les étudiants par des étudiants</div>
+  <header>
+    <!-- Bande blanche avec logo -->
+    <div class="header-top">
+      <img src="C:\Users\MARIE ESSO\Downloads\Home4Student_transparent (1).png" alt="Logo Home4Student" class="logo" />
     </div>
 
-    <div class="login-container">
-      <h2 class="form-title">Se connecter</h2>
+    <!-- Bande verte avec navigation -->
+    <div class="header-bottom">
+      <nav class="navbar">
+        <div class="nav-center">
+          <div class="nav-links">
+            <a href="#">Offres</a>
+            <a href="#">Messagerie</a>
+            <a href="#">FAQ</a>
+            <a href="#">Contact</a>
+            <a href="#">CGU</a>
+          </div>
+        </div>
+        <div class="nav-buttons">
+          <a href="/views/login.html" class="btn-outline">Sign in</a>
+          <a href="/views/register.html" class="btn-solid">Register</a>
+        </div>
+      </nav>
+    </div>
+  </header>
 
+  <div class="login-section">
+    <div class="login-container">
+      <h2>Se connecter</h2>
       <form action="../controllers/UserController.php?action=login" method="POST">
         <div class="input-group">
           <label for="email">Email</label>
@@ -46,70 +53,60 @@
           </select>
         </div>
 
-        <div class="input-group input-group-password">
+        <div class="input-group">
           <label for="password">Mot de passe</label>
           <input type="password" id="password" name="password" required placeholder="Entrez votre mot de passe">
           <span id="togglePassword" class="password-toggle">👁️</span>
         </div>
 
-        <button type="submit" class="btn btn-primary">Se connecter</button>
+        <button type="submit" class="btn-primary">Se connecter</button>
       </form>
 
       <p>Pas encore de compte ? <a href="/views/register.html">S'inscrire</a></p>
       <p><a href="/views/reset_password.html" class="forgot-password">Mot de passe oublié ?</a></p>
     </div>
   </div>
-</div>
 
-<footer>
-  <div class="footer-grid">
-    <div class="footer-section">
-      <div class="footer-logo">
-        <i class="fas fa-graduation-cap" style="color: #2fb863; font-size: 1.5rem; margin-right: 0.5rem;"></i>
-        <span class="footer-logo-text">Home4Student</span>
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-section">
+        <div class="social-icons">
+          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        </div>
       </div>
-      <div class="social-icons">
-        <a href="#"><i class="fab fa-twitter"></i></a>
-        <a href="#"><i class="fab fa-instagram"></i></a>
-        <a href="#"><i class="fab fa-facebook"></i></a>
-        <a href="#"><i class="fab fa-linkedin"></i></a>
+
+      <div class="footer-section">
+        <h4>Notre entreprise</h4>
+        <a href="#about">Qui sommes-nous ?</a>
+        <a href="#team">Nous contacter</a>
+      </div>
+
+      <div class="footer-section">
+        <h4>Services pro</h4>
+        <a href="#partners">Tous nos services</a>
+        <a href="#agencies">Accès client</a>
+      </div>
+
+      <div class="footer-section">
+        <h4>À découvrir</h4>
+        <a href="#contact">Tout l'immobilier</a>
+        <a href="#faq">Toutes les villes</a>
+        <a href="#guides">Tous les départements</a>
       </div>
     </div>
+  </footer>
 
-    <div class="footer-section">
-      <h4>L'entreprise</h4>
-      <div><a href="#">Qui sommes-nous ?</a></div>
-      <div><a href="/Home4Student-mvc/views/contact.html">Nous contacter</a></div>
-    </div>
-
-    <div class="footer-section">
-      <h4>Services pro</h4>
-      <div><a href="#">Accès client</a></div>
-    </div>
-
-    <div class="footer-section">
-      <h4>À découvrir</h4>
-      <div><a href="#">Tout l'immobilier</a></div>
-      <div><a href="#">Toutes les villes</a></div>
-      <div><a href="#">Tous les départements</a></div>
-      <div><a href="#">Toutes les régions</a></div>
-    </div>
-  </div>
-  <div class="copyright">
-    &copy; 2023 Home4Student - Se loger Facilement. Tous droits réservés.
-  </div>
-</footer>
-
-<script>
-  const toggle = document.getElementById("togglePassword");
-  const password = document.getElementById("password");
-
-  toggle.addEventListener("click", () => {
-    const type = password.getAttribute("type") === "password" ? "text" : "password";
-    password.setAttribute("type", type);
-    toggle.textContent = type === "password" ? "👁️" : "🙈";
-  });
-</script>
-
+  <script>
+    document.getElementById('togglePassword').addEventListener('click', function () {
+      const passwordInput = document.getElementById('password');
+      const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+      passwordInput.setAttribute('type', type);
+      this.textContent = type === 'password' ? '👁️' : '🙈';
+    });
+  </script>
 </body>
 </html>
+

@@ -1,198 +1,246 @@
-body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #f4f9f4;
+:root {
+  --primary-color: #6b9080;
+  --primary-dark: #4d6a5c;
+  --primary-light: #a4c3b2;
+  --secondary-color: #f6fff8;
+  --text-dark: #2c3e50;
+  --text-light: #7f8c8d;
+  --white: #ffffff;
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --transition: all 0.3s ease;
+  --secondary: #e74c3c;
 }
 
-header {
-  background-color: #6b9080;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  background-image: url("https://bestmobilier.com/blog/wp-content/uploads/2024/01/decorer-salon-avec-canape-bleu-canard.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: white;
+}
+
+/* Header haut (bande blanche) */
+.header-top {
+  background-color: white;
+  padding: 1rem 2rem;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 0.9rem 2.5rem;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  border-radius: 0 0 10px 10px;
+  height: 55px;
 }
 
 .logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  height: 75px;
+  object-fit: contain;
 }
 
-.logo img {
-  max-width: 40px;
-  height: auto;
+/* Header bas (bande verte) */
+.header-bottom {
+  background-color: var(--primary-color);
+  padding: 0.25rem 2rem;
 }
 
-.logo-text {
-  color: white;
-  font-size: 1.3rem;
-  font-weight: bold;
-}
-
-.navbar-links {
-  display: flex;
-  gap: 1.5rem;
-}
-
-.navbar-links a {
-  color: white;
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 1rem;
-}
-
-.btn {
-  padding: 0.6rem 1rem;
-  border: none;
-  border-radius: 8px;
-  font-weight: bold;
-  cursor: pointer;
-  text-decoration: none;
-  display: inline-block;
-}
-
-.btn-secondary {
-  background-color: #2fb863;
-  color: white;
-  transition: background-color 0.3s;
-}
-
-.btn-secondary:hover {
-  background-color: #2fb863;
-}
-
-.login-section {
-  display: flex;
-  justify-content: center;
-  margin-top: 4rem;
-  margin-bottom: 2.5rem;
-  padding: 0 2rem;
-}
-
-.login-header {
+.navbar {
+  background-color: var(--primary-color);
+  padding: 0.5rem 2rem;
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  width: 100%;
-  max-width: 1200px;
+  align-items: center;
   flex-wrap: wrap;
 }
 
-.brand-title {
+.nav-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.nav-links {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.nav-links a {
+  margin: 0 0.5rem;
+  color: white;
+  background-color: var(--primary-dark);
+  padding: 0.4rem 0.8rem;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+.nav-links a:hover {
+  background-color: var(--primary-light);
+  color: var(--primary-dark);
+}
+
+.nav-buttons a {
   margin-left: 0.5rem;
-  flex-shrink: 0;
-  margin-bottom: 1.5rem;
-  margin-top: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: var(--transition);
 }
 
-.main-title {
-  color: #6b9080;
-  font-size: 1.5rem;
-  font-weight: bold;
+.btn-outline {
+  background-color: white;
+  color: var(--text-dark);
+  border: 1px solid #ccc;
 }
 
-.underline {
-  height: 2px;
-  background-color: #6b9080;
-  width: 100%;
-  margin-top: 0.3rem;
-  margin-bottom: 0.5rem;
+.btn-outline:hover {
+  background-color: #f0f0f0;
 }
 
-.subtitle {
-  font-size: 0.95rem;
-  color: #555;
+.btn-solid {
+  background-color: var(--primary-dark);
+  color: white;
+  border: none;
+}
+
+.btn-solid:hover {
+  background-color: var(--primary-light);
+  color: var(--primary-dark);
+}
+
+/* Responsive navbar */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .nav-links {
+    gap: 1rem;
+    padding-left: 10%;
+  }
+
+  .nav-buttons {
+    align-self: flex-end;
+  }
+}
+
+/* Section connexion */
+.login-section {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
 }
 
 .login-container {
-  background-color: #ffffff;
-  color: #2d3e2c;
-  padding: 2.5rem;
+  background: var(--white);
+  padding: 3rem;
+  border-radius: 15px;
+  max-width: 400px;
   width: 100%;
-  max-width: 450px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  border-radius: 12px;
-  margin-left: 2rem;
+  box-shadow: var(--shadow);
 }
 
-.form-title {
-  font-size: 2rem;
-  text-align: left;
-  font-weight: bold;
-  color: #1e2a38;
+.login-container h2 {
+  text-align: center;
+  color: var(--primary-color);
+  margin-bottom: 2rem;
 }
 
 .input-group {
   margin-bottom: 1.5rem;
-  display: flex;
-  flex-direction: column;
+  position: relative;
 }
 
 .input-group label {
-  font-weight: 600;
-  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  color: var(--text-dark);
 }
 
 .input-group input,
 .input-group select {
-  padding: 0.6rem;
-  background-color: #f4f9f4;
-  color: #2d3e2c;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-top: 0.5rem;
   font-size: 1rem;
 }
 
-.input-group input::placeholder {
-  color: #888;
-}
-
-.btn-primary {
-  background-color: #6b9080;
-  color: white;
-  transition: background-color 0.3s;
-  width: 100%;
-}
-
-.btn-primary:hover {
-  background-color: #589c79;
-}
-
-.forgot-password,
-.login-container p a {
-  display: inline-block;
-  margin-top: 1rem;
-  font-size: 0.9rem;
-  color: #4a4a4a;
-  text-decoration: underline;
+.input-group input:focus,
+.input-group select:focus {
+  border-color: var(--primary-color);
+  outline: none;
 }
 
 .password-toggle {
-  cursor: pointer;
   position: absolute;
-  right: 15px;
-  top: 38px;
-  font-size: 1.1rem;
-  color: #2d3e2c;
+  right: 10px;
+  top: 70%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: var(--text-light);
 }
 
-.input-group-password {
-  position: relative;
+.btn-primary {
+  background-color: var(--primary-color);
+  color: var(--white);
+  border: none;
+  border-radius: 5px;
+  padding: 1rem;
+  width: 100%;
+  font-weight: bold;
+  cursor: pointer;
+  transition: var(--transition);
 }
 
+.btn-primary:hover {
+  background-color: var(--primary-dark);
+}
+
+p {
+  text-align: center;
+  margin-top: 1rem;
+  color: var(--text-dark);
+}
+
+a {
+  color: var(--primary-color);
+  font-weight: bold;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Footer */
 footer {
-  background-color: #6b9080;
-  padding: 2rem;
+  background-color: var(--primary-color);
   color: white;
+  padding: 2rem 1rem;
 }
 
 .footer-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.footer-section {
+  flex: 1;
+  min-width: 180px;
+  margin-bottom: 1rem;
 }
 
 .footer-section h4 {
@@ -200,58 +248,45 @@ footer {
 }
 
 .footer-section a {
+  display: block;
   color: white;
   text-decoration: none;
-  font-size: 0.9rem;
+  margin: 0.3rem 0;
+  font-weight: 300;
 }
 
 .footer-section a:hover {
   text-decoration: underline;
 }
 
-.footer-section div {
-  margin-bottom: 0.5rem;
+/* Responsive footer */
+@media (max-width: 768px) {
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 1rem;
+  }
 }
 
+@media (max-width: 480px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Réseaux sociaux */
 .social-icons {
   display: flex;
   gap: 1rem;
-  margin-top: 1rem;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .social-icons a {
-  color: white;
-  font-size: 1.3rem;
+  color: var(--secondary-color);
+  transition: var(--transition);
 }
 
 .social-icons a:hover {
-  color: #ccc;
+  color: var(--white);
 }
 
-.footer-logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.footer-logo-text {
-  font-size: 1.1rem;
-  font-weight: bold;
-}
-
-.copyright {
-  margin-top: 2rem;
-  text-align: center;
-}
-
-@media (max-width: 768px) {
-  .login-header {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .login-container {
-    margin-left: 0;
-    margin-top: 2rem;
-  }
-}

@@ -14,14 +14,14 @@ $user = $_SESSION['user'];
     <title>Déposer une annonce</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <link rel="stylesheet" href="deposit_ad.css">
+    <link rel="stylesheet" href="/views/deposit_ad.css">
 </head>
 
 <body>
     <header>
         <div class="logo">SeLogerFacilement</div>
         <nav>
-            <a href="/Home4Student-mvc/views/index2.php" class="btn btn-primary">Retour à l'accueil</a>
+            <a href="/views/index2.php" class="btn btn-primary">Retour à l'accueil</a>
             <div class="nav-links">
                 <a href="#contact">Contact</a>
                 <a href="#messagerie">Messagerie</a>
@@ -69,7 +69,7 @@ $user = $_SESSION['user'];
                 <p>✔ Mettez en avant les atouts</p>
                 <p>✔ Publication instantanée</p>
             </div>
-            <a href="/views/deposit_ad.html" class="btn btn-secondary">Déposer une annonce</a>
+            <a href="/views/deposit_ad.php" class="btn btn-secondary">Déposer une annonce</a>
         </div>
     </div>
 

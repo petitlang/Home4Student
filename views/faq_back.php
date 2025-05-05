@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="faq_back.css">
+    <link rel="stylesheet" href="/views/faq_back.css">
     
     <script defer>
         function toggleFAQ(element) {
@@ -21,25 +21,25 @@
             <nav class="navbar">
                 <div class="logo">
                     <div class="flex items-center">
-                        <img src="logo-removebg-preview.png" alt="logo">
+                        <img src="/views/logo-removebg-preview.png" alt="logo">
                     </div>
                 </div>
     
                 <div class="nav-links">
                     <a href="#" class="nav-link">Offres</a>
                     <a href="#" class="nav-link">Messagerie</a>
-                    <a href="/Home4Student-mvc/views/faq_back.html" class="nav-link active">FAQ</a>
-                    <a href="/Home4Student-mvc/views/contact.html" class="nav-link">Contact</a>
+                    <a href="/views/faq_back.html" class="nav-link active">FAQ</a>
+                    <a href="/views/contact.html" class="nav-link">Contact</a>
     
                     <?php if (!isset($_SESSION['user'])): ?>
-                        <a href="/Home4Student-mvc/views/login.html" class="btn btn-outline">Sign in</a>
-                        <a href="/Home4Student-mvc/views/register.html" class="btn btn-primary">Register</a>
+                        <a href="/views/login.html" class="btn btn-outline">Sign in</a>
+                        <a href="/views/register.html" class="btn btn-primary">Register</a>
                     <?php endif; ?>
                 </div>
     
                 <?php if (isset($_SESSION['user'])): ?>
                     <div class="user-section">
-                        <div id="userProfile" class="user-profile" onclick="window.location.href='/Home4Student-mvc/views/profile-edit.php'">
+                        <div id="userProfile" class="user-profile" onclick="window.location.href='/views/profile-edit.php'">
                             <?php echo htmlspecialchars($user["prenom"] . " " . $user["nom"]); ?>
                             <div id="userAvatar">
                                 <?php if (!empty($user["photo"])): ?>

@@ -264,7 +264,7 @@ $user = $_SESSION['user'];
                 <p>✔ Mettez en avant les atouts</p>
                 <p>✔ Publication instantanée</p>
             </div>
-            <a href="/views/deposit_ad.html" class="btn btn-secondary">Déposer une annonce</a>
+            <a href="/views/deposit_ad.php" class="btn btn-secondary">Déposer une annonce</a>
         </div>
     </div>
 

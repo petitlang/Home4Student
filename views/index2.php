@@ -15,7 +15,7 @@ $user = $_SESSION['user'];
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="index2.css">
+    <link rel="stylesheet" href="/views/index2.css">
 </head>
 <body>
     <header>
@@ -23,7 +23,7 @@ $user = $_SESSION['user'];
             <nav class="navbar">
                 <div class="logo">
                     <div class="flex items-center">
-                        <img src="logo-removebg-preview.png" alt="logo"></img>
+                        <img src="/views/logo-removebg-preview.png" alt="logo"></img>
                     </div>
                 </div>
                 <div class="nav-links">
@@ -101,7 +101,7 @@ $user = $_SESSION['user'];
                     </div>
                     <div class="feature-card">
                         <div style="height: 300px; background-color: #e2e8f0; display: flex; align-items: center; justify-content: center;">
-                            <img class="acc" src="acc.jpg" alt="img">
+                            <img class="acc" src="/views/acc.jpg" alt="img">
                         </div>
                         <div class="feature-content">
                             <p class="text-sm text-gray-500">Trouvez facilement votre logement étudiant</p>
@@ -116,7 +116,7 @@ $user = $_SESSION['user'];
                 <div class="grid-cols-2">
                     <div class="feature-card">
                         <div style="height: 300px; background-color: #e2e8f0; display: flex; align-items: center; justify-content: center;">
-                        <img class="acc" src="acc2.jpg" alt="img">
+                        <img class="acc" src="/views/acc2.jpg" alt="img">
                         </div>
                     </div>
                     <div class="benefit-section">
@@ -148,7 +148,7 @@ $user = $_SESSION['user'];
                             </div>
                         </div>
                         <div class="cta">
-                            <a href="/views/deposit_ad.html" class="btn btn-primary btn-icon">
+                            <a href="/views/deposit_ad.php" class="btn btn-primary btn-icon">
                                 <span>Déposer une annonce</span>
                                 <i class="fas fa-upload ml-2"></i>
                             </a>

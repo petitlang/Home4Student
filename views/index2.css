@@ -2,7 +2,7 @@
     --primary-color: #6b9080;
     --primary-dark: #4d6a5c;
     --primary-light: #a4c3b2;
-    --secondary-color: #f6fff8;
+    --secondary-color: #0e140f;
     --text-dark: #2c3e50;
     --text-light: #7f8c8d;
     --white: #ffffff;
@@ -31,8 +31,6 @@ header {
     z-index: 1000;
     height: 80px;
 }
-
-
 
 .acc{
     height: 300px;
@@ -104,7 +102,7 @@ header {
     margin-top: 20px;
     border-radius: 10px;
     gap: 15px;
-    margin-right: 25px;
+    width: 95%;
     
 }
 

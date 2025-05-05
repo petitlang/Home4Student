@@ -1,7 +1,6 @@
 <?php
 require_once __DIR__ . '/../models/init_database.php';
 session_start();
-$user = null;
 if (isset($_SESSION['user'])) {
     header('Location: index2.php');
     exit;
@@ -31,18 +30,18 @@ if (isset($_SESSION['user'])) {
                 <div class="nav-links">
                     <a href="#" class="nav-link">Offres</a>
                      <a href="#" class="nav-link">Messagerie</a>
-                     <a href="/Home4Student-mvc/views/faq_back.html" class="nav-link">FAQ</a>
-                     <a href="/Home4Student-mvc/views/contact.html" class="nav-link">Contact</a>
+                     <a href="/views/faq_back.html" class="nav-link">FAQ</a>
+                     <a href="/views/contact.html" class="nav-link">Contact</a>
                        <?php if (!isset($_SESSION['user'])): ?>
                         <div class="perso">
-                      <a href="/test/views/login.html" class="btn btn-outline">Se connecter</a>
-                        <a href="/test/views/register.html" class="btn btn-primary">S'inscrire</a>
+                      <a href="/views/login.html" class="btn btn-outline">Se connecter</a>
+                        <a href="/views/register.html" class="btn btn-primary">S'inscrire</a>
                         </div>
                     <?php endif; ?>
                   </div>
 
                 <div class="user-section">
-                <div id="userProfile" class="user-profile" onclick="window.location.href='/test/views/profile-edit.php'">
+                <div id="userProfile" class="user-profile" onclick="window.location.href='/views/profile-edit.php'">
                     <div id="userAvatar">
                         <?php if (!empty($user["photo"])): ?>
                             <img src="<?php echo htmlspecialchars($user["photo"]); ?>" alt="Photo de profil" class="profile-img">
@@ -95,7 +94,7 @@ if (isset($_SESSION['user'])) {
                             </div>
                         </div>
                         <div class="cta">
-                            <a href="/Home4Student-mvc/views/ads_list.html" class="btn btn-primary btn-icon">
+                            <a href="/views/ads_list.html" class="btn btn-primary btn-icon">
                                 <span>Accéder aux annonces</span>
                                 <i class="fas fa-arrow-right"></i>
                             </a>
@@ -150,7 +149,7 @@ if (isset($_SESSION['user'])) {
                             </div>
                         </div>
                         <div class="cta">
-                            <a href="/Home4Student-mvc/views/deposit_ad.html" class="btn btn-primary btn-icon">
+                            <a href="/views/deposit_ad.html" class="btn btn-primary btn-icon">
                                 <span>Déposer une annonce</span>
                                 <i class="fas fa-upload ml-2"></i>
                             </a>
@@ -189,7 +188,7 @@ if (isset($_SESSION['user'])) {
                     <h3 class="footer-heading">L'entreprise</h3>
                     <ul class="footer-links">
                         <li class="footer-link"><a href="#">Qui sommes-nous ?</a></li>
-                        <li class="footer-link"><a href="/Home4Student-mvc/views/contact.html">Nous contacter</a></li>
+                        <li class="footer-link"><a href="/views/contact.html">Nous contacter</a></li>
                     </ul>
                 </div>
 

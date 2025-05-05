@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f5f5f5;
+    }
+
+    header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: #66A182;
+        padding: 10px 20px;
+        height:70px;
+    }
+
+    .logo img {
+        height: 50px;
+        background: url("C:/Users/danz/Desktop/site_vrai/images/Capture.PNG") center/cover;
+    }
+
+    nav {
+        display: flex;
+        gap: 20px;
+    }
+
+    nav button {
+        background: #444;
+        color: white;
+        padding: 8px 15px;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        
+    }
+
+    nav .active {
+        background: white;
+        color: black;
+    }   
+
+    .auth {
+    display: flex;
+    align-items: center; /* Aligne verticalement */
+    gap: 10px; /* Ajoute un espacement entre les boutons */
+    }
+
+    .auth button {
+        background: white;
+        color: black;
+        padding: 5px 10px;
+        border: none;
+        cursor: pointer;
+       
+        
+    }
+
+    .auth .register {
+        background: #444;
+        color: white;
+    }
+
+    .faq {
+        text-align: center;
+        padding: 40px 20px;
+    }
+
+    .faq-container {
+    position: relative;
+    min-height: 400px;
+    min-width:300px;
+    }
+
+    .faq-container .background-photo {
+    position: absolute; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url("https://i.pinimg.com/736x/b2/ad/97/b2ad9731aef7a5d39351fb6dc88abe51.jpg") center/cover;
+    opacity: 0.75;
+    z-index: -1;
+    }
+
+    .faq-list {
+        position: relative;
+        width: 60%;
+        margin: auto;
+        gap: 30px;
+    }
+
+    .faq-item button {
+        width: 800px;
+        padding: 10px;
+        background: #66A182;
+        
+        border: none;
+        cursor: pointer;
+        text-align: left;
+        font-size: 16px;
+    }
+
+    .faq-item backendbutton{
+        
+
+    }
+
+    .faq-content {
+        display: none;
+        padding: 50px;
+        background: #000000;
+        
+    }
+
+    .faq-content.active {
+        display: block;
+    }
+
+    .contact {
+        padding: 40px;
+        background: #FFFFFF;        
+        opacity : 60%;
+        text-align: left; 
+        max-width: 2000px;
+        margin: 0 auto;       
+    }
+
+    form {            
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px 0;
+                        
+    }
+
+    .form-left {        
+    width: 28%;    
+    height: 20px;            
+    margin-bottom: 20px; 
+    }
+
+    .form-right{
+    padding : 0 80px;
+    width: 58%;
+    height: 200px; 
+    margin-bottom: 20px;
+    }
+
+    input, textarea {
+    padding: 10px;
+    border: 1px solid #66A182;       
+    background: #66A182;
+    opacity: 50%;
+    border-radius: 5px;
+    width: 100%;
+    height: 50px;
+    margin-bottom: 15px;
+    border : 2px solid #107838;
+    }
+
+    textarea {
+    height: 220px;  
+    resize: none;   
+    }
+
+    button {
+        background: #586F77;
+        color: white;
+        padding: 10px;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        width: 100%;
+        margin-top: 20px;
+    }
+    
+
+    button.envoyer{
+        width:10%;
+        margin-left: auto; 
+        margin-right:60px;
+        margin-top: 40px;       
+    }
+
+    footer {
+    background: #66A182;
+    color: white;
+    padding: 40px;
+    text-align: right;  /* Aligne le texte à gauche */
+    }
+
+    footer .links {
+    display: flex;
+    justify-content: flex-end;  /* Aligne les liens à gauche */
+    padding-top: 5px;
+    width: 100%;  
+    gap: 200px
+    }
+
+    footer a {
+    display: block;  /* S'assure que chaque lien est en bloc et occupe toute la largeur possible */
+    color: white;
+    text-decoration: none;
+    margin-top: 2px;  /* Réduit l'écart entre les liens */
+    }
+
+    footer img {
+    float: left;  /* L'image flottera à gauche */
+    height: 50px;
+    }
+</style>
+
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <script defer>
+        function toggleFAQ(element) {
+            element.nextElementSibling.classList.toggle("active");
+        }
+    </script>
+</head>
+<body>
+    
+     
+
+    <!-- Barre de navigation -->
+    <header>
+        <div class="logo">
+            <img src="C:/Users/danz/Desktop/site_vrai/images/Capture.PNG" alt="logo">                        
+        </div>
+        <nav>
+            <button>Offres</button>
+            <button>Messagerie</button>
+            <button class="active">FAQ</button>
+            <button>Contact</button>
+        </nav>
+        <div class="auth">
+            <button class="small">Sign in</button>
+            <button class="small register">Register</button>
+        </div>
+    </header>
+
+    <!---Section FAQ texte-->
+    <section class="faq">
+        <h1>FAQ</h1>
+        <p>Retrouvez ci-dessous toutes les informations utiles</p>
+    </section>
+
+    <!-- Section FAQ -->
+    <section class="faq-container">        
+        <div class="background-photo"></div>
+        <div class="faq-list">
+            <div class="faq-item">
+                <button onclick="toggleFAQ(this)">Question 1</button>
+                <div class="faq-content">Réponse à la question 1.</div>
+            </div>
+            <div class="faq-item">
+                <button onclick="toggleFAQ(this)">Question 2</button>
+                <div class="faq-content">Réponse à la question 2.</div>
+            </div>
+            <div class="faq-item">
+                <button onclick="toggleFAQ(this)">Question 3</button>
+                <div class="faq-content">Réponse à la question 3.</div>
+            </div>
+            <div class="faq-item">
+                <button onclick="toggleFAQ(this)">Question 4</button>
+                <div class="faq-content">Réponse à la question 4.</div>
+            </div>
+            <div class="faq-item">
+                <button onclick="toggleFAQ(this)">Question 5</button>
+                <div class="faq-content">Réponse à la question 5.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Formulaire de contact -->
+    <section class="contact">
+        <h2>Nous contacter</h2>
+        <form>
+            <div class="form-left">
+                <label>Nom *</label>
+                <input type="text" required>
+                <label>Adresse mail *</label>
+                <input type="email" required>
+            </div>
+            <div class="form-right">
+                <label>Message...</label>
+                <textarea required></textarea>
+            </div>
+            <button class="envoyer" type="submit">Envoyer</button>
+        </form>
+    </section>
+    
+
+    <!-- Pied de page -->
+    <footer>     
+        <div class="img"><img src="C:/Users/danz/Desktop/site_vrai/images/logo.PNG"> </div>          
+        <div class="links">
+            <div>
+                <h4>L'entreprise</h4>
+                <a href="#">Qui sommes-nous ?</a>
+                <a href="#">Nous contacter</a>
+            </div>
+            <div>
+                <h4>Service pro</h4>
+                <a href="#">Tous nos services</a>
+                <a href="#">Accès client</a>
+            </div>
+            <div>
+                <h4>A découvrir</h4>
+                <a href="#">Tout l'immobilier</a>
+                <a href="#">Toutes les villes</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

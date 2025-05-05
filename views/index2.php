@@ -1,4 +1,4 @@
-<?php
+ <?php
 session_start();
 if (!isset($_SESSION['user'])) {
     header("Location: index.php");
@@ -29,16 +29,16 @@ $user = $_SESSION['user'];
                 <div class="nav-links">
     <a href="#" class="nav-link">Offres</a>
     <a href="#" class="nav-link">Messagerie</a>
-    <a href="/Home4Student-mvc/views/faq_back.html" class="nav-link">FAQ</a>
-    <a href="/Home4Student-mvc/views/contact.html" class="nav-link">Contact</a>
+    <a href="/views/faq_back.html" class="nav-link">FAQ</a>
+    <a href="/views/contact.html" class="nav-link">Contact</a>
     <?php if (!isset($_SESSION['user'])): ?>
-        <a href="/Home4Student-mvc/views/login.html" class="btn btn-outline">Sign in</a>
-        <a href="/Home4Student-mvc/views/register.html" class="btn btn-primary">Register</a>
+        <a href="/views/login.html" class="btn btn-outline">Sign in</a>
+        <a href="/views/register.html" class="btn btn-primary">Register</a>
     <?php endif; ?>
 </div>
 
                 <div class="user-section">
-                <div id="userProfile" class="user-profile" onclick="window.location.href='/Home4Student-mvc/views/profile-edit.php'">
+                <div id="userProfile" class="user-profile" onclick="window.location.href='/views/profile-edit.php'">
                     <?php echo htmlspecialchars($user["prenom"] . " " . $user["nom"]); ?>
                     <div id="userAvatar">
                         <?php if (!empty($user["photo"])): ?>
@@ -93,7 +93,7 @@ $user = $_SESSION['user'];
                             </div>
                         </div>
                         <div class="cta">
-                            <a href="/Home4Student-mvc/views/ads_list.html" class="btn btn-primary btn-icon">
+                            <a href="/views/ads_list.html" class="btn btn-primary btn-icon">
                                 <span>Accéder aux annonces</span>
                                 <i class="fas fa-arrow-right"></i>
                             </a>
@@ -148,7 +148,7 @@ $user = $_SESSION['user'];
                             </div>
                         </div>
                         <div class="cta">
-                            <a href="/Home4Student-mvc/views/deposit_ad.html" class="btn btn-primary btn-icon">
+                            <a href="/views/deposit_ad.html" class="btn btn-primary btn-icon">
                                 <span>Déposer une annonce</span>
                                 <i class="fas fa-upload ml-2"></i>
                             </a>
@@ -179,7 +179,7 @@ $user = $_SESSION['user'];
                     <h3 class="footer-heading">L'entreprise</h3>
                     <ul class="footer-links">
                         <li class="footer-link"><a href="#">Qui sommes-nous ?</a></li>
-                        <li class="footer-link"><a href="/Home4Student-mvc/views/contact.html">Nous contacter</a></li>
+                        <li class="footer-link"><a href="/views/contact.html">Nous contacter</a></li>
                     </ul>
                 </div>
 

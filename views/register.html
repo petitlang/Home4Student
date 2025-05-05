@@ -2,49 +2,58 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Inscription - Home4Student</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <link rel="stylesheet" href="register.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css"> <!-- lien vers ton CSS externe -->
 </head>
 <body>
 
   <header>
-    <div class="logo">
-      <img src="hlogo-removebg-preview.png" alt="Logo Home4Student" />
-      <span class="logo-text">Home4Student</span>
+    <div class="header-top">
+      <img src="images/logo.png" alt="Logo Home4Student" class="logo" />
     </div>
-    <div class="header-right">
-      <a href="/views/index.php">Page d'accueil</a>
+
+    <div class="header-bottom">
+      <nav class="navbar">
+        <div class="nav-center">
+          <div class="nav-links">
+            <a href="#">Offres</a>
+            <a href="#">Messagerie</a>
+            <a href="#">FAQ</a>
+            <a href="#">Contact</a>
+            <a href="#">CGU</a>
+          </div>
+        </div>
+        <div class="nav-buttons">
+          <a href="/views/login.html" class="btn-solid">Sign in</a>
+          <a href="/views/register.html" class="btn-outline">Register</a>
+        </div>
+      </nav>
     </div>
   </header>
 
-  <section class="form-section">
-    <div class="tagline">
-      <h3>Se Loger Facilement</h3>
-      <p>Pour les étudiants par des étudiants</p>
-    </div>
-
+  <main>
     <div class="form-container">
       <h2>Créer un compte</h2>
-      <form action="#" method="POST">
+      <form action="../controllers/UserController.php?action=register" method="POST">
         <div class="input-group">
-          <label for="name">Nom complet</label>
-          <input type="text" id="name" name="name" required placeholder="Votre nom complet" />
+          <label for="nom">Nom</label>
+          <input type="text" id="nom" name="nom" required placeholder="Votre nom">
         </div>
 
         <div class="input-group">
-          <label for="email">Adresse e-mail</label>
-          <input type="email" id="email" name="email" required placeholder="Votre email" />
+          <label for="prenom">Prénom</label>
+          <input type="text" id="prenom" name="prenom" required placeholder="Votre prénom">
         </div>
 
         <div class="input-group">
-          <label for="password">Mot de passe</label>
-          <input type="password" id="password" name="password" required placeholder="Choisissez un mot de passe" />
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required placeholder="Votre email">
         </div>
 
         <div class="input-group">
-          <label for="role">Rôle</label>
+          <label for="role">Je suis :</label>
           <select id="role" name="role" required>
             <option value="etudiant">Étudiant</option>
             <option value="proprietaire">Propriétaire</option>
@@ -52,50 +61,67 @@
           </select>
         </div>
 
+        <div class="input-group password">
+          <label for="password">Mot de passe</label>
+          <input type="password" id="password" name="password" required placeholder="Mot de passe">
+          <span id="togglePassword" class="password-toggle">👁️</span>
+        </div>
+
+        <div class="input-group">
+          <label for="confirm_password">Confirmer le mot de passe</label>
+          <input type="password" id="confirm_password" name="confirm_password" required placeholder="Confirmez le mot de passe">
+        </div>
+
         <button type="submit" class="btn">S'inscrire</button>
       </form>
-      <p>Déjà inscrit ? <a href="/views/login.html">Connectez-vous</a></p>
+
+      <p>Déjà un compte ? <a href="/views/login.html">Se connecter</a></p>
     </div>
-  </section>
+  </main>
 
   <footer>
     <div class="footer-grid">
       <div class="footer-section">
-        <div class="footer-logo">
-          <i class="fas fa-graduation-cap" style="color: #2fb863; font-size: 1.5rem;"></i>
-          <span class="footer-logo-text">Home4Student</span>
-        </div>
         <div class="social-icons">
           <a href="#"><i class="fab fa-twitter"></i></a>
           <a href="#"><i class="fab fa-instagram"></i></a>
-          <a href="#"><i class="fab fa-facebook"></i></a>
-          <a href="#"><i class="fab fa-linkedin"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
         </div>
       </div>
 
       <div class="footer-section">
-        <h4>L'entreprise</h4>
-        <div><a href="#">Qui sommes-nous ?</a></div>
-        <div><a href="/Home4Student-mvc/views/contact.html">Nous contacter</a></div>
+        <h4>Notre entreprise</h4>
+        <a href="#">Qui sommes-nous ?</a>
+        <a href="#">Nous contacter</a>
       </div>
 
       <div class="footer-section">
         <h4>Services pro</h4>
-        <div><a href="#">Accès client</a></div>
+        <a href="#">Tous nos services</a>
+        <a href="#">Accès client</a>
       </div>
 
       <div class="footer-section">
         <h4>À découvrir</h4>
-        <div><a href="#">Tout l'immobilier</a></div>
-        <div><a href="#">Toutes les villes</a></div>
-        <div><a href="#">Tous les départements</a></div>
-        <div><a href="#">Toutes les régions</a></div>
+        <a href="#">Tout l'immobilier</a>
+        <a href="#">Toutes les villes</a>
+        <a href="#">Tous les départements</a>
       </div>
-    </div>
-    <div class="copyright">
-      &copy; 2023 Home4Student - Se loger Facilement. Tous droits réservés.
     </div>
   </footer>
 
+  <script>
+    const togglePassword = document.getElementById('togglePassword');
+    const password = document.getElementById('password');
+
+    togglePassword.addEventListener('click', function () {
+      const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+      password.setAttribute('type', type);
+      this.textContent = type === 'password' ? '👁️' : '🙈';
+    });
+  </script>
+
 </body>
 </html>
+

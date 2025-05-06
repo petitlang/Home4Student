@@ -64,31 +64,29 @@
     </section>
 
     <!-- Section FAQ -->
-    <section class="faq-container">        
-        <div class="background-photo"></div>
-        <div class="faq-list">
-            <div class="faq-item">
-                <button onclick="toggleFAQ(this)">Question 1</button>
-                <div class="faq-content">Réponse à la question 1.</div>
-            </div>
-            <div class="faq-item">
-                <button onclick="toggleFAQ(this)">Question 2</button>
-                <div class="faq-content">Réponse à la question 2.</div>
-            </div>
-            <div class="faq-item">
-                <button onclick="toggleFAQ(this)">Question 3</button>
-                <div class="faq-content">Réponse à la question 3.</div>
-            </div>
-            <div class="faq-item">
-                <button onclick="toggleFAQ(this)">Question 4</button>
-                <div class="faq-content">Réponse à la question 4.</div>
-            </div>
-            <div class="faq-item">
-                <button onclick="toggleFAQ(this)">Question 5</button>
-                <div class="faq-content">Réponse à la question 5.</div>
-            </div>
+        <?php
+    $pdo = new PDO('mysql:host=localhost;dbname=home4student', 'root', '');
+    $faqList = $pdo->query("SELECT * FROM faq WHERE reponse IS NOT NULL ORDER BY created_at DESC");
+
+    while ($faq = $faqList->fetch(PDO::FETCH_ASSOC)):
+    ?>
+        <div class="faq-item">
+            <button onclick="toggleFAQ(this)"><?= htmlspecialchars($faq['question']) ?></button>
+            <div class="faq-content"><?= htmlspecialchars($faq['reponse']) ?></div>
         </div>
+    <?php endwhile; ?>
+
+
+    <!-- Section poser une question -->
+    <section class="ask-question">
+        <h2>Vous avez une question ?</h2>
+        <form action="poser_question.php" method="POST">
+            <label for="question">Posez votre question :</label>
+            <textarea name="question" id="question" required></textarea>
+            <button type="submit">Envoyer</button>
+        </form>
     </section>
+
 
     <!-- Formulaire de contact -->
     <section class="contact">
@@ -107,11 +105,35 @@
             <button class="envoyer" type="submit">Envoyer</button>
         </form>
     </section>
+
+    <?php if (isset($_SESSION['user']) && $_SESSION['user']['role'] === 'admin'): ?>
+    <section class="admin-answers">
+        <h2>Questions en attente</h2>
+        <?php
+        $pdo = new PDO('mysql:host=localhost;dbname=home4student', 'root', '');
+        $stmt = $pdo->query("SELECT * FROM faq WHERE reponse IS NULL");
+
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)):
+        ?>
+            <form action="repondre_question.php" method="POST">
+                <p><strong>Question :</strong> <?= htmlspecialchars($row['question']) ?></p>
+                <input type="hidden" name="id" value="<?= $row['id'] ?>">
+                <textarea name="reponse" placeholder="Votre réponse ici..." required></textarea>
+                <button type="submit">Répondre</button>
+            </form>
+            <hr>
+        <?php endwhile; ?>
+    </section>
+    <?php endif; ?>
+
     
 
     <!-- Pied de page -->
     <footer>     
-        <div class="img"><img src="C:/Users/danz/Desktop/site_vrai/images/logo.PNG"> </div>          
+        <div class="logo text-white mb-4">
+            <i class="fas fa-graduation-cap text-2xl mr-2"></i>
+            <span class="font-bold text-lg">Home4Student</span>
+        </div>         
         <div class="links">
             <div>
                 <h4>L'entreprise</h4>

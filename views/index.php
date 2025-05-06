@@ -35,8 +35,8 @@ if (isset($_SESSION['user'])) {
                      <a href="/Home4Student-mvc/views/contact.html" class="nav-link">Contact</a>
                        <?php if (!isset($_SESSION['user'])): ?>
                         <div class="perso">
-                      <a href="/test/views/login.html" class="btn btn-outline">Se connecter</a>
-                        <a href="/test/views/register.html" class="btn btn-primary">S'inscrire</a>
+                      <a href="/Home4Student-mvc/views/login.html" class="btn btn-outline">Se connecter</a>
+                        <a href="/Home4Student-mvc/views/register.html" class="btn btn-primary">S'inscrire</a>
                         </div>
                     <?php endif; ?>
                   </div>

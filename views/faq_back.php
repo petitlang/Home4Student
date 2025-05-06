@@ -32,8 +32,8 @@
                     <a href="/Home4Student-mvc/views/contact.html" class="nav-link">Contact</a>
     
                     <?php if (!isset($_SESSION['user'])): ?>
-                        <a href="/Home4Student-mvc/views/login.html" class="btn btn-outline">Sign in</a>
-                        <a href="/Home4Student-mvc/views/register.html" class="btn btn-primary">Register</a>
+                        <a href="/Home4Student-mvc/views/login.html" class="btn btn-outline">Se connecter</a>
+                        <a href="/Home4Student-mvc/views/register.html" class="btn btn-primary">S'inscrire</a>
                     <?php endif; ?>
                 </div>
     
@@ -78,15 +78,33 @@
 
 
     <!-- Section poser une question -->
-    <section class="ask-question">
-        <h2>Vous avez une question ?</h2>
-        <form action="poser_question.php" method="POST">
-            <label for="question">Posez votre question :</label>
-            <textarea name="question" id="question" required></textarea>
-            <button type="submit">Envoyer</button>
-        </form>
-    </section>
+    <form id="questionForm">
+        <label for="question">Posez votre question :</label>
+        <textarea name="question" id="question" required></textarea>
+        <button type="submit">Envoyer</button>
+    </form>
 
+    <script>
+    document.getElementById("questionForm").addEventListener("submit", function(e) {
+        e.preventDefault(); // Empêche le rechargement de la page
+
+        const formData = new FormData(this);
+
+        fetch("poser_question.php", {
+            method: "POST",
+            body: formData
+        })
+        .then(response => response.text())
+        .then(data => {
+            alert("Question envoyée !");
+            document.getElementById("questionForm").reset();
+        })
+        .catch(error => {
+            alert("Erreur lors de l'envoi.");
+            console.error(error);
+        });
+    });
+    </script>
 
     <!-- Formulaire de contact -->
     <section class="contact">

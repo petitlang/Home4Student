@@ -63,27 +63,66 @@
         <p>Retrouvez ci-dessous toutes les informations utiles</p>
     </section>
 
-    <!-- Section FAQ -->
-    
-    <section class="faq-container">
-        <h2>Foire aux questions</h2>
-
+    <!-- Section FAQ -->   
         <?php
-        $pdo = new PDO('mysql:host=localhost;dbname=home4student', 'root', '');
-        $faqList = $pdo->query("SELECT * FROM faq WHERE reponse IS NOT NULL");
+    $pdo = new PDO('mysql:host=localhost;dbname=home4student', 'root', '');
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        while ($faq = $faqList->fetch(PDO::FETCH_ASSOC)):
-        ?>
-            <div class="faq-item">
-                <button onclick="toggleFAQ(this)">
-                    <?= htmlspecialchars($faq['question'], ENT_QUOTES, 'UTF-8') ?>
-                </button>
-                <div class="faq-content">
-                    <?= nl2br(htmlspecialchars($faq['reponse'], ENT_QUOTES, 'UTF-8')) ?>
+    $faqs = $pdo->query("SELECT * FROM faq WHERE reponse IS NOT NULL ORDER BY IdFAQ DESC");
+    ?>
+
+    <section class="public-faq">
+        <h2>Foire aux questions</h2>
+        <?php if ($faqs->rowCount() > 0): ?>
+            <?php while ($faq = $faqs->fetch(PDO::FETCH_ASSOC)): ?>
+                <div class="faq-item">
+                    <p><strong>Question :</strong> <?= htmlspecialchars($faq['question']) ?></p>
+                    <p><strong>Réponse :</strong> <?= nl2br(htmlspecialchars($faq['reponse'])) ?></p>
                 </div>
-            </div>
-        <?php endwhile; ?>
+                <hr>
+            <?php endwhile; ?>
+        <?php else: ?>
+            <p>Aucune question n’a encore été répondue.</p>
+        <?php endif; ?>
     </section>
+    
+    <!--partie réponse admin-->
+        <?php
+    session_start();
+    $_SESSION['user'] = [
+        'nom' => 'Zabala',
+        'prenom' => 'Danaé',
+        'role' => 'admin'
+    ];
+    
+
+    // Vérifie que l'utilisateur est connecté et est un admin
+    if (isset($_SESSION['user']) && $_SESSION['user']['role'] === 'admin'):
+
+        $pdo = new PDO('mysql:host=localhost;dbname=home4student', 'root', '');
+        $stmt = $pdo->query("SELECT * FROM faq WHERE reponse IS NULL");
+
+        if ($stmt->rowCount() > 0):
+    ?>
+        <section class="admin-answers">
+            <h2>Questions en attente de réponse</h2>
+            <?php while ($row = $stmt->fetch(PDO::FETCH_ASSOC)): ?>
+                <form action="faq_ajouter_question.php" method="POST" style="margin-bottom: 20px;">
+                    <p><strong>Question :</strong> <?= htmlspecialchars($row['question']) ?></p>
+                    <input type="hidden" name="id" value="<?= $row['IdFAQ'] ?>">
+                    <textarea name="reponse" placeholder="Votre réponse ici..." required></textarea>
+                    <button type="submit">Répondre</button>
+                </form>
+                <hr>
+            <?php endwhile; ?>
+        </section>
+    <?php
+        else:
+            echo "<p>Aucune question en attente.</p>";
+        endif;
+    endif;
+    ?>
+
 
 
 

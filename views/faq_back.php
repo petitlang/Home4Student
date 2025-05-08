@@ -64,8 +64,9 @@
     </section>
 
     <!-- Section FAQ -->   
-        <?php
-    $pdo = new PDO('mysql:host=localhost;dbname=home4student', 'root', '');
+    <?php
+    //require '../models/connection.php';
+    $pdo = new PDO('mysql:host=localhost;dbname=home4student', 'root', 'root');
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     $faqs = $pdo->query("SELECT * FROM faq WHERE reponse IS NOT NULL ORDER BY IdFAQ DESC");
@@ -99,7 +100,8 @@
     // Vérifie que l'utilisateur est connecté et est un admin
     if (isset($_SESSION['user']) && $_SESSION['user']['role'] === 'admin'):
 
-        $pdo = new PDO('mysql:host=localhost;dbname=home4student', 'root', '');
+        //require '../models/connection.php';
+        $pdo = new PDO('mysql:host=localhost;dbname=home4student', 'root', 'root');
         $stmt = $pdo->query("SELECT * FROM faq WHERE reponse IS NULL");
 
         if ($stmt->rowCount() > 0):

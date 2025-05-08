@@ -19,7 +19,7 @@
         <div class="login-container">
             <h2>S'inscrire</h2>
             
-            <form action="../controllers/UserController.php?action=register" method="POST" enctype="multipart/form-data">
+            <form action="../controllers/UserController.php?action=register" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
                 <div class="input-group"><label for="nom">Nom</label><input type="text" name="nom" placeholder="Entrez votre nom" required></div>
                 <div class="input-group"><label for="prenom">Prénom</label><input type="text" name="prenom" placeholder="Entrez votre prénom" required></div>
                 
@@ -38,9 +38,10 @@
                   <input type="password" name="mdp" id="mdp" placeholder="Créez un mot de passe" required>
                   <span id="togglePassword" class="password-toggle">👁️</span>
                 </div>
-                <div class="input-group">
+                <div class="input-group password">
                     <label for="confirm_mdp">Confirmez le mot de passe</label>
                     <input type="password" name="confirm_mdp" id="confirm_mdp" placeholder="Confirmez votre mot de passe" required>
+                    <span id="confirm_togglePassword" class="confirm_password-toggle">👁️</span>
                 </div>
                 <p id="password-error-msg" style="color: red; font-size: 0.9rem;"></p>
                 <div class="input-group"><label for="tele">Téléphone</label><input type="text" name="tele" placeholder="Entrez votre numéro de téléphone" required></div>
@@ -140,5 +141,14 @@ if (params.get("error") === "verification") {
     const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
     password.setAttribute('type', type);
     this.textContent = type === 'password' ? '👁️' : '🙈';
+  });
+
+  const confirm_togglePassword = document.getElementById('confirm_togglePassword');
+  const confirm_password = document.getElementById('confirm_mdp');
+
+  confirm_togglePassword.addEventListener('click', function () {
+    const confirm_type = confirm_password.getAttribute('type') === 'password' ? 'text' : 'password';
+    confirm_password.setAttribute('type', confirm_type);
+    this.textContent = confirm_type === 'password' ? '👁️' : '🙈';
   });
 </script>

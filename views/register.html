@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Inscription - Home4Student</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-    <link rel="stylesheet" href="/views/register.css" />
+    <link rel="stylesheet" href="/views/register2.css" />
 </head>
 <body>
     <header>
@@ -33,11 +33,11 @@
                 </div>
 
                 <div class="input-group"><label for="email">Email</label><input type="email" name="email" placeholder="Entrez votre email" required></div>
-                <div class="input-group">
-                    <label for="mdp">Mot de passe</label>
-                    <input type="password" name="mdp" id="mdp" placeholder="Créez un mot de passe" required>
+                <div class="input-group password">
+                  <label for="mdp">Mot de passe</label>
+                  <input type="password" name="mdp" id="mdp" placeholder="Créez un mot de passe" required>
+                  <span id="togglePassword" class="password-toggle">👁️</span>
                 </div>
-            
                 <div class="input-group">
                     <label for="confirm_mdp">Confirmez le mot de passe</label>
                     <input type="password" name="confirm_mdp" id="confirm_mdp" placeholder="Confirmez votre mot de passe" required>
@@ -131,3 +131,14 @@ if (params.get("error") === "verification") {
       return true;
   }
   </script>
+
+<script>
+  const togglePassword = document.getElementById('togglePassword');
+  const password = document.getElementById('mdp');
+
+  togglePassword.addEventListener('click', function () {
+    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+    password.setAttribute('type', type);
+    this.textContent = type === 'password' ? '👁️' : '🙈';
+  });
+</script>

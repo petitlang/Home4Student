@@ -29,11 +29,11 @@ $user = $_SESSION['user'];
                 <div class="nav-links">
     <a href="#" class="nav-link">Offres</a>
     <a href="#" class="nav-link">Messagerie</a>
-    <a href="/views/faq_back.html" class="nav-link">FAQ</a>
-    <a href="/views/contact.html" class="nav-link">Contact</a>
+    <a href="views/faq_back.php" class="nav-link">FAQ</a>
+    <a href="views/contact.html" class="nav-link">Contact</a>
     <?php if (!isset($_SESSION['user'])): ?>
-        <a href="/views/login.html" class="btn btn-outline">Sign in</a>
-        <a href="/views/register.html" class="btn btn-primary">Register</a>
+        <a href="views/login.html" class="btn btn-outline">Se connecter</a>
+        <a href="views/register.html" class="btn btn-primary">S'inscrire</a>
     <?php endif; ?>
 </div>
 

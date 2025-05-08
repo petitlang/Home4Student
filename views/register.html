@@ -33,7 +33,16 @@
                 </div>
 
                 <div class="input-group"><label for="email">Email</label><input type="email" name="email" placeholder="Entrez votre email" required></div>
-                <div class="input-group"><label for="mdp">Mot de passe</label><input type="password" name="mdp" placeholder="Créez un mot de passe" required></div>
+                <div class="input-group">
+                    <label for="mdp">Mot de passe</label>
+                    <input type="password" name="mdp" id="mdp" placeholder="Créez un mot de passe" required>
+                </div>
+            
+                <div class="input-group">
+                    <label for="confirm_mdp">Confirmez le mot de passe</label>
+                    <input type="password" name="confirm_mdp" id="confirm_mdp" placeholder="Confirmez votre mot de passe" required>
+                </div>
+                <p id="password-error-msg" style="color: red; font-size: 0.9rem;"></p>
                 <div class="input-group"><label for="tele">Téléphone</label><input type="text" name="tele" placeholder="Entrez votre numéro de téléphone" required></div>
                 <div class="input-group"><label for="genre">Genre</label><input type="text" name="genre" placeholder="Homme / Femme / Autre" required></div>
                 <div class="input-group"><label for="rue">Rue</label><input type="text" name="rue" placeholder="Adresse de la rue" required></div>
@@ -98,3 +107,27 @@ if (params.get("error") === "verification") {
         });
     }
     </script>
+
+<script>
+  function validateForm() {
+      const mdp = document.getElementById("mdp").value;
+      const confirmMdp = document.getElementById("confirm_mdp").value;
+      const errorMsg = document.getElementById("password-error-msg");
+  
+      // Expressions régulières : au moins 8 bits avec majuscules et minuscules, caractères spéciaux
+      const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,}$/;
+  
+      if (!regex.test(mdp)) {
+          errorMsg.textContent = "Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule et un symbole.";
+          return false;
+      }
+  
+      if (mdp !== confirmMdp) {
+          errorMsg.textContent = "Les mots de passe ne correspondent pas.";
+          return false;
+      }
+  
+      errorMsg.textContent = "";
+      return true;
+  }
+  </script>

@@ -34,13 +34,13 @@ CREATE TABLE IF NOT EXISTS Proprietaire (
     Pays VARCHAR(50)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Table Administrateur
 CREATE TABLE IF NOT EXISTS Administrateur (
     IdAdministrateur INT AUTO_INCREMENT PRIMARY KEY,
-    nom VARCHAR(50),
-    prenom VARCHAR(50),
-    MDP VARCHAR(255),
-    photo TEXT  -- (optionnel) pour permettre à l’admin d’avoir une image aussi
+    nom VARCHAR(50) NOT NULL,
+    prenom VARCHAR(50) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    MDP VARCHAR(255) NOT NULL,
+    photo TEXT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Table Annonce

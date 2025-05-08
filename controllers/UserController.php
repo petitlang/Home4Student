@@ -92,9 +92,10 @@ switch ($action) {
                 header('Location: ../views/index2.php');
                 exit;
             } else {
+                echo "<p>user est : $user<p>";
                 unset($user);
                 session_destroy();
-                echo "<p>Identifiants incorrects. <a href='../views/login.html'>Retour</a></p>";
+                echo "<p>Identifiants ou MDP incorrects. <a href='../views/login.html'>Retour</a></p>";
             }
         }
         break;

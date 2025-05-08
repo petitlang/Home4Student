@@ -3,7 +3,7 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-$pdo = new PDO('mysql:host=localhost;dbname=home4student', 'root', '');
+$pdo = new PDO('mysql:host=localhost;dbname=home4student', 'root', 'root');
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['question'])) {

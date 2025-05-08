@@ -62,7 +62,7 @@
   
           <div class="input-group password">
             <label for="password">Mot de passe</label>
-            <input type="password" id="password" name="password" required placeholder="Mot de passe">
+            <input type="password" id="mdp" name="mdp" required placeholder="Mot de passe">
             <span id="togglePassword" class="password-toggle">👁️</span>
           </div>
   
@@ -79,7 +79,7 @@
           <div class="input-group"><label for="codepostal">Code postal</label><input type="text" name="codepostal" placeholder="75000" required></div>
           <div class="input-group"><label for="ville">Ville</label><input type="text" name="ville" placeholder="Paris, Lyon, etc." required></div>
           <div class="input-group"><label for="pays">Pays</label><input type="text" name="pays" placeholder="France, Belgique, ..." required></div>
-          <div class="input-group"><label for="photo">Photo</label><input type="file" name="photo" accept="image/*"></div>
+          <div class="input-group"><label for="photo">Photo</label><input type="file" id="photo" name="photo" accept="image/*"></div>
           <div class="input-group"><label for="code">Code vérification</label><input type="text" name="code" placeholder="Entrez le code vérification" required></div>
           <button type="button" onclick="sendVerificationCode()" style="margin-top: 10px;">Envoyer le code</button>
           <p id="code-msg" style="color: green; font-size: 0.9rem;"></p>

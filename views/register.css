@@ -25,6 +25,15 @@ body {
   color: white;
 }
 
+.cgu-group label {
+  color: var(--text-light); /* 使用灰色 */
+  font-weight: 500;
+}
+
+.input-group input[type="file"] {
+  color: var(--text-dark);     /* 深色文字：能看到已选文件名 */
+  background-color: var(--white); /* 与其他输入框保持一致 */
+}
 .header-top {
   background-color: white;
   padding: 1rem 2rem;
@@ -137,6 +146,7 @@ main {
   display: block;
   margin-bottom: 0.5rem;
   font-weight: 600;
+  color: var(--text-light);
 }
 
 .input-group input,

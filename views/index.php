@@ -9,242 +9,210 @@ if (isset($_SESSION['user'])) {
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Se loger Facilement</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', sans-serif;
-        }
-
-        :root {
-            --primary: #2ecc71;
-            --secondary: #e74c3c;
-            --accent: #3498db;
-            --dark: #2c3e50;
-            --light: #ecf0f1;
-        }
-
-        body {
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
-                        url('https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
-            background-size: cover;
-            background-position: center;
-            color: white;
-            min-height: 100vh;
-        }
-
-        header {
-            padding: 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(44, 62, 80, 0.95);
-        }
-
-        .logo {
-            font-size: 2rem;
-            font-weight: bold;
-            color: var(--primary);
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin-left: 2rem;
-            transition: color 0.3s;
-        }
-
-        nav a:hover {
-            color: var(--primary);
-        }
-
-        .hero-slogan {
-            text-align: center;
-            padding: 4rem 2rem;
-            background: rgba(44, 62, 80, 0.9);
-            margin-bottom: 4rem;
-        }
-
-        .hero-slogan h1 {
-            font-size: 2.5rem;
-            color: var(--primary);
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .main-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            padding: 4rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .card {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 2.5rem;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            color: var(--dark);
-            transition: transform 0.3s;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-        }
-
-        .card h2 {
-            color: var(--primary);
-            margin-bottom: 1.5rem;
-            font-size: 2rem;
-        }
-
-        .card p {
-            line-height: 1.6;
-            margin: 1rem 0;
-            color: #666;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 0.8rem 2rem;
-            border-radius: 25px;
-            text-decoration: none;
-            font-weight: bold;
-            margin-top: 1.5rem;
-            transition: all 0.3s;
-        }
-
-        .btn-primary {
-            background: var(--primary);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: #27ae60;
-        }
-
-        .btn-secondary {
-            background: var(--secondary);
-            color: white;
-        }
-
-        .btn-secondary:hover {
-            background: #c0392b;
-        }
-
-        footer {
-            background: rgba(44, 62, 80, 0.95);
-            padding: 3rem;
-            margin-top: auto;
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .footer-section h4 {
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
-
-        .footer-section a {
-            color: var(--light);
-            text-decoration: none;
-            display: block;
-            margin: 0.5rem 0;
-        }
-
-        .footer-section a:hover {
-            color: white;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HomeStudent - Se loger Facilement</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/views/index.css"/>
 </head>
 <body>
-    <header>
-        <div class="logo">SeLogerFacilement</div>
-        <nav>
-            <a href="#contact">Contact</a>
-            <a href="#messagerie">Messagerie</a>
-            <a href="#faq">FAQ</a>
-            <a href="#offres">Offres</a>
-            <?php if (!isset($_SESSION['user'])): ?>
-                <a href="/views/login.html" class="btn btn-secondary">Se connecter</a>
-                <a href="/views/register.html" class="btn btn-primary">S'inscrire</a>
-            <?php else: ?>
-                <a href="/views/index2.php" class="btn btn-primary">Vers mon espace</a>
-            <?php endif; ?>
-        </nav>
+
+  <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <div class="flex items-center">
+                        <img src="/views/logo-removebg-preview.png" alt="logo"></img>
+                    </div>
+                </div>
+                <div class="nav-links">
+                    <a href="#" class="nav-link">Offres</a>
+                     <a href="#" class="nav-link">Messagerie</a>
+                     <a href="/views/faq_back.php" class="nav-link">FAQ</a>
+                     <a href="/views/contact.html" class="nav-link">Contact</a>
+                       <?php if (!isset($_SESSION['user'])): ?>
+                        <div class="perso">
+                      <a href="/views/login.html" class="btn btn-outline">Se connecter</a>
+                        <a href="/views/register.html" class="btn btn-primary">S'inscrire</a>
+                        </div>
+                    <?php endif; ?>
+                  </div>
+
+                <div class="user-section">
+                <div id="userProfile" class="user-profile" onclick="window.location.href='/views/profile-edit.php'">
+                    <div id="userAvatar">
+                        <?php if (!empty($user["photo"])): ?>
+                            <img src="<?php echo htmlspecialchars($user["photo"]); ?>" alt="Photo de profil" class="profile-img">
+                        <?php else: ?>
+                            <div class="default-avatar"></div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </div>
+            </nav>
+        </div>
     </header>
 
-    <div class="hero-slogan">
-        <h1>Pour les étudiants, par des étudiants</h1>
+  <div class="hero-slogan">
+        <h1>Bienvenue !</h1>
     </div>
 
-    <div class="main-grid">
-        <div class="card">
-            <h2>Des logements fiables, vérifiés par nos équipes</h2>
-            <p>Une communication directe avec le propriétaire</p>
-            <div style="margin: 1.5rem 0;">
-                <p>✓ Logement vérifié</p>
-                <p>✓ Certification qualité</p>
-                <p>✓ Inspection mensuelle</p>
-                <p>✓ Garantie de sécurité</p>
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1 class="hero-title">Se loger Facilement</h1>
+                <p class="hero-subtitle">Pour les étudiants par des étudiants</p>
+                
+                <div class="grid-cols-2">
+                    <div class="benefit-section">
+                        <div class="feature-list benefit-list">
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <div>
+                                    <p>Des logements fiables, vérifiés par nos équipes</p>
+                                </div>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <div>
+                                    <p>Une communication directe avec le propriétaire</p>
+                                </div>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <div>
+                                    <p>Partout en France</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cta">
+                            <a href="/views/search.html" class="btn btn-primary btn-icon">
+                                <span>Accéder aux annonces</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="feature-card">
+                        <div style="height: 300px; background-color: #e2e8f0; display: flex; align-items: center; justify-content: center;">
+                            <img class="acc" src="/views/acc.jpg" alt="img">
+                        </div>
+                        <div class="feature-content">
+                            <p class="text-sm text-gray-500">Trouvez facilement votre logement étudiant</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <a href="/views/ads_list.html" class="btn btn-primary">Voir les annonces</a>
-        </div>
+        </section>
 
-        <div class="card">
-            <h2>Vendez votre bien immobilier</h2>
-            <p>Présentez votre bien en quelques clics</p>
-            <div style="margin: 1.5rem 0;">
-                <p>✔ Définissez votre prix</p>
-                <p>✔ Mettez en avant les atouts</p>
-                <p>✔ Publication instantanée</p>
+        <section class="section">
+            <div class="container">
+                <div class="grid-cols-2">
+                    <div class="feature-card">
+                        <div style="height: 300px; background-color: #e2e8f0; display: flex; align-items: center; justify-content: center;">
+                        <img class="acc" src="/views/acc2.jpg" alt="img">
+                        </div>
+                    </div>
+                    <div class="benefit-section">
+                        <h2 class="section-title">Vendez vous-même un bien immobilier !</h2>
+                        <div class="feature-list benefit-list">
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <div>
+                                    <p>Présentez votre bien et ses caractéristiques</p>
+                                </div>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <div>
+                                    <p>Définissez un prix de vente</p>
+                                </div>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <div>
+                                    <p>Mettez en avant ce qui le rend unique</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cta">
+                            <a href="/views/login.html" class="btn btn-primary btn-icon">
+                                <span>Déposer une annonce</span>
+                                <i class="fas fa-upload ml-2"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <a href="/views/login.html" class="btn btn-secondary">Déposer une annonce</a>
+        </section>
+    </main></a>
         </div>
+      </div>
     </div>
+  </main>
 
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-section">
-                <h4>Notre entreprise</h4>
-                <a href="#about">Qui sommes-nous ?</a>
-                <a href="#team">Notre équipe</a>
-                <a href="#press">Presse</a>
+  
+     
+
+  <!-- FOOTER -->
+  <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="logo text-white mb-4">
+                        <i class="fas fa-graduation-cap text-2xl mr-2"></i>
+                        <span class="font-bold text-lg">HomeStudent</span>
+                    </div>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="footer-heading">L'entreprise</h3>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="#">Qui sommes-nous ?</a></li>
+                        <li class="footer-link"><a href="/views/contact.html">Nous contacter</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="footer-heading">Services pro</h3>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="#">Accès client</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="footer-heading">À découvrir</h3>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="#">Tout l'immobilier</a></li>
+                        <li class="footer-link"><a href="#">Toutes les villes</a></li>
+                        <li class="footer-link"><a href="#">Tous les départements</a></li>
+                        <li class="footer-link"><a href="#">Toutes les régions</a></li>
+                    </ul>
+                </div>
             </div>
-            <div class="footer-section">
-                <h4>Services pro</h4>
-                <a href="#partners">Partenariats</a>
-                <a href="#agencies">Agences</a>
-                <a href="#pro-tools">Outils professionnels</a>
-            </div>
-            <div class="footer-section">
-                <h4>Aide</h4>
-                <a href="#contact">Contact</a>
-                <a href="#faq">FAQ</a>
-                <a href="#guides">Guides</a>
-            </div>
-            <div class="footer-section">
-                <h4>Légal</h4>
-                <a href="/views/cgu.html">CGU</a> 
-                <a href="#privacy">Confidentialité</a>
-                <a href="#cookies">Cookies</a>
+            <div class="copyright">
+                &copy; 2023 HomeStudent - Se loger Facilement. Tous droits réservés.
             </div>
         </div>
     </footer>
-
-    
 </body>
 </html>

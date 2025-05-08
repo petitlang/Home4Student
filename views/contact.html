@@ -4,118 +4,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Contact</title>
-  <style>
-    :root {
-      --primary: #2ecc71;
-      --accent: #3498db;
-      --dark: #2c3e50;
-      --light: #ecf0f1;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', sans-serif;
-    }
-
-    body {
-      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
-        url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80');
-      background-size: cover;
-      background-position: center;
-      min-height: 100vh;
-      color: white;
-      padding: 2rem;
-    }
-
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 2rem;
-    }
-
-    .logo {
-      font-size: 1.8rem;
-      font-weight: bold;
-      color: var(--primary);
-    }
-
-    .back-link {
-      color: white;
-      text-decoration: underline;
-      font-size: 0.95rem;
-    }
-
-    h2 {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-    }
-
-    .contact-card {
-      max-width: 600px;
-      margin: auto;
-      background: rgba(255, 255, 255, 0.95);
-      padding: 2rem;
-      border-radius: 20px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-      color: #333;
-    }
-
-    .form-group {
-      margin-bottom: 1.2rem;
-    }
-
-    label {
-      font-weight: bold;
-      display: block;
-      margin-bottom: 0.3rem;
-    }
-
-    input, textarea {
-      width: 100%;
-      padding: 0.8rem;
-      border: 1px solid #ccc;
-      border-radius: 12px;
-      font-size: 1rem;
-    }
-
-    textarea {
-      min-height: 120px;
-      resize: vertical;
-    }
-
-    .submit-btn {
-      background: var(--accent);
-      color: white;
-      padding: 0.8rem 1.5rem;
-      border: none;
-      border-radius: 20px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background 0.2s ease;
-    }
-
-    .submit-btn:hover {
-      background: #2980b9;
-    }
-
-    @media (max-width: 600px) {
-      .contact-card {
-        padding: 1.2rem;
-      }
-
-      h2 {
-        text-align: center;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="/views/contact.css">
+  
 </head>
 <body>
   <header>
-    <div class="logo">SeLogerFacilement</div>
-    <a class="back-link" href="index.php">Retour à l'accueil</a>
+    <div class="logo"><a href="index.php"><img src="/views/logo-removebg-preview.png" alt="logo"></div>
+    <nav class="nav-bar">
+      <button class="nav-btn">Accueil</button>
+        <button class="nav-btn">Offres</button>
+        <button class="nav-btn">À propos</button>
+        <button class="nav-btn">Contact</button>
+        <a href="index.html"><button class="nav-btn" >CGU</button></a>
+        <button class="nav-btn">Connexion</button>
+    </nav>
+    <a id="back-link" href="index.php">Retour à l'accueil</a>
   </header>
 
   <div class="contact-card">

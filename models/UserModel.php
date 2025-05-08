@@ -31,21 +31,40 @@ class UserModel {
         $stmt = $pdo->prepare("SELECT * FROM Etudiant WHERE Email = :email");
         $stmt->execute([':email' => $email]);
         $user = $stmt->fetch();
+        $user['role'] = 'etudiant';
+        $_SESSION['user'] = $user;
         return ($user && password_verify($mdp, $user['MDP'])) ? $user : false;
     }
+
+
+
+//路径选择
+
+
+
 
     public static function enregistrerPhotoEtudiant($id, $file) {
         $uploadDir = __DIR__ . '/../public/resources/photo_etudiant/';
         $filename = "etudiant_" . intval($id) . ".jpg";
         $targetPath = $uploadDir . $filename;
-        if (move_uploaded_file($file['tmp_name'], $targetPath)) {
-            return "public/resources/photo_etudiant/$filename";
+        if (!is_dir($uploadDir)) {
+            mkdir($uploadDir, 0777, true);
         }
+        if (move_uploaded_file($file['tmp_name'], $targetPath)) {
+            return "/public/resources/photo_etudiant/$filename";
+        }
+        /*
+        if (!move_uploaded_file($file['tmp_name'], $targetPath)) {
+            var_dump(error_get_last());
+            exit;
+        }
+        */
         return false;
     }
 
     public static function updateEtudiant($id, $data, $photoPath = null) {
         global $pdo;
+        $user = $_SESSION['user'];
         $sql = "UPDATE Etudiant SET nom = :nom, prenom = :prenom, Email = :email, Tele = :tele,
                 genre = :genre, rue = :rue, codepostal = :codepostal, ville = :ville, Pays = :pays";
         if ($photoPath) {
@@ -55,16 +74,16 @@ class UserModel {
 
         $stmt = $pdo->prepare($sql);
         $params = [
-            ':nom' => $data['nom'],
-            ':prenom' => $data['prenom'],
-            ':email' => $data['email'],
-            ':tele' => $data['tele'],
-            ':genre' => $data['genre'],
-            ':rue' => $data['rue'],
-            ':codepostal' => $data['codepostal'],
-            ':ville' => $data['ville'],
-            ':pays' => $data['pays'],
-            ':id' => $id
+            ':nom'         => array_key_exists('nom', $data) && !is_null($data['nom']) ? $data['nom'] : $user['nom'],
+            ':prenom'      => array_key_exists('prenom', $data) && !is_null($data['prenom']) ? $data['prenom'] : $user['prenom'],
+            ':email'       => array_key_exists('email', $data) && !is_null($data['email']) ? $data['email'] : $user['Email'],
+            ':tele'        => array_key_exists('tele', $data) && !is_null($data['tele']) ? $data['tele'] : $user['tele'],
+            ':genre'       => array_key_exists('genre', $data) && !is_null($data['genre']) ? $data['genre'] : $user['genre'],
+            ':rue'         => array_key_exists('rue', $data) && !is_null($data['rue']) ? $data['rue'] : $user['rue'],
+            ':codepostal'  => array_key_exists('codepostal', $data) && !is_null($data['codepostal']) ? $data['codepostal'] : $user['codepostal'],
+            ':ville'       => array_key_exists('ville', $data) && !is_null($data['ville']) ? $data['ville'] : $user['ville'],
+            ':pays'        => array_key_exists('pays', $data) && !is_null($data['pays']) ? $data['pays'] : $user['pays'],
+            ':id'          => $id
         ];
         if ($photoPath) {
             $params[':photo'] = $photoPath;
@@ -75,7 +94,7 @@ class UserModel {
     // ===== PROPRIÉTAIRE =====
     public static function creerProprietaire($data, $photoPath) {
         global $pdo;
-        $sql = "INSERT INTO Propietaire (nom, prenom, Email, Tele, MDP, photo, rue, codepostal, ville, Pays)
+        $sql = "INSERT INTO Proprietaire (nom, prenom, Email, Tele, MDP, photo, rue, codepostal, ville, Pays)
                 VALUES (:nom, :prenom, :email, :tele, :mdp, :photo, :rue, :codepostal, :ville, :pays)";
         $stmt = $pdo->prepare($sql);
         return $stmt->execute([
@@ -96,32 +115,48 @@ class UserModel {
         $uploadDir = __DIR__ . '/../public/resources/photo_proprietaire/';
         $filename = "proprietaire_" . intval($id) . ".jpg";
         $targetPath = $uploadDir . $filename;
-        if (move_uploaded_file($file['tmp_name'], $targetPath)) {
-            return "public/resources/photo_proprietaire/$filename";
+        if (!is_dir($uploadDir)) {
+            //echo "<script>alert('Le dossier n\'existe pas, création du dossier...');</script>";
+            mkdir($uploadDir, 0777, true);
         }
+        /*else {
+            echo "<script>alert('Le dossier existe déjà.');</script>";
+        }
+        */
+        if (move_uploaded_file($file['tmp_name'], $targetPath)) {
+            return "/public/resources/photo_proprietaire/$filename";
+        }
+        /*
+        if (!move_uploaded_file($file['tmp_name'], $targetPath)) {
+            var_dump(error_get_last());
+            exit;
+        }
+        */
         return false;
     }
 
     public static function updateProprietaire($id, $data, $photoPath = null) {
         global $pdo;
-        $sql = "UPDATE Propietaire SET nom = :nom, prenom = :prenom, Email = :email, Tele = :tele,
+        $user = $_SESSION['user'];
+        $sql = "UPDATE Proprietaire SET nom = :nom, prenom = :prenom, Email = :email, Tele = :tele,
                 rue = :rue, codepostal = :codepostal, ville = :ville, Pays = :pays";
         if ($photoPath) {
             $sql .= ", photo = :photo";
         }
-        $sql .= " WHERE IdPropietaire = :id";
+        $sql .= " WHERE IdProprietaire = :id";
 
         $stmt = $pdo->prepare($sql);
         $params = [
-            ':nom' => $data['nom'],
-            ':prenom' => $data['prenom'],
-            ':email' => $data['email'],
-            ':tele' => $data['tele'],
-            ':rue' => $data['rue'],
-            ':codepostal' => $data['codepostal'],
-            ':ville' => $data['ville'],
-            ':pays' => $data['pays'],
-            ':id' => $id
+            ':nom'         => array_key_exists('nom', $data) && !is_null($data['nom']) ? $data['nom'] : $user['nom'],
+            ':prenom'      => array_key_exists('prenom', $data) && !is_null($data['prenom']) ? $data['prenom'] : $user['prenom'],
+            ':email'       => array_key_exists('email', $data) && !is_null($data['email']) ? $data['email'] : $user['Email'],
+            ':tele'        => array_key_exists('tele', $data) && !is_null($data['tele']) ? $data['tele'] : $user['tele'],
+            ':genre'       => array_key_exists('genre', $data) && !is_null($data['genre']) ? $data['genre'] : $user['genre'],
+            ':rue'         => array_key_exists('rue', $data) && !is_null($data['rue']) ? $data['rue'] : $user['rue'],
+            ':codepostal'  => array_key_exists('codepostal', $data) && !is_null($data['codepostal']) ? $data['codepostal'] : $user['codepostal'],
+            ':ville'       => array_key_exists('ville', $data) && !is_null($data['ville']) ? $data['ville'] : $user['ville'],
+            ':pays'        => array_key_exists('pays', $data) && !is_null($data['pays']) ? $data['pays'] : $user['pays'],
+            ':id'          => $id
         ];
         if ($photoPath) {
             $params[':photo'] = $photoPath;
@@ -132,9 +167,11 @@ class UserModel {
     // ===== AUTH =====
     public static function verifierConnexionProprietaire($email, $mdp) {
         global $pdo;
-        $stmt = $pdo->prepare("SELECT * FROM Propietaire WHERE Email = :email");
+        $stmt = $pdo->prepare("SELECT * FROM Proprietaire WHERE Email = :email");
         $stmt->execute([':email' => $email]);
         $user = $stmt->fetch();
+        $user['role'] = 'proprietaire';
+        $_SESSION['user'] = $user;
         return ($user && password_verify($mdp, $user['MDP'])) ? $user : false;
     }
 
@@ -143,6 +180,8 @@ class UserModel {
         $stmt = $pdo->prepare("SELECT * FROM Administrateur WHERE Email = :email");
         $stmt->execute([':email' => $email]);
         $user = $stmt->fetch();
+        $user['role'] = 'admin';
+        $_SESSION['user'] = $user;
         return ($user && password_verify($mdp, $user['MDP'])) ? $user : false;
     }
 
@@ -153,7 +192,7 @@ class UserModel {
                 $table = 'Etudiant';
                 break;
             case 'proprietaire':
-                $table = 'Propietaire';
+                $table = 'Proprietaire';
                 break;
             case 'admin':
                 $table = 'Administrateur';

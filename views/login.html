@@ -1,207 +1,96 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Se connecter</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', sans-serif;
-        }
-
-        :root {
-            --primary: #2ecc71;
-            --secondary: #e74c3c;
-            --accent: #3498db;
-            --dark: #2c3e50;
-            --light: #ecf0f1;
-        }
-
-        body {
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
-                        url('https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
-            background-size: cover;
-            background-position: center;
-            color: white;
-            min-height: 100vh;
-        }
-
-        header {
-            padding: 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(44, 62, 80, 0.95);
-        }
-
-        .logo {
-            font-size: 2rem;
-            font-weight: bold;
-            color: var(--primary);
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin-left: 2rem;
-            transition: color 0.3s;
-        }
-
-        nav a:hover {
-            color: var(--primary);
-        }
-
-        .login-section {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background: rgba(44, 62, 80, 0.8);
-        }
-
-        .login-container {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 3rem;
-            border-radius: 10px;
-            width: 100%;
-            max-width: 400px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .login-container h2 {
-            text-align: center;
-            color: var(--primary);
-            margin-bottom: 2rem;
-            font-size: 2rem;
-        }
-
-        .input-group {
-            margin-bottom: 1.5rem;
-            position: relative;
-        }
-
-        .input-group label {
-            font-size: 1rem;
-            color: var(--dark);
-        }
-
-        .input-group input {
-            width: 100%;
-            padding: 1rem 2.5rem 1rem 1rem;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            margin-top: 0.5rem;
-            font-size: 1rem;
-        }
-
-        .input-group input:focus {
-            border-color: var(--primary);
-            outline: none;
-        }
-
-        .btn {
-            width: 100%;
-            padding: 1rem;
-            border: none;
-            border-radius: 25px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: opacity 0.3s;
-        }
-
-        .btn-primary {
-            background: var(--primary);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            opacity: 0.8;
-        }
-
-        .btn-secondary {
-            background: var(--secondary);
-            color: white;
-        }
-
-        .btn-secondary:hover {
-            opacity: 0.8;
-        }
-
-        p {
-            text-align: center;
-            margin-top: 1rem;
-        }
-
-        a {
-            color: var(--primary);
-            font-weight: bold;
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-
-        .password-toggle {
-            position: absolute;
-            right: 10px;
-            top: 65%;
-            transform: translateY(-50%);
-            cursor: pointer;
-            font-size: 1.2rem;
-            color: var(--dark);
-        }
-
-        /* Style pour "Mot de passe oublié ?" */
-        .forgot-password {
-            color: var(--primary);
-            text-decoration: underline;
-            font-weight: normal;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="/views/login.css">
 </head>
 <body>
-    <header>
-        <div class="logo">SeLogerFacilement</div>
-        <nav>
-            <a href="/views/index.php" class="btn btn-secondary">Page d'accueil</a>
-        </nav>
-    </header>
 
-    <div class="login-section">
-        <div class="login-container">
-            <h2>Se connecter</h2>
-            
-            <form action="../controllers/UserController.php?action=login" method="POST">
-                <div class="input-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required placeholder="Entrez votre email">
-                </div>
-                
-                <div class="input-group">
-                    <label for="role">Je suis :</label>
-                    <select name="role" required>
-                        <option value="etudiant">Étudiant</option>
-                        <option value="proprietaire">Propriétaire</option>
-                        <option value="admin">Administrateur</option>
-                    </select>
-                </div>
+<header>
+  <div class="logo">
+    <img src="/views/logo-removebg-preview.png" alt="Logo">
+    <span class="logo-text">Home4Student</span>
+  </div>
+  <nav class="navbar-links">
+    <a href="/views/index.php" class="btn btn-secondary">Page d'accueil</a>
+  </nav>
+</header>
 
-                <div class="input-group">
-                    <label for="password">Mot de passe</label>
-                    <input type="password" id="password" name="password" required placeholder="Entrez votre mot de passe">
-                    <span id="togglePassword" class="password-toggle">👁️</span>
-                </div>
-                <button type="submit" class="btn btn-primary">Se connecter</button>
-            </form>
-            <p style="color: black;">Pas encore de compte ? <a href="/views/register.html">S'inscrire</a></p>
-            <p><a href="/views/reset_password.html" class="forgot-password">Mot de passe oublié ?</a></p>
+  <div class="login-section">
+    <div class="login-container">
+      <h2>Se connecter</h2>
+      <form action="../controllers/UserController.php?action=login" method="POST">
+        <div class="input-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required placeholder="Entrez votre email">
         </div>
+
+        <div class="input-group">
+          <label for="role">Je suis :</label>
+          <select name="role" required>
+            <option value="etudiant">Étudiant</option>
+            <option value="proprietaire">Propriétaire</option>
+            <option value="admin">Administrateur</option>
+          </select>
+        </div>
+
+        <div class="input-group">
+          <label for="password">Mot de passe</label>
+          <input type="password" id="password" name="password" required placeholder="Entrez votre mot de passe">
+          <span id="togglePassword" class="password-toggle">👁️</span>
+        </div>
+
+        <button type="submit" class="btn-primary">Se connecter</button>
+      </form>
+
+      <p>Pas encore de compte ? <a href="/views/register.html">S'inscrire</a></p>
+      <p><a href="/views/reset_password.php" class="forgot-password">Mot de passe oublié ?</a></p>
+    </div>
+  </div>
+</div>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-section">
+        <div class="social-icons">
+          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+
+    <div class="footer-section">
+      <h4>L'entreprise</h4>
+      <div><a href="#">Qui sommes-nous ?</a></div>
+      <div><a href="/views/contact.html">Nous contacter</a></div>
     </div>
 
-    
+      <div class="footer-section">
+        <h4>Services pro</h4>
+        <a href="#partners">Tous nos services</a>
+        <a href="#agencies">Accès client</a>
+      </div>
+
+      <div class="footer-section">
+        <h4>À découvrir</h4>
+        <a href="#contact">Tout l'immobilier</a>
+        <a href="#faq">Toutes les villes</a>
+        <a href="#guides">Tous les départements</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('togglePassword').addEventListener('click', function () {
+      const passwordInput = document.getElementById('password');
+      const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+      passwordInput.setAttribute('type', type);
+      this.textContent = type === 'password' ? '👁️' : '🙈';
+    });
+  </script>
 </body>
 </html>
+

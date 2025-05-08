@@ -11,7 +11,7 @@ try {
     if (file_exists($sqlFilePath)) {
         $sql = file_get_contents($sqlFilePath);
         $pdo->exec($sql);
-        echo "✅ Base de données et tables créées avec succès.<br>";
+        
     }
 /*
     // Vérifie si la base de données existe déjà

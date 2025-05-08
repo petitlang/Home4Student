@@ -1,0 +1,86 @@
+date/time         : 2025-05-02, 11:42:55, 778ms
+computer name     : MOUZHENGµÄÉñ´¬
+user name         : l2164 <admin>
+registered owner  : l2164753957@gmail.com
+operating system  : Windows NT New x64 build 9200
+system language   : Chinese (Simplified)
+system up time    : 14 days 19 hours
+program up time   : 1 second
+processors        : 12x Intel(R) Core(TM) i7-10750H CPU @ 2.60GHz
+physical memory   : 3549/16207 MB (free/total)
+free disk space   : (C:) 99.13 GB (E:) 239.78 GB
+display mode      : 2048x1152, 32 bit
+process id        : $1464c
+allocated memory  : 33.50 MB
+command line      : "E:\phpstudy_pro\Extensions\php\php7.3.4nts\sendmail\sendmail.exe" -t
+executable        : sendmail.exe
+exec. date/time   : 2011-06-18 01:10
+compiled with     : Delphi 2006/07
+madExcept version : 3.0l
+callstack crc     : $205f8196, $95aed0d4, $95aed0d4
+exception number  : 1
+exception class   : EInOutError
+exception message : I/O error 105.
+
+main thread ($fc3c):
+004b675c +18a8 sendmail.exe sendmail         922 +440 initialization
+7766bbca +000a ntdll.dll                              KiUserExceptionDispatcher
+0040474d +001d sendmail.exe System           262   +0 @AfterConstruction
+0043dada +01fe sendmail.exe IdIOHandler     1508  +60 TIdIOHandler.ReadFromSource
+0043d559 +0159 sendmail.exe IdIOHandler     1315  +57 TIdIOHandler.ReadLn
+0043d380 +0024 sendmail.exe IdIOHandler     1233   +1 TIdIOHandler.ReadLn
+0043d837 +0073 sendmail.exe IdIOHandler     1428  +10 TIdIOHandler.ReadLnWait
+0044035d +0059 sendmail.exe IdTCPConnection  768   +7 TIdTCPConnection.GetInternalResponse
+0043fea3 +0013 sendmail.exe IdTCPConnection  564   +1 TIdTCPConnection.GetResponse
+0043ff87 +005b sendmail.exe IdTCPConnection  585   +4 TIdTCPConnection.SendCmd
+0044020e +0056 sendmail.exe IdTCPConnection  723   +4 TIdTCPConnection.SendCmd
+0045984a +00d6 sendmail.exe IdSMTPBase       233  +24 TIdSMTPBase.SendGreeting
+0045ab9f +003b sendmail.exe IdSMTP           376   +5 TIdSMTP.Connect
+004b5f14 +1060 sendmail.exe sendmail         808 +326 initialization
+755c5d47 +0017 KERNEL32.DLL                           BaseThreadInitThunk
+
+thread $3d0c:
+755c5d47 +17 KERNEL32.DLL  BaseThreadInitThunk
+
+thread $13f18:
+755c5d47 +17 KERNEL32.DLL  BaseThreadInitThunk
+
+thread $df4c:
+755c5d47 +17 KERNEL32.DLL  BaseThreadInitThunk
+
+stack dump:
+0019f4a8  5c 67 4b 00 de fa ed 0e - 01 00 00 00 07 00 00 00  \gK.............
+0019f4b8  bc f4 19 00 5c 67 4b 00 - d0 ca 63 02 5c 67 4b 00  ....\gK...c.\gK.
+0019f4c8  5c 67 4b 00 f4 fd 19 00 - 74 ff 19 00 d8 f4 19 00  \gK.....t.......
+0019f4d8  00 00 00 00 64 30 40 00 - 00 00 00 00 e0 4f 63 02  ....d0@......Oc.
+0019f4e8  5c 67 4b 00 00 00 00 00 - 08 e5 43 00 e0 4f 63 02  \gK.......C..Oc.
+0019f4f8  10 f6 19 00 24 f5 19 00 - 30 f5 19 00 00 00 00 00  ....$...0.......
+0019f508  00 00 00 00 00 00 00 00 - b2 1c 6a 77 10 f6 19 00  ..........jw....
+0019f518  f4 fd 19 00 60 f6 19 00 - 9c f5 19 00 dc fd 19 00  ....`...........
+0019f528  d0 1c 6a 77 f4 fd 19 00 - f8 f5 19 00 84 1c 6a 77  ..jw..........jw
+0019f538  10 f6 19 00 f4 fd 19 00 - 60 f6 19 00 9c f5 19 00  ........`.......
+0019f548  1c 67 4b 00 60 f6 19 00 - 10 f6 19 00 00 00 00 00  .gK.`...........
+0019f558  13 e6 65 77 10 f6 19 00 - f4 fd 19 00 60 f6 19 00  ..ew........`...
+0019f568  9c f5 19 00 1c 67 4b 00 - 94 34 46 00 80 81 5c 02  .....gK..4F...\.
+0019f578  10 f6 19 00 bc f5 19 00 - 22 26 63 00 f4 fd 19 00  ........"&c.....
+0019f588  32 00 00 00 00 00 00 00 - 00 c0 19 00 00 00 1a 00  2...............
+0019f598  00 00 00 00 f4 00 00 00 - 20 00 00 00 28 85 cc 03  ............(...
+0019f5a8  00 00 d3 00 00 00 00 00 - 77 1e 63 77 bc 09 d3 00  ........w.cw....
+0019f5b8  b8 09 d3 00 0c f6 19 00 - 77 1e 63 77 64 00 00 00  ........w.cwd...
+0019f5c8  00 00 00 00 00 00 cc 03 - 04 00 00 00 70 00 00 00  ............p...
+0019f5d8  d0 07 d3 00 00 00 00 00 - 00 00 00 00 70 00 00 00  ............p...
+
+disassembling:
+[...]
+004b6742       mov     edx, [ebp-$15c]
+004b6748       mov     eax, [$4bd968]
+004b674d       call    -$b0c2a ($405b28)      ; System.@Write0LString
+004b6752       call    -$b297b ($403ddc)      ; System.@WriteLn
+004b6757       call    -$b36bc ($4030a0)      ; System.@_IOTest
+004b675c 922 > mov     eax, [ebx+4]
+004b675f       call    -$3b3c ($4b2c28)       ; sendmail.errorLog
+004b6764 924   call    -$b1a55 ($404d14)      ; System.@RaiseAgain
+004b6769       call    -$b1a06 ($404d68)      ; System.@DoneExcept
+004b676e 931   xor     eax, eax
+004b6770       pop     edx
+[...]

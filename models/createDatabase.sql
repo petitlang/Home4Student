@@ -20,8 +20,8 @@ CREATE TABLE IF NOT EXISTS Etudiant (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Table Propriétaire
-CREATE TABLE IF NOT EXISTS Propietaire (
-    IdPropietaire INT AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS Proprietaire (
+    IdProprietaire INT AUTO_INCREMENT PRIMARY KEY,
     nom VARCHAR(50),
     prenom VARCHAR(50),
     Email VARCHAR(100) UNIQUE,
@@ -34,18 +34,19 @@ CREATE TABLE IF NOT EXISTS Propietaire (
     Pays VARCHAR(50)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Table Administrateur
 CREATE TABLE IF NOT EXISTS Administrateur (
     IdAdministrateur INT AUTO_INCREMENT PRIMARY KEY,
-    nom VARCHAR(50),
-    prenom VARCHAR(50),
-    MDP VARCHAR(255),
-    photo TEXT  -- (optionnel) pour permettre à l’admin d’avoir une image aussi
+    nom VARCHAR(50) NOT NULL,
+    prenom VARCHAR(50) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    MDP VARCHAR(255) NOT NULL,
+    photo TEXT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Table Annonce
 CREATE TABLE IF NOT EXISTS Annonce (
     IdAnnonce INT AUTO_INCREMENT PRIMARY KEY,
+    Titre VARCHAR(100),
     Type VARCHAR(50),
     Prix DECIMAL(10,2),
     Etat VARCHAR(20),
@@ -54,8 +55,8 @@ CREATE TABLE IF NOT EXISTS Annonce (
     ville VARCHAR(50),
     Pays VARCHAR(50),
     Descriptions TEXT,
-    IdPropietaire INT,
-    FOREIGN KEY (IdPropietaire) REFERENCES Propietaire(IdPropietaire) ON DELETE CASCADE
+    IdProprietaire INT,
+    FOREIGN KEY (IdProprietaire) REFERENCES Proprietaire(IdProprietaire) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Table Signaler
@@ -97,10 +98,11 @@ CREATE TABLE IF NOT EXISTS FAQ (
 -- Table Chat (expediteur/destinateur polymorphique, à gérer côté code PHP)
 CREATE TABLE IF NOT EXISTS Chat (
     IdChat INT AUTO_INCREMENT PRIMARY KEY,
+    IdMsg INT,
     message TEXT,
     temps DATETIME DEFAULT CURRENT_TIMESTAMP,
-    expediteur INT,
-    destinateur INT
+    expediteur TEXT,
+    destinateur TEXT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Table PhotoAnnonce : contient les chemins des photos pour chaque annonce

@@ -43,64 +43,38 @@ $adresse      = trim("$rue, $postal $ville, $pays", ', ');
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title><?= $Titre ?></title>
-  <style>
-    :root {
-      --primary: #2ecc71;
-      --secondary: #e74c3c;
-      --accent: #3498db;
-      --dark: #2c3e50;
-      --light: #ecf0f1;
-    }
-
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-
-    body {
-      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
-      url('https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=1350&q=80');
-      background-size: cover; background-position: center; color: #fff; min-height: 100vh;
-    }
-
-    header { padding: 1.5rem 3rem; background: rgba(44,62,80,0.95); display:flex; justify-content:space-between; align-items:center; }
-    .logo { font-size:2rem; color:var(--primary); font-weight:bold; }
-
-    .main-container { max-width:1200px; margin:2rem auto; display:flex; gap:2rem; padding:0 2rem; }
-    .gallery { flex:2; display:grid; grid-template-columns:2fr 1fr; gap:1rem; }
-    .gallery img { width:100%; border-radius:10px; object-fit:cover; }
-
-    .info-section { flex:3; background:rgba(255,255,255,0.95); color:#333; border-radius:10px; padding:2rem; }
-    .info-section h1 { font-size:2rem; color:var(--dark); margin-bottom:0.5rem; }
-    .info-section .address { font-style:italic; color:#666; margin-bottom:1rem; }
-    .details-row { display:flex; gap:2rem; margin-bottom:1rem; }
-    .details-row div { font-weight:bold; }
-    .description { margin:2rem 0; line-height:1.6; }
-    .owner { margin-top:2rem; padding-top:1rem; border-top:1px solid #ddd; }
-    .owner span { font-weight:bold; }
-
-    .action-box { flex:1.2; background: rgb(255, 255, 255); padding:2rem; border-radius:10px; height:fit-content; display:flex; flex-direction:column; justify-content:space-between; }
-    .price { font-size:1.5rem; font-weight:bold; color:var(--dark); margin-bottom:1rem; }
-    .date-select, .people-select { color:var(--dark);margin-bottom:1rem; }
-    .date-select input, .people-select input { width:100%; padding:0.8rem; border-radius:5px; border:1px solid #000000; font-size:1rem; }
-    .btn { padding:1rem; border:none; border-radius:25px; font-weight:bold; cursor:pointer; transition:opacity 0.3s; }
-    .btn-primary { background:var(--primary); color:white; margin-bottom:0.5rem; }
-    .btn-primary:hover { opacity:0.85; }
-    .btn-accent { background:var(--accent); color:white; }
-    .btn-accent:hover { opacity:0.85; }
-  </style>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="/views/ad.css" />
 </head>
 <body>
-<header>
-  <div class="logo">SeLogerFacilement</div>
-</header>
-
+  <header>
+    <nav class="navbar">
+      <div class="logo">
+        <img src="/views/logo-removebg-preview.png" alt="logo" />
+      </div>
+      <div class="nav-center">
+        <div class="nav-links">
+          <a href="/views/ads_list.php">Offres</a>
+          <a href="/views/chat.php">Messagerie</a>
+          <a href="/views/faq_back.html">FAQ</a>
+          <a href="/views/contact.html">Contact</a>
+          <a href="/views/cgu.html">CGU</a>
+        </div>
+      </div>
+      <div class="nav-buttons">
+        <a href="/views/index2.php" class="btn-solid">Retour</a>
+      </div>
+    </nav>
+  </header>
 <div class="main-container">
     <!-- Galerie d'images (réelles) -->
     <div class="gallery">
         <?php if ($photos): ?>
-            <!-- ① photo principale -->
+            <!-- ① photo principale -->
             <img src="/<?= htmlspecialchars($photos[0], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>"
                  alt="Photo annonce">
 
-            <!-- ② miniatures supplémentaires -->
+            <!-- ② miniatures supplémentaires -->
             <?php if (count($photos) > 1): ?>
                 <div style="display:grid; gap:1rem;">
                     <?php foreach (array_slice($photos, 1) as $p): ?>
@@ -159,5 +133,49 @@ $adresse      = trim("$rue, $postal $ville, $pays", ', ');
     </div>
   </div>
 </div>
+
+<footer>
+  <div class="container">
+      <div class="footer-grid">
+          <div>
+              <div class="logo text-white mb-4">
+                  <i class="fas fa-graduation-cap text-2xl mr-2"></i>
+                  <span class="font-bold text-lg">HomeStudent</span>
+              </div>
+              <div class="social-links">
+                  <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                  <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                  <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                  <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+              </div>
+          </div>
+          <div>
+              <h3 class="footer-heading">L'entreprise</h3>
+              <ul class="footer-links">
+                  <li class="footer-link"><a href="#">Qui sommes-nous ?</a></li>
+                  <li class="footer-link"><a href="/views/contact.html">Nous contacter</a></li>
+              </ul>
+          </div>
+          <div>
+              <h3 class="footer-heading">Services pro</h3>
+              <ul class="footer-links">
+                  <li class="footer-link"><a href="#">Accès client</a></li>
+              </ul>
+          </div>
+          <div>
+              <h3 class="footer-heading">À découvrir</h3>
+              <ul class="footer-links">
+                  <li class="footer-link"><a href="#">Tout l'immobilier</a></li>
+                  <li class="footer-link"><a href="#">Toutes les villes</a></li>
+                  <li class="footer-link"><a href="#">Tous les départements</a></li>
+                  <li class="footer-link"><a href="#">Toutes les régions</a></li>
+              </ul>
+          </div>
+      </div>
+      <div class="copyright">
+          &copy; 2023 HomeStudent - Se loger Facilement. Tous droits réservés.
+      </div>
+  </div>
+</footer>
 </body>
 </html>

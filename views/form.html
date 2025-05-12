@@ -2,58 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            background-color: #f5f5f5;
-        }
-        form {
-            background-color: white;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;
-        }
-        div {
-            margin-bottom: 0.5rem;
-            font-weight: bold;
-            color: #333;
-        }
-        input[type="text"] {
-            width: 100%;
-            padding: 0.5rem;
-            margin-bottom: 1rem;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 0.5rem 1rem;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            width: 100%;
-            font-size: 1rem;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-    </style>
+    <title>Test Chat</title>
 </head>
 <body>
 <form action="../controllers/ChatController.php?action=getNav" method="post">
-    <div>id</div>
-    <input type="text" name="id">
-    <button type="submit">Envoyer</button>
+    <div>ID : </div>
+    <input type="text" name="id" placeholder="comme 13" required>
+    <div>role : </div>
+    <select name="role" required>
+        <option value="proprietaire">proprietaire</option>
+        <option value="etudiant">etudiant</option>
+    </select>
+    <button type="submit">test</button>
 </form>
 </body>
 </html>

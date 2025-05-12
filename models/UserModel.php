@@ -1,4 +1,3 @@
-
 <?php
 // models/UserModel.php
 require_once __DIR__ . '/init_database.php';
@@ -94,8 +93,8 @@ class UserModel {
     // ===== PROPRIÉTAIRE =====
     public static function creerProprietaire($data, $photoPath) {
         global $pdo;
-        $sql = "INSERT INTO Proprietaire (nom, prenom, Email, Tele, MDP, photo, rue, codepostal, ville, Pays)
-                VALUES (:nom, :prenom, :email, :tele, :mdp, :photo, :rue, :codepostal, :ville, :pays)";
+        $sql = "INSERT INTO Proprietaire (nom, prenom, Email, Tele, MDP, genre, photo, rue, codepostal, ville, Pays)
+                VALUES (:nom, :prenom, :email, :tele, :mdp, :genre, :photo, :rue, :codepostal, :ville, :pays)";
         $stmt = $pdo->prepare($sql);
         return $stmt->execute([
             ':nom' => $data['nom'],
@@ -103,6 +102,7 @@ class UserModel {
             ':email' => $data['email'],
             ':tele' => $data['tele'],
             ':mdp' => password_hash($data['mdp'], PASSWORD_DEFAULT),
+            ':genre' => $data['genre'],
             ':photo' => $photoPath,
             ':rue' => $data['rue'],
             ':codepostal' => $data['codepostal'],
@@ -139,7 +139,7 @@ class UserModel {
         global $pdo;
         $user = $_SESSION['user'];
         $sql = "UPDATE Proprietaire SET nom = :nom, prenom = :prenom, Email = :email, Tele = :tele,
-                rue = :rue, codepostal = :codepostal, ville = :ville, Pays = :pays";
+                genre = :genre, rue = :rue, codepostal = :codepostal, ville = :ville, Pays = :pays";
         if ($photoPath) {
             $sql .= ", photo = :photo";
         }

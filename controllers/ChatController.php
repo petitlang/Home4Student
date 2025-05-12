@@ -9,44 +9,74 @@ switch ($action) {
 
     /* ---------- 1. 左侧联系人列表 ---------- */
     case 'getNav':
-        // 来自 form.html 的第一次 POST 会带 id/role
-        $me = $_POST['id'] ?? $_SESSION['user_id'] ?? null;
-        if (!$me) {
-            http_response_code(400);
-            exit(json_encode(['error'=>'missing id']));
-        }
-        $_SESSION['expediteur'] = $me;                 // 记 session
-        $nav = ChatModel::getNav($me);
+        // 优先用POST，否则用SESSION
+        $id   = $_POST['id']   ?? ($_SESSION['user']['id']   ?? null);
+        $role = $_POST['role'] ?? ($_SESSION['user']['role'] ?? null);
 
+        if (!$id || !$role) {
+            http_response_code(400);
+            exit(json_encode(['error'=>'missing id or role']));
+        }
+
+        $me = $role . '-' . $id; // 组合新id，如 b-13
+        $_SESSION['expediteur'] = $me;
+
+        $nav = ChatModel::getNav($me);
         $_SESSION['chatList'] = $nav;
 
         header('Location: ../views/chat.php');
-
         exit;
 
     /* ---------- 2. 取聊天记录 ---------- */
     case 'getMessages':
-        $idMsg = intval($_GET['idMsg'] ?? 0);
-        if (!$idMsg) {
+        $idChat = intval($_GET['idChat'] ?? 0);
+        if (!$idChat) {
             http_response_code(400);
-            exit(json_encode(['error'=>'missing idMsg']));
+            exit(json_encode(['error'=>'missing idChat']));
         }
-        exit(json_encode(ChatModel::getMessages($idMsg)));
+        exit(json_encode(ChatModel::getMessages($idChat)));
 
     /* ---------- 3. 发送消息 ---------- */
     case 'sendMessage':
         $payload     = json_decode(file_get_contents('php://input'), true) ?? $_POST;
-        $idMsg       = intval($payload['idMsg']       ?? 0);
+        $idChat      = intval($payload['idChat']      ?? 0);
         $message     = trim($payload['message']       ?? '');
         $expediteur  = $payload['expediteur']         ?? ($_SESSION['user_id'] ?? null);
         $destinateur = $payload['destinateur']        ?? null;
 
-        if (!$idMsg || !$expediteur || !$destinateur || $message==='') {
+        if (!$idChat || !$expediteur || !$destinateur || $message==='') {
             http_response_code(400);
             exit(json_encode(['error'=>'missing fields']));
         }
-        ChatModel::envoyerMessage($idMsg, $message, $expediteur, $destinateur);
+        ChatModel::envoyerMessage($idChat, $message, $expediteur, $destinateur);
         exit(json_encode(['success'=>true]));
+
+    /* ---------- 4. 创建会话 ---------- */
+    case 'createChat':
+        // 优先从POST/json获取参数
+        $payload = json_decode(file_get_contents('php://input'), true) ?? $_POST;
+        $expediteur = $payload['expediteur'] ?? null;
+        $destinateur = $payload['destinateur'] ?? null;
+
+        if (!$expediteur || !$destinateur) {
+            http_response_code(400);
+            exit(json_encode(['error'=>'expéditeur ou destinataire manquant']));
+        }
+
+        try {
+            $idChat = ChatModel::createChat($expediteur, $destinateur);
+            exit(json_encode([
+                'success' => true,
+                'idChat' => $idChat,
+                'message' => 'Conversation créée avec succès'
+            ]));
+        } catch (Exception $e) {
+            http_response_code(500);
+            exit(json_encode([
+                'error' => 'Échec de la création de la conversation',
+                'details' => $e->getMessage()
+            ]));
+        }
 
     default:
         http_response_code(400);

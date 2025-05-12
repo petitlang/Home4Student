@@ -110,7 +110,7 @@ $adresse      = trim("$rue, $postal $ville, $pays", ', ');
                 </div>
             <?php endif; ?>
         <?php else: ?>
-            <!-- Fallback : si aucune image n’est trouvée -->
+            <!-- Fallback : si aucune image n'est trouvée -->
             <img src="https://picsum.photos/800/600?grayscale&random=1" alt="Placeholder">
         <?php endif; ?>
     </div>
@@ -118,19 +118,22 @@ $adresse      = trim("$rue, $postal $ville, $pays", ', ');
   <!-- Boîte d'action (prix + candidature) -->
   <div class="action-box">
     <div class="price"><?= $Prix ?> € / mois</div>
-    <div class="date-select">
-      <label>Date de début</label>
-      <input type="date" />
-    </div>
-    <div class="date-select">
-      <label>Date de fin</label>
-      <input type="date" />
-    </div>
-    <div class="people-select">
-      <label>Nombre de personnes</label>
-      <input type="number" min="1" max="10" />
-    </div>
-    <button class="btn btn-primary">Candidat(e)</button>
+    <form method="post" action="/controllers/CandidatureController.php" style="display:flex;flex-direction:column;gap:1rem;">
+      <input type="hidden" name="id_annonce" value="<?= $id ?>">
+      <div class="date-select">
+        <label>Date de début</label>
+        <input type="date" name="debut" required>
+      </div>
+      <div class="date-select">
+        <label>Date de fin</label>
+        <input type="date" name="fin" required>
+      </div>
+      <div class="people-select">
+        <label>Nombre de personnes</label>
+        <input type="number" name="nb_personnes" min="1" max="10" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Candidat(e)</button>
+    </form>
     <button class="btn btn-accent">Ajouter aux favoris</button>
   </div>
 </div>

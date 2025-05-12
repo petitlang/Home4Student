@@ -1,4 +1,4 @@
- <?php
+<?php
 session_start();
 if (!isset($_SESSION['user'])) {
     header("Location: index.php");
@@ -38,7 +38,7 @@ $user = $_SESSION['user'];
 </div>
 
                 <div class="user-section">
-                <div id="userProfile" class="user-profile" onclick="window.location.href='/views/profile-edit.php'">
+                <div id="userProfile" class="user-profile" onclick="window.location.href='/views/mon_profile.php'">
                     <?php echo htmlspecialchars($user["prenom"] . " " . $user["nom"]); ?>
                     <div id="userAvatar">
                         <?php if (!empty($user["photo"])): ?>

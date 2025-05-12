@@ -51,10 +51,19 @@ switch ($action) {
                     exit;
                 }
 
-                $_SESSION['user'] = $user;
-                $_SESSION['role'] = $role;
-                header('Location: ../views/index2.php');
-                exit;
+                if ($user) {
+                    if ($role === 'etudiant' && isset($user['IdEtudiant'])) {
+                        $user['id'] = $user['IdEtudiant'];
+                    } elseif ($role === 'proprietaire' && isset($user['IdProprietaire'])) {
+                        $user['id'] = $user['IdProprietaire'];
+                    } elseif ($role === 'admin' && isset($user['IdAdmin'])) {
+                        $user['id'] = $user['IdAdmin'];
+                    }
+                    $_SESSION['user'] = $user;
+                    $_SESSION['role'] = $role;
+                    header('Location: ../views/index2.php');
+                    exit;
+                }
             } else {
                 echo "<p>Email déjà utilisé pour ce type de compte. <a href='../views/register.html'>Retour</a></p>";
             }
@@ -87,6 +96,13 @@ switch ($action) {
             }
 
             if ($user && $user !== false) {
+                if ($role === 'etudiant' && isset($user['IdEtudiant'])) {
+                    $user['id'] = $user['IdEtudiant'];
+                } elseif ($role === 'proprietaire' && isset($user['IdProprietaire'])) {
+                    $user['id'] = $user['IdProprietaire'];
+                } elseif ($role === 'admin' && isset($user['IdAdmin'])) {
+                    $user['id'] = $user['IdAdmin'];
+                }
                 $_SESSION['user'] = $user;
                 $_SESSION['role'] = $role;
                 header('Location: ../views/index2.php');

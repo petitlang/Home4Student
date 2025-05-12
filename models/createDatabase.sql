@@ -27,6 +27,7 @@ CREATE TABLE IF NOT EXISTS Proprietaire (
     Email VARCHAR(100) UNIQUE,
     Tele VARCHAR(20),
     MDP VARCHAR(255),
+    genre VARCHAR(10),
     photo TEXT,  -- Chemin du fichier photo (ex: uploads/photos/prop_1.jpg)
     rue VARCHAR(100),
     codepostal VARCHAR(10),
@@ -84,6 +85,8 @@ CREATE TABLE IF NOT EXISTS Candidature (
     IdCandidature INT AUTO_INCREMENT PRIMARY KEY,
     IdEtudiant INT,
     IdAnnonce INT,
+    debut DATE,
+    fin DATE,
     FOREIGN KEY (IdEtudiant) REFERENCES Etudiant(IdEtudiant) ON DELETE CASCADE,
     FOREIGN KEY (IdAnnonce) REFERENCES Annonce(IdAnnonce) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -96,9 +99,9 @@ CREATE TABLE IF NOT EXISTS FAQ (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Table Chat (expediteur/destinateur polymorphique, à gérer côté code PHP)
-CREATE TABLE IF NOT EXISTS Chat (
-    IdChat INT AUTO_INCREMENT PRIMARY KEY,
-    IdMsg INT,
+CREATE TABLE IF NOT EXISTS Message (
+    IdMsg INT AUTO_INCREMENT PRIMARY KEY,   -- 消息id
+    IdChat INT NOT NULL,                    -- 会话id
     message TEXT,
     temps DATETIME DEFAULT CURRENT_TIMESTAMP,
     expediteur TEXT,

@@ -2,13 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Test Chat</title>
 </head>
 <body>
 <form action="../controllers/ChatController.php?action=getNav" method="post">
-    <div>id</div>
-    <input type="text" name="id">
-    <button type="submit">Envoyer</button>
+    <div>ID : </div>
+    <input type="text" name="id" placeholder="comme 13" required>
+    <div>role : </div>
+    <select name="role" required>
+        <option value="proprietaire">proprietaire</option>
+        <option value="etudiant">etudiant</option>
+    </select>
+    <button type="submit">test</button>
 </form>
 </body>
 </html>

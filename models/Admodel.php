@@ -59,6 +59,40 @@ function ad_photos(int $id): array
     return $stmt->fetchAll(PDO::FETCH_COLUMN);
 }
 
+/**
+ * Fetch annonces by owner (propriétaire) with pagination.
+ * @param int $ownerId
+ * @param int $page
+ * @param int $perPage
+ * @return array
+ */
+function get_owner_ads(int $ownerId, int $page = 1, int $perPage = 9): array
+{
+    global $pdo;
+    $offset = ($page - 1) * $perPage;
+    // Count total
+    $stmt = $pdo->prepare('SELECT COUNT(*) FROM annonce WHERE IdProprietaire = :ownerId');
+    $stmt->execute([':ownerId' => $ownerId]);
+    $total = (int)$stmt->fetchColumn();
+    $totalPages = $perPage > 0 ? ceil($total / $perPage) : 1;
+    $page = max(1, min($page, $totalPages));
+    $offset = ($page - 1) * $perPage;
+    // Get paginated data
+    $stmt = $pdo->prepare('SELECT IdAnnonce, Titre, Type, Prix, Etat, rue, codepostal, ville, Pays, Descriptions, IdProprietaire FROM annonce WHERE IdProprietaire = :ownerId ORDER BY IdAnnonce DESC LIMIT :perPage OFFSET :offset');
+    $stmt->bindValue(':ownerId', $ownerId, PDO::PARAM_INT);
+    $stmt->bindValue(':perPage', $perPage, PDO::PARAM_INT);
+    $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+    $stmt->execute();
+    $ads = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return [
+        'ads' => $ads,
+        'total' => $total,
+        'totalPages' => $totalPages,
+        'currentPage' => $page,
+        'perPage' => $perPage
+    ];
+}
+
 // ────────────────────────────────
 //  Tiny JSON API fallback.
 //  Only runs when this file is *directly* requested, not when included.

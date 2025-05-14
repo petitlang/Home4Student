@@ -108,7 +108,7 @@ $role = $user['role'];
         </div>
         <div class="profile-actions">
           <a href="/views/profile-edit.php"><i class="fas fa-user-check"></i> Compléter mon profil</a>
-          <a href="/views/annonces.php"><i class="fas fa-home"></i> Mes Annonces</a>
+          <a href="/views/mes_annonces.php"><i class="fas fa-home"></i> Mes Annonces</a>
           <?php
             $showChat = false;
             if (isset($_SESSION['user']) && isset($user['role'])) {

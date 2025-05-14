@@ -4,10 +4,7 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'etudiant') {
     header('Location: /views/login.php');
     exit();
 }
-require_once __DIR__ . '/../models/CandidatureModel.php';
-
-$id_etudiant = $_SESSION['user']['id'];
-$rooms = get_candidatures_by_etudiant($id_etudiant);
+$user = $_SESSION['user'];
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -45,28 +42,33 @@ $rooms = get_candidatures_by_etudiant($id_etudiant);
         </div>
     </header>
     <main class="container mx-auto px-4">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
+        <div class="card-list">
             <?php
+            // 示例数据，后续用数据库替换
+            $rooms = [
+                [
+                    'img' => '/views/acc.jpg',
+                    'title' => 'Chambre proche université',
+                    'desc' => '15m², tout équipé, 5min à pied du campus',
+                    'status' => 'Réservé'
+                ],
+                [
+                    'img' => '/views/acc2.jpg',
+                    'title' => 'Studio centre-ville',
+                    'desc' => '20m², lumineux, proche transports',
+                    'status' => 'En attente'
+                ]
+            ];
             if (empty($rooms)) {
                 echo '<div class="no-list">Aucune réservation pour le moment.</div>';
             } else {
                 foreach ($rooms as $room) {
-                    echo '<div class="bg-white rounded-2xl shadow p-6 flex flex-col justify-between min-h-[180px]">';
-                    echo '<div class="mb-2">';
-                    echo '<div class="font-bold text-lg mb-1">'.htmlspecialchars($room['Titre']).'</div>';
-                    echo '<div class="text-gray-500 text-sm mb-1">'.htmlspecialchars($room['ville']).' ・ '.htmlspecialchars($room['Type']).' ・ '.htmlspecialchars($room['Prix']).'€</div>';
-                    echo '<div class="text-gray-700 text-sm">'.htmlspecialchars($room['Descriptions']).'</div>';
-                    echo '<div class="text-gray-500 text-xs mt-2">Du '.htmlspecialchars($room['debut']).' au '.htmlspecialchars($room['fin']).'</div>';
-                    echo '</div>';
-                    echo '<div class="flex gap-2 mt-auto">';
-                    // Voir détails
-                    echo '<a href="/views/ad.php?id='.htmlspecialchars($room['IdAnnonce']).'" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition flex items-center gap-2"><i class="fas fa-eye"></i> Voir détails</a>';
-                    // Retirer
-                    echo '<form method="post" action="/controllers/CandidatureController.php" style="display:inline;">';
-                    echo '<input type="hidden" name="delete_candidature" value="1">';
-                    echo '<input type="hidden" name="id_candidature" value="'.htmlspecialchars($room['IdCandidature']).'">';
-                    echo '<button type="submit" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded transition flex items-center gap-2"><i class="fas fa-heart-broken"></i> Retirer</button>';
-                    echo '</form>';
+                    echo '<div class="room-card">';
+                    echo '<img class="room-img" src="'.htmlspecialchars($room['img']).'" alt="room">';
+                    echo '<div class="room-content">';
+                    echo '<div class="room-title">'.htmlspecialchars($room['title']).'</div>';
+                    echo '<div class="room-desc">'.htmlspecialchars($room['desc']).'</div>';
+                    echo '<div class="room-status"><i class="fas fa-check-circle"></i> '.htmlspecialchars($room['status']).'</div>';
                     echo '</div>';
                     echo '</div>';
                 }

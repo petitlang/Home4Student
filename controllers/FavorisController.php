@@ -4,6 +4,7 @@ require_once __DIR__ . '/../models/FavorisModel.php';
 session_start();
 
 $user = $_SESSION['user'] ?? null;
+$role = $_SESSION['role'] ?? 'etudiant';
 if (!$user) {
     header('Location: /views/login.html');
     exit;
@@ -19,19 +20,19 @@ if (!$annonceId) {
 
 switch ($action) {
     case 'add':
-        error_log("FavorisController: add action, userId=$userId, annonceId=$annonceId");
-        if (add_favoris($userId, $annonceId)) {
+        error_log("FavorisController: add action, userId=$userId, annonceId=$annonceId, role=$role");
+        if (add_favoris($userId, $annonceId, $role)) {
             $_SESSION['success_message'] = "Annonce ajoutée aux favoris avec succès.";
             header('Location: /views/favoris.php');
             exit;
         } else {
             $_SESSION['error_message'] = "Erreur lors de l'ajout aux favoris.";
-            error_log("FavorisController: add_favoris failed for userId=$userId, annonceId=$annonceId");
+            error_log("FavorisController: add_favoris failed for userId=$userId, annonceId=$annonceId, role=$role");
         }
         break;
         
     case 'remove':
-        if (remove_favoris($userId, $annonceId)) {
+        if (remove_favoris($userId, $annonceId, $role)) {
             $_SESSION['success_message'] = "Annonce retirée des favoris avec succès.";
         } else {
             $_SESSION['error_message'] = "Erreur lors du retrait des favoris.";

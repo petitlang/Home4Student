@@ -6,6 +6,7 @@ require_once __DIR__ . '/../models/FavorisModel.php';
 session_start();
 $user = $_SESSION['user'] ?? null;
 $userId = $user['id'] ?? null;
+$role = $_SESSION['role'] ?? 'etudiant';
 
 if (!$userId) {
     // 保存当前页面URL到session，以便登录后重定向回来
@@ -21,14 +22,14 @@ $page = isset($_GET['page']) ? max(1, intval($_GET['page'])) : 1;
 $perPage = 9;
 
 // 获取用户收藏的房屋列表（带分页）
-$result = get_user_favoris($userId, $page, $perPage);
+$result = get_user_favoris($userId, $page, $perPage, $role);
 $favoris = $result['favoris'];
 $totalPages = $result['totalPages'];
 $currentPage = $result['currentPage'];
 $totalFavoris = $result['total'];
 
 // 获取收藏总数
-$favorisCount = get_favoris_count($userId);
+$favorisCount = get_favoris_count($userId, $role);
 ?>
 
 <!DOCTYPE html>

@@ -28,8 +28,9 @@ if (!$ad) {
 session_start();
 $user = $_SESSION['user'] ?? null;
 $userId = $user['id'] ?? null;
-$isFavoris = $userId ? is_favoris($userId, $id) : false;
-$favorisCount = $userId ? get_favoris_count($userId) : 0;
+$role = $_SESSION['role'] ?? 'etudiant';
+$isFavoris = $userId ? is_favoris($userId, $id, $role) : false;
+$favorisCount = $userId ? get_favoris_count($userId, $role) : 0;
 
 // 2️⃣ Préparation des variables "safe" ---------------------------------------
 $Titre        = htmlspecialchars($ad['Titre']        ?? '', ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');

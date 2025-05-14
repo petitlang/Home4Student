@@ -75,6 +75,7 @@ CREATE TABLE IF NOT EXISTS Signaler (
 CREATE TABLE IF NOT EXISTS Favoris (
     IdFavoris INT AUTO_INCREMENT PRIMARY KEY,
     IdEtudiant INT,
+    IdProprietaire INT,
     IdAnnonce INT,
     FOREIGN KEY (IdEtudiant) REFERENCES Etudiant(IdEtudiant) ON DELETE CASCADE,
     FOREIGN KEY (IdAnnonce) REFERENCES Annonce(IdAnnonce) ON DELETE CASCADE

@@ -8,8 +8,9 @@
  */
 
 require_once __DIR__ . '/../models/Admodel.php';
+require_once __DIR__ . '/../models/FavorisModel.php';
 
-// 1️⃣ Paramètres GET -----------------------------------------------------------
+// 1️⃣ Paramètres GET -----------------------------------------------------------
 $id = isset($_GET['id']) ? (int)$_GET['id'] : null;
 if (!$id) {
     http_response_code(400);
@@ -23,7 +24,14 @@ if (!$ad) {
     exit('Annonce introuvable');
 }
 
-// 2️⃣ Préparation des variables "safe" ---------------------------------------
+// 检查用户是否已登录
+session_start();
+$user = $_SESSION['user'] ?? null;
+$userId = $user['id'] ?? null;
+$isFavoris = $userId ? is_favoris($userId, $id) : false;
+$favorisCount = $userId ? get_favoris_count($userId) : 0;
+
+// 2️⃣ Préparation des variables "safe" ---------------------------------------
 $Titre        = htmlspecialchars($ad['Titre']        ?? '', ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 $Prix         = htmlspecialchars($ad['Prix']         ?? '', ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 $Type         = htmlspecialchars($ad['Type']         ?? '', ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
@@ -45,6 +53,48 @@ $adresse      = trim("$rue, $postal $ville, $pays", ', ');
   <title><?= $Titre ?></title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" />
   <link rel="stylesheet" href="/views/ad.css" />
+  <style>
+    .btn-favoris {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      width: 100%;
+      justify-content: center;
+      margin-top: 1rem;
+    }
+    .btn-favoris.add {
+      background-color: #e53e3e;
+      color: white;
+      box-shadow: 0 2px 4px rgba(229, 62, 62, 0.2);
+    }
+    .btn-favoris.add:hover {
+      background-color: #c53030;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 6px rgba(229, 62, 62, 0.3);
+    }
+    .btn-favoris.remove {
+      background-color: #718096;
+      color: white;
+      box-shadow: 0 2px 4px rgba(113, 128, 150, 0.2);
+    }
+    .btn-favoris.remove:hover {
+      background-color: #4a5568;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 6px rgba(113, 128, 150, 0.3);
+    }
+    .btn-favoris i {
+      font-size: 1.1rem;
+    }
+    .btn-favoris:active {
+      transform: translateY(0);
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -56,13 +106,21 @@ $adresse      = trim("$rue, $postal $ville, $pays", ', ');
         <div class="nav-links">
           <a href="/views/ads_list.php">Offres</a>
           <a href="/views/chat.php">Messagerie</a>
+          <a href="/views/favoris.php" class="relative">
+            Favoris
+            <?php if ($userId && $favorisCount > 0): ?>
+              <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                <?php echo $favorisCount; ?>
+              </span>
+            <?php endif; ?>
+          </a>
           <a href="/views/faq_back.html">FAQ</a>
           <a href="/views/contact.html">Contact</a>
           <a href="/views/cgu.html">CGU</a>
         </div>
       </div>
       <div class="nav-buttons">
-        <a href="/views/index2.php" class="btn-solid">Retour</a>
+        <a href="/views/index2.php" class="btn-solid">Page d'accueil</a>
       </div>
     </nav>
   </header>
@@ -84,7 +142,7 @@ $adresse      = trim("$rue, $postal $ville, $pays", ', ');
                 </div>
             <?php endif; ?>
         <?php else: ?>
-            <!-- Fallback : si aucune image n'est trouvée -->
+            <!-- Fallback : si aucune image n'est trouvée -->
             <img src="https://picsum.photos/800/600?grayscale&random=1" alt="Placeholder">
         <?php endif; ?>
     </div>
@@ -108,7 +166,21 @@ $adresse      = trim("$rue, $postal $ville, $pays", ', ');
       </div>
       <button type="submit" class="btn btn-primary">Candidat(e)</button>
     </form>
-    <button class="btn btn-accent">Ajouter aux favoris</button>
+    <?php if ($userId): ?>
+      <form method="post" action="/controllers/FavorisController.php" style="margin-top: 1rem;">
+        <input type="hidden" name="action" value="<?= $isFavoris ? 'remove' : 'add' ?>">
+        <input type="hidden" name="id_annonce" value="<?= $id ?>">
+        <button type="submit" class="btn-favoris <?= $isFavoris ? 'remove' : 'add' ?>">
+          <i class="fas <?= $isFavoris ? 'fa-heart-broken' : 'fa-heart' ?>"></i>
+          <?= $isFavoris ? 'Retirer des favoris' : 'Ajouter aux favoris' ?>
+        </button>
+      </form>
+    <?php else: ?>
+      <a href="/views/favoris.php?redirect=<?= urlencode($_SERVER['REQUEST_URI']) ?>" class="btn-favoris add" style="text-decoration: none; margin-top: 1rem;">
+        <i class="fas fa-heart"></i>
+        Se connecter pour ajouter aux favoris
+      </a>
+    <?php endif; ?>
   </div>
 </div>
 

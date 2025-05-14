@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['user'])) {
-    header('Location: /views/login.php');
+    header('Location: /views/login.html');
     exit();
 }
 $user = $_SESSION['user'];
@@ -15,305 +15,29 @@ $role = $user['role'];
   <title>Mon Profil - SeLogerFacilement</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600&display=swap">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <style>
-    :root {
-      --primary: #2ecc71;
-      --secondary: #2ecc71;
-      --gray: #666;
-      --light-gray: #f7f7f7;
-      --white: #fff;
-      --danger: #e74c3c;
-      --warning: #f1c40f;
-    }
-
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      margin: 0;
-      background: var(--light-gray);
-      color: #333;
-    }
-
-    header {
-      background: var(--white);
-      padding: 1rem 2rem;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .header-title {
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: var(--primary);
-    }
-
-    .header-actions {
-      display: flex;
-      gap: 1rem;
-    }
-
-    .container {
-      display: flex;
-      flex-wrap: wrap;
-      padding: 2rem;
-      gap: 2rem;
-      justify-content: center;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .card {
-      background: var(--white);
-      border-radius: 16px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      padding: 2rem;
-      flex: 1 1 320px;
-      min-width: 300px;
-      max-width: 500px;
-      position: relative;
-      transition: transform 0.2s;
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-    }
-
-    .avatar-container {
-      position: relative;
-      width: 100px;
-      height: 100px;
-      margin: 0 auto 1rem;
-    }
-
-    .avatar {
-      width: 100%;
-      height: 100%;
-      background: var(--primary);
-      color: white;
-      font-size: 2.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      overflow: hidden;
-      position: relative;
-      cursor: pointer;
-      transition: opacity 0.2s;
-    }
-
-    .avatar:hover {
-      opacity: 0.9;
-    }
-
-    .avatar img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 50%;
-    }
-
-    .avatar-upload {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: rgba(0,0,0,0.5);
-      color: white;
-      text-align: center;
-      padding: 0.3rem;
-      font-size: 0.8rem;
-      opacity: 0;
-      transition: opacity 0.2s;
-    }
-
-    .avatar-container:hover .avatar-upload {
-      opacity: 1;
-    }
-
-    .avatar input[type="file"] {
-      display: none;
-    }
-
-    .name {
-      font-size: 1.5rem;
-      font-weight: bold;
-      margin: 0.5rem 0;
-      text-align: center;
-    }
-
-    .role {
-      color: var(--gray);
-      font-size: 1rem;
-      margin-bottom: 1rem;
-      text-align: center;
-    }
-
-    .joined {
-      font-size: 0.9rem;
-      color: var(--gray);
-      margin-top: 0.5rem;
-      text-align: center;
-    }
-
-    .info {
-      margin-top: 2rem;
-    }
-
-    .info-title {
-      font-weight: bold;
-      margin-bottom: 1rem;
-      font-size: 1.1rem;
-      color: var(--primary);
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .info-item {
-      margin: 0.8rem 0;
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
-      font-size: 0.95rem;
-      padding: 0.5rem;
-      border-radius: 8px;
-      transition: background-color 0.2s;
-    }
-
-    .info-item:hover {
-      background-color: var(--light-gray);
-    }
-
-    .info-item i {
-      color: var(--primary);
-      width: 20px;
-      text-align: center;
-    }
-
-    .verification-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.3rem 0.8rem;
-      border-radius: 20px;
-      font-size: 0.9rem;
-      margin-left: 0.5rem;
-    }
-
-    .verified {
-      background-color: var(--primary);
-      color: white;
-    }
-
-    .unverified {
-      background-color: var(--warning);
-      color: #333;
-    }
-
-    .btn {
-      background: var(--primary);
-      color: white;
-      padding: 0.8rem 1.5rem;
-      font-size: 1rem;
-      border: none;
-      border-radius: 30px;
-      cursor: pointer;
-      font-weight: bold;
-      text-decoration: none;
-      text-align: center;
-      transition: background-color 0.2s;
-      display: inline-block;
-    }
-
-    .btn:hover {
-      background-color: #27ae60;
-    }
-
-    .btn-secondary {
-      background: var(--secondary);
-    }
-
-    .btn-secondary:hover {
-      background-color: #27ae60;
-    }
-
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1rem;
-      margin-top: 2rem;
-    }
-
-    .stat-item {
-      text-align: center;
-      padding: 1rem;
-      background: var(--light-gray);
-      border-radius: 12px;
-    }
-
-    .stat-value {
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: var(--primary);
-    }
-
-    .stat-label {
-      font-size: 0.9rem;
-      color: var(--gray);
-      margin-top: 0.3rem;
-    }
-
-    @media(max-width: 768px) {
-      .container {
-        flex-direction: column;
-        align-items: center;
-      }
-      
-      .stats {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .action-buttons {
-      display: flex;
-      flex-direction: column;
-      gap: 1.2rem;
-      align-items: center;
-    }
-
-    .btn-action {
-      width: 90%;
-      max-width: 350px;
-      margin: 0 auto;
-      background: var(--primary);
-      color: #fff;
-      border: none;
-      border-radius: 30px;
-      padding: 1rem 0;
-      font-size: 1.1rem;
-      font-weight: bold;
-      text-align: center;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.7rem;
-      transition: background 0.2s;
-    }
-
-    .btn-action:hover {
-      background: #27ae60;
-    }
-  </style>
+  <link rel="stylesheet" href="/views/mon_profil.css">
 </head>
 <body>
 
+<!-- Header (search page style) -->
 <header>
-  <div class="header-title">SeLogerFacilement Profil</div>
-  <div class="header-actions">
-    <a href="/views/index2.php" class="btn btn-secondary"><i class="fas fa-arrow-left"></i>Page d'accueil</a>
-  </div>
+  <nav class="navbar">
+    <div class="logo">
+      <img src="/views/logo-removebg-preview.png" alt="logo" />
+    </div>
+    <div class="nav-center">
+      <div class="nav-links">
+        <a href="/views/ads_list.php">Offres</a>
+        <a href="/views/chat.php">Messagerie</a>
+        <a href="/views/faq_back.html">FAQ</a>
+        <a href="/views/contact.html">Contact</a>
+        <a href="/views/cgu.html">CGU</a>
+      </div>
+    </div>
+    <div class="nav-buttons">
+      <a href="/views/index2.php" class="btn-solid">Page d'accueil</a>
+    </div>
+  </nav>
 </header>
 
 <div class="container">
@@ -358,9 +82,23 @@ $role = $user['role'];
             Compléter mon profil
           </div>
         </div>
-        <a href="/views/profile-edit.php" class="btn btn-action"><i class="fas fa-user-check"></i> Compléter mon profil</a>
-        <a href="/views/candidature.php" class="btn btn-action"><i class="fas fa-file-alt"></i> Mes Candidatures</a>
-        
+        <div class="profile-actions">
+          <a href="/views/profile-edit.php"><i class="fas fa-user-check"></i> Compléter mon profil</a>
+          <a href="/views/candidature.php"><i class="fas fa-file-alt"></i> Mes Candidatures</a>
+          <?php
+            $showChat = false;
+            if (isset($_SESSION['user']) && isset($user['role'])) {
+              $userRole = $_SESSION['user']['role'];
+              $profileRole = $user['role'];
+              if ($userRole !== $profileRole) {
+                $showChat = true;
+              }
+            }
+            if ($showChat):
+          ?>
+          <a href="/views/chat.php"><i class="fas fa-comments"></i> Chat</a>
+          <?php endif; ?>
+        </div>
       <?php elseif ($role === 'proprietaire'): ?>
         <div class="info">
           <div class="info-title">
@@ -368,25 +106,72 @@ $role = $user['role'];
             Compléter mon profil
           </div>
         </div>
-        <a href="/views/profile-edit.php" class="btn btn-action"><i class="fas fa-user-check"></i> Compléter mon profil</a>
-        <a href="/views/annonces.php" class="btn btn-action"><i class="fas fa-home"></i> Mes Annonces</a>
-      <?php endif; ?>
-      <?php
-        $showChat = false;
-        if (isset($_SESSION['user']) && isset($user['role'])) {
-          $userRole = $_SESSION['user']['role'];
-          $profileRole = $user['role'];
-          if ($userRole !== $profileRole) {
-            $showChat = true;
-          }
-        }
-        if ($showChat):
-      ?>
-      <a href="/views/chat.php" class="btn btn-action"><i class="fas fa-comments"></i> Chat</a>
+        <div class="profile-actions">
+          <a href="/views/profile-edit.php"><i class="fas fa-user-check"></i> Compléter mon profil</a>
+          <a href="/views/annonces.php"><i class="fas fa-home"></i> Mes Annonces</a>
+          <?php
+            $showChat = false;
+            if (isset($_SESSION['user']) && isset($user['role'])) {
+              $userRole = $_SESSION['user']['role'];
+              $profileRole = $user['role'];
+              if ($userRole !== $profileRole) {
+                $showChat = true;
+              }
+            }
+            if ($showChat):
+          ?>
+          <a href="/views/chat.php"><i class="fas fa-comments"></i> Chat</a>
+          <?php endif; ?>
+        </div>
       <?php endif; ?>
     </div>
   </div>
 </div>
+
+<!-- Footer (search page style) -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="logo text-white mb-4">
+          <i class="fas fa-graduation-cap text-2xl mr-2"></i>
+          <span class="font-bold text-lg">HomeStudent</span>
+        </div>
+        <div class="social-links">
+          <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+      <div>
+        <h3 class="footer-heading">L'entreprise</h3>
+        <ul class="footer-links">
+          <li class="footer-link"><a href="#">Qui sommes-nous ?</a></li>
+          <li class="footer-link"><a href="/views/contact.html">Nous contacter</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="footer-heading">Services pro</h3>
+        <ul class="footer-links">
+          <li class="footer-link"><a href="#">Accès client</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="footer-heading">À découvrir</h3>
+        <ul class="footer-links">
+          <li class="footer-link"><a href="#">Tout l'immobilier</a></li>
+          <li class="footer-link"><a href="#">Toutes les villes</a></li>
+          <li class="footer-link"><a href="#">Tous les départements</a></li>
+          <li class="footer-link"><a href="#">Toutes les régions</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="copyright">
+      &copy; 2023 HomeStudent - Se loger Facilement. Tous droits réservés.
+    </div>
+  </div>
+</footer>
 
 <script>
   const avatarUpload = document.getElementById('avatarUpload');

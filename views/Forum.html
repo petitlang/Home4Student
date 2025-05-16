@@ -1,205 +1,306 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <title>Forum des annonces </title>
-  <link rel="stylesheet" href="Forum.css">
-  <script>
-    const adminPassword = "1234"; 
-    let annonceCount = 1;
-    let isAdmin = false;
-  
-    function seConnecter() {
-      const password = document.getElementById('adminPassword').value;
-      if (password === adminPassword) {
-        isAdmin = true;
-        document.getElementById('admin-login').style.display = 'none';
-        document.getElementById('admin-dashboard').style.display = 'block';
-        afficherBoutonsAdmin();
-      } else {
-        alert("Mot de passe incorrect !");
-      }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Forum Étudiant</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+        --primary-color: #6b9080;
+        --primary-dark: #4d6a5c;
+        --primary-light: #a4c3b2;
+        --secondary-color: #f6fff8;
+        --text-dark: #2c3e50;
+        --text-light: #7f8c8d;
+        --white: #ffffff;
+        --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        --transition: all 0.3s ease;
+        --secondary: #e74c3c;
     }
-  
-    function ajouterAnnonce(source = 'etudiant') {
-      const textareaId = source === 'admin' ? 'description-annonce-admin' : 'description-annonce';
-      const description = document.getElementById(textareaId).value;
-      if (description.trim() !== "") {
-        const annonceSection = document.createElement("div");
-        annonceSection.classList.add("annonce");
-        annonceSection.innerHTML = `
-          <p>Annonce ${annonceCount} ${source === 'admin' ? '(admin)' : ''}</p>
-          <p>${description}</p>
-          <div class="admin-controls" style="display: ${isAdmin ? 'block' : 'none'}">
-            <button onclick="modifierAnnonce(this)">Modifier</button>
-            <button onclick="supprimerAnnonce(this)">Supprimer</button>
-          </div>
-          <div class="mini-forum">
-            <div class="commentaires"></div>
-            <form onsubmit="ajouterCommentaire(event, this)">
-              <input type="text" name="auteur" placeholder="Votre nom ou 'admin'" required>
-              <textarea name="commentaire" placeholder="Laissez un commentaire..." required></textarea>
-              <button type="submit">Poster</button>
-            </form>
-          </div>
-        `;
-        document.querySelector(".annonces").appendChild(annonceSection);
-        annonceCount++;
-        document.getElementById(textareaId).value = "";
-      } else {
-        alert("Veuillez saisir une description avant d'ajouter l'annonce.");
-      }
+
+    body {
+        font-family: 'Poppins', sans-serif;
+        color: var(--text-dark);
+        background-color: var(--secondary-color);
+        margin: 0;
+        padding-top: 100px;
     }
-  
-    function ajouterCommentaire(event, form, parentDiv = null) {
-      event.preventDefault();
-      const auteur = form.auteur.value.trim();
-      const texte = form.commentaire.value.trim();
-      if (!texte || !auteur) return;
-  
-      const commentaire = document.createElement("div");
-      commentaire.className = "commentaire";
-      commentaire.style.marginTop = "10px";
-      commentaire.style.paddingLeft = parentDiv ? "20px" : "0";
-      commentaire.innerHTML = `
-        <p><strong>${auteur}</strong> : ${texte}</p>
-        <button class="repondre-btn" onclick="afficherFormulaireReponse(this)">Répondre</button>
-        <div class="reponses"></div>
-      `;
-  
-      const zoneCommentaires = parentDiv
-        ? parentDiv.querySelector('.reponses')
-        : form.previousElementSibling;
-  
-      zoneCommentaires.appendChild(commentaire);
-  
-      form.reset();
-      if (parentDiv) form.remove(); 
+
+    .container {
+        width: 90%;
+        margin: 0 auto;
+        padding: 0 2rem;
     }
-  
-    function afficherFormulaireReponse(button) {
-      const commentaireDiv = button.closest('.commentaire');
-      if (commentaireDiv.querySelector('form')) return;
-  
-      const form = document.createElement("form");
-      form.onsubmit = (e) => ajouterCommentaire(e, form, commentaireDiv);
-      form.innerHTML = `
-        <input type="text" name="auteur" placeholder="Votre nom ou 'admin'" required>
-        <textarea name="commentaire" placeholder="Votre réponse..." required></textarea>
-        <button type="submit">Répondre</button>
-      `;
-      commentaireDiv.appendChild(form);
+
+    header {
+        background-color: var(--white);
+        box-shadow: var(--shadow);
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        height: 80px;
     }
-  
-    function rechercherAnnonce() {
-      let input = document.getElementById('searchBar').value.toLowerCase();
-      let annonces = document.getElementsByClassName('annonce');
-      for (let i = 0; i < annonces.length; i++) {
-        let description = annonces[i].getElementsByTagName('p')[1].innerText.toLowerCase();
-        annonces[i].style.display = description.includes(input) ? "block" : "none";
-      }
+
+    .navbar {
+      
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #66A182;
+        padding: 15px 30px;
+        height: 80px;
+        border-radius: 10px;
     }
-  
-    function supprimerAnnonce(button) {
-      const annonce = button.closest('.annonce');
-      annonce.remove();
+
+    .logo img {
+        height: 50px;
     }
-  
-    function modifierAnnonce(button) {
-      const annonce = button.closest('.annonce');
-      const description = annonce.querySelector('p:nth-child(2)');
-      const newDescription = prompt("Modifier la description de l'annonce", description.textContent);
-      if (newDescription !== null) {
-        description.textContent = newDescription;
-      }
+
+    .nav-links {
+        display: flex;
+        gap: 1.5rem;
+        align-items: center;
     }
-  
-    function afficherBoutonsAdmin() {
-      const adminControls = document.querySelectorAll('.admin-controls');
-      adminControls.forEach(control => {
-        control.style.display = 'block';
-      });
+
+    .nav-link {
+        color: var(--white);
+        font-weight: 500;
+        text-decoration: none;
+        padding: 0.5rem 0.75rem;
+        border-radius: 0.375rem;
+        transition: var(--transition);
     }
-  </script>
+
+    .nav-link:hover {
+        background-color: white;
+        color: var(--primary-color);
+    }
+
+    .hero-slogan {
+        text-align: center;
+        background-color: var(--primary-color);
+        color: white;
+        padding: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .hero-slogan h1 {
+        font-size: 2.5rem;
+        margin: 0;
+    }
+
+    .section {
+        padding: 2rem 0;
+    }
+
+    .section-title {
+        font-size: 2rem;
+        color: var(--primary-dark);
+        margin-bottom: 1rem;
+    }
+
+    form input,
+    form textarea {
+        width: 100%;
+        padding: 0.75rem;
+        margin-bottom: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 0.375rem;
+        font-family: inherit;
+        font-size: 1rem;
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 0.5rem 1.5rem;
+        border-radius: 0.375rem;
+        font-weight: 500;
+        transition: var(--transition);
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+    .btn-primary {
+        background-color: var(--primary-color);
+        color: var(--white);
+    }
+
+    .btn-primary:hover {
+        background-color: var(--primary-dark);
+    }
+
+    .question-card {
+        background-color: white;
+        box-shadow: var(--shadow);
+        border-radius: 0.5rem;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .question-title {
+        font-size: 1.25rem;
+        margin-bottom: 0.5rem;
+        color: var(--primary-dark);
+    }
+
+    .question-author {
+        font-size: 0.875rem;
+        color: var(--text-light);
+        margin-bottom: 1rem;
+    }
+
+    .answers {
+        margin-top: 1rem;
+        padding-left: 1rem;
+        border-left: 3px solid var(--primary-light);
+    }
+
+    .answer {
+        margin-bottom: 1rem;
+    }
+
+    .answer-author {
+        font-size: 0.875rem;
+        color: var(--text-light);
+        margin-top: 0.25rem;
+    }
+
+    footer {
+        background-color: var(--primary-dark);
+        color: var(--white);
+        padding: 3rem 0 1rem;
+        text-align: center;
+    }
+
+    .footer-links a {
+        color: var(--secondary-color);
+        text-decoration: none;
+    }
+
+    .footer-links a:hover {
+        color: var(--white);
+    }
+  </style>
 </head>
 <body>
 
-<header>
-  <nav>
-    <div class="nav-left">
-      <button>Offres</button>
-      <button>Messagerie</button>
-      <button class="active">Forum</button>
-      <button>Contact</button>
-    </div>
-    <div class="nav-right">
-      <button>Sign in</button>
-      <button class="register">Register</button>
-    </div>
-  </nav>
-</header>
+  <header>
+    <nav class="navbar">
+      <div class="logo">
+        <img src="logo.png" alt="Logo Forum">
+      </div>
+      <div class="nav-links">
+        <a href="admin.html" class="nav-link" style="font-weight: bold;">Espace Admin</a>
+        <a href="#questions" class="nav-link">Questions</a>
+        <a href="#create" class="nav-link">Poser une question</a>
+      </div>
+    </nav>
+  </header>
 
-<main>
-  <div id="admin-login">
-    <h2>Accès Administrateur</h2>
-    <input type="password" id="adminPassword" placeholder="Mot de passe">
-    <button onclick="seConnecter()">Se connecter</button>
-  </div>
-
-  <div id="admin-dashboard" style="display: none;">
-    <h2>Back-office Administrateur</h2>
-    <section class="ajouter-annonce-admin">
-      <h3>Ajouter une annonce</h3>
-      <textarea id="description-annonce-admin" placeholder="Entrez une description de l'annonce"></textarea>
-      <button onclick="ajouterAnnonce('admin')">Ajouter l'annonce</button>
-    </section>
-  </div>
-
-  <h1>Forum des annonces</h1>
-  <p>Retrouvez une coopérative et discutez-en avec les autres étudiants.</p>
-
-  <input type="text" id="searchBar" placeholder="Rechercher une coopérative" onkeyup="rechercherAnnonce()">
-
-  <section class="ajouter-annonce">
-    <h2>Ajouter une annonce</h2>
-    <textarea id="description-annonce" placeholder="Entrez la description de l'annonce" required></textarea>
-    <button onclick="ajouterAnnonce()">Ajouter l'annonce</button>
+  <section class="hero-slogan">
+    <h1>Forum Étudiant</h1>
+    <p>Posez vos questions et échangez avec d'autres étudiants !</p>
   </section>
 
-  <section class="annonces">
-    
+  <section id="create" class="container section">
+    <h2 class="section-title">Poser une question</h2>
+    <form id="questionForm">
+      <input type="text" id="titre" placeholder="Titre de votre question" required />
+      <textarea id="contenu" placeholder="Décrivez votre problème..." rows="5" required></textarea>
+      <button type="submit" class="btn btn-primary">Publier</button>
+    </form>
   </section>
-</main>
 
-<footer>
-  <div class="footer-grid">
-    <div class="footer-section">
-      <div class="social-icons">
-        <a href="#"><i class="fab fa-twitter"></i></a>
-        <a href="#"><i class="fab fa-instagram"></i></a>
-        <a href="#"><i class="fab fa-youtube"></i></a>
-        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+  <section id="questions" class="container section">
+    <h2 class="section-title">Questions récentes</h2>
+    <div id="questionList"></div>
+  </section>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-section">
+        <div class="social-icons">
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      <div class="footer-container">
+        <div class="footer-section">
+          <h4>Notre entreprise</h4>
+          <a href="#">Qui sommes-nous ?</a>
+          <a href="#">Nous contacter</a>
+        </div>
+        <div class="footer-section">
+          <h4>Service pro</h4>
+          <a href="#">Tous nos services</a>
+          <a href="#">Accès client</a>
+        </div>
+        <div class="footer-section">
+          <h4>À découvrir</h4>
+          <a href="#">Tout l'immobilier</a>
+          <a href="#">Toutes les villes</a>
+          <a href="#">Tous les départements</a>
+        </div>
       </div>
     </div>
-  <div class="footer-container">
-    <div class="footer-section">
-      <h4>Notre entreprise</h4>
-      <a href="#">Qui sommes-nous ?</a>
-      <a href="#">Nous contacter</a>
-    </div>
-    <div class="footer-section">
-      <h4>Service pro</h4>
-      <a href="#">Tous nos services</a>
-      <a href="#">Accès client</a>
-    </div>
-    <div class="footer-section">
-      <h4>À découvrir</h4>
-      <a href="#">Tout l'immobilier</a>
-      <a href="#">Toutes les villes</a>
-      <a href="#">Tous les départements </a>
-    </div>
-  </div>
-</footer>
+  </footer>
 
+  <script>
+    const form = document.getElementById('questionForm');
+    const questionList = document.getElementById('questionList');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const titre = document.getElementById('titre').value.trim();
+      const contenu = document.getElementById('contenu').value.trim();
+
+      if (titre && contenu) {
+        const card = document.createElement('div');
+        card.className = 'question-card';
+        card.innerHTML = `
+          <h3 class="question-title">${titre}</h3>
+          <p class="question-author">Posté par: Anonyme</p>
+          <div class="answers">
+            <p>${contenu}</p>
+          </div>
+          <form class="response-form">
+            <input type="text" placeholder="Votre nom" required />
+            <textarea placeholder="Votre réponse..." rows="3" required></textarea>
+            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Répondre</button>
+          </form>
+          <div class="response-list"></div>
+        `;
+
+        const responseForm = card.querySelector('.response-form');
+        const responseList = card.querySelector('.response-list');
+
+        responseForm.addEventListener('submit', function (event) {
+          event.preventDefault();
+          const nom = responseForm.querySelector('input').value.trim();
+          const contenuRep = responseForm.querySelector('textarea').value.trim();
+          if (nom && contenuRep) {
+            const date = new Date();
+            const heure = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            const responseItem = document.createElement('div');
+            responseItem.className = 'answer';
+            responseItem.innerHTML = `
+              <p>${contenuRep}</p>
+              <p class="answer-author">Répondu par ${nom} à ${heure}</p>
+            `;
+            responseList.appendChild(responseItem);
+            responseForm.reset();
+          }
+        });
+
+        questionList.prepend(card);
+        form.reset();
+      }
+    });
+  </script>
 </body>
 </html>

@@ -24,7 +24,7 @@
         color: var(--text-dark);
         background-color: var(--secondary-color);
         margin: 0;
-        padding-top: 100px;
+      
     }
 
     .container {
@@ -33,36 +33,44 @@
         padding: 0 2rem;
     }
 
-    header {
-        background-color: var(--white);
-        box-shadow: var(--shadow);
-        position: fixed;
-        top: 0;
-        width: 100%;
-        z-index: 1000;
-        height: 80px;
-    }
+   .header-top {
+  background-color: white;
+  padding: 0.20rem 2rem;
+  display: flex;
+  align-items: center;
+  height: 55px;
+}
+
+.logo {
+  height: 50px;
+  object-fit: contain;
+}
+.header-bottom {
+  background-color: var(--primary-color);
+  padding: 0.75rem 2rem;
+}
 
     .navbar {
-      
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background-color: #66A182;
-        padding: 15px 30px;
-        height: 80px;
-        border-radius: 10px;
-    }
-
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.nav-links a {
+  .nav-links {
+  display: flex;
+ 
+}
+}
     .logo img {
         height: 50px;
     }
 
-    .nav-links {
-        display: flex;
-        gap: 1.5rem;
-        align-items: center;
-    }
+     .nav-links {
+  display: flex;
+  gap: 1rem;
+  padding-left: 10%; 
+}
 
     .nav-link {
         color: var(--white);
@@ -73,33 +81,36 @@
         transition: var(--transition);
     }
 
-    .nav-link:hover {
-        background-color: white;
-        color: var(--primary-color);
-    }
+    .nav-links a:hover {
+  background-color: var(--primary-light);
+  color: var(--primary-dark);
+}
+.nav-buttons a {
+  margin-left: 0.5rem;
+  padding: 0.2rem 0.8rem;
+  border-radius: px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: var(--transition);
+}
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-    .hero-slogan {
-        text-align: center;
-        background-color: var(--primary-color);
-        color: white;
-        padding: 2rem;
-        margin-bottom: 2rem;
-    }
+.nav-center {
+  flex: 1;
+  display: flex;
+  justify-content: center; 
+}
 
-    .hero-slogan h1 {
-        font-size: 2.5rem;
-        margin: 0;
-    }
+.nav-links {
+  display: flex;
+  gap: 0.5rem;
+}
 
-    .section {
-        padding: 2rem 0;
-    }
-
-    .section-title {
-        font-size: 2rem;
-        color: var(--primary-dark);
-        margin-bottom: 1rem;
-    }
+   
 
     form input,
     form textarea {
@@ -166,31 +177,112 @@
         color: var(--text-light);
         margin-top: 0.25rem;
     }
+    @media (max-width: 768px) {
+  .navbar {
+  flex-direction: column;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  }
+    }
+
+    .hero-slogan{
+      text-align: center;
+      color: var(--primary-color);
+      margin-bottom: 2rem; 
+
+    }
+
+  .nav-links {
+  display: flex;
+  gap: 1rem;
+  padding-left: 60%; 
+}
+     .logo {
+      font-size: 2rem;
+      font-weight: bold;
+      color: var(--primary-color);
+    }
+
+    .social-icons {
+  display: flex;
+  gap: 1rem;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+ .social-icons a {
+  color: var(--secondary-color);
+  transition: var(--transition);
+}
+
+.social-icons a:hover {
+  color: var(--white);
+} 
 
     footer {
-        background-color: var(--primary-dark);
-        color: var(--white);
-        padding: 3rem 0 1rem;
-        text-align: center;
+  background-color: var(--primary-color);
+  color: var(--white);
+  padding: 3rem 2rem 1.5rem;
+}
+    footer {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 2rem 1rem;
+    }
+    .footer-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-start;
     }
 
-    .footer-links a {
-        color: var(--secondary-color);
-        text-decoration: none;
+    .footer-section {
+      flex: 1;
+      min-width: 180px;
+      margin-bottom: 1rem;
     }
 
-    .footer-links a:hover {
-        color: var(--white);
+    .footer-section h4 {
+      margin-bottom: 1rem;
+        
     }
+
+    .footer-section a {
+      display: block;
+      color: white;
+      text-decoration: none;
+      margin: 0.3rem 0;
+      font-weight: 300;
+    }
+
+    .footer-section a:hover {
+      text-decoration: underline;
+    }
+
+@media (max-width: 768px) {
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+}
   </style>
 </head>
 <body>
 
   <header>
-    <nav class="navbar">
-      <div class="logo">
-        <img src="logo.png" alt="Logo Forum">
-      </div>
+   <div class="header-top">
+      <img src="logo-removebg-preview.png" alt="Logo Home4Student" class="logo" />
+    </div>
+     <div class="header-bottom">
+      <nav class="navbar">
       <div class="nav-links">
         <a href="admin.html" class="nav-link" style="font-weight: bold;">Espace Admin</a>
         <a href="#questions" class="nav-link">Questions</a>
@@ -200,7 +292,7 @@
   </header>
 
   <section class="hero-slogan">
-    <h1>Forum Étudiant</h1>
+    <h1>Forum Etudiant</h1>
     <p>Posez vos questions et échangez avec d'autres étudiants !</p>
   </section>
 
@@ -220,87 +312,123 @@
 
   <footer>
     <div class="footer-grid">
+      
       <div class="footer-section">
         <div class="social-icons">
-          <a href="#"><i class="fab fa-twitter"></i></a>
-          <a href="#"><i class="fab fa-instagram"></i></a>
-          <a href="#"><i class="fab fa-youtube"></i></a>
-          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
         </div>
       </div>
-      <div class="footer-container">
-        <div class="footer-section">
-          <h4>Notre entreprise</h4>
-          <a href="#">Qui sommes-nous ?</a>
-          <a href="#">Nous contacter</a>
-        </div>
-        <div class="footer-section">
-          <h4>Service pro</h4>
-          <a href="#">Tous nos services</a>
-          <a href="#">Accès client</a>
-        </div>
-        <div class="footer-section">
-          <h4>À découvrir</h4>
-          <a href="#">Tout l'immobilier</a>
-          <a href="#">Toutes les villes</a>
-          <a href="#">Tous les départements</a>
-        </div>
+  
+      
+      <div class="footer-section">
+        <h4>Notre entreprise</h4>
+        <a href="#about">Qui sommes-nous ?</a>
+        <a href="#team">Nous contacter</a>
+      </div>
+  
+      
+      <div class="footer-section">
+        <h4>Services pro</h4>
+        <a href="#partners">Tous nos services</a>
+        <a href="#agencies">Accès client</a>
+      </div>
+  
+      
+      <div class="footer-section">
+        <h4>À découvrir</h4>
+        <a href="#contact">Tout l'immobilier</a>
+        <a href="#faq">Toutes les villes</a>
+        <a href="#guides">Tous les départements</a>
       </div>
     </div>
   </footer>
+  
 
-  <script>
-    const form = document.getElementById('questionForm');
-    const questionList = document.getElementById('questionList');
+ <script>
+  const form = document.getElementById('questionForm');
+  const questionList = document.getElementById('questionList');
+  const currentUser = sessionStorage.getItem('currentUser');
 
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
+  let questions = JSON.parse(localStorage.getItem("questions")) || [];
 
-      const titre = document.getElementById('titre').value.trim();
-      const contenu = document.getElementById('contenu').value.trim();
+  
+  questions.forEach(displayQuestion);
 
-      if (titre && contenu) {
-        const card = document.createElement('div');
-        card.className = 'question-card';
-        card.innerHTML = `
-          <h3 class="question-title">${titre}</h3>
-          <p class="question-author">Posté par: Anonyme</p>
-          <div class="answers">
-            <p>${contenu}</p>
-          </div>
-          <form class="response-form">
-            <input type="text" placeholder="Votre nom" required />
-            <textarea placeholder="Votre réponse..." rows="3" required></textarea>
-            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Répondre</button>
-          </form>
-          <div class="response-list"></div>
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const titre = document.getElementById('titre').value.trim();
+    const contenu = document.getElementById('contenu').value.trim();
+
+    if (titre && contenu) {
+      const question = {
+        titre,
+        contenu,
+       auteur: currentUser || "Anonyme",
+        reponses: []
+      };
+
+      questions.push(question);
+      localStorage.setItem("questions", JSON.stringify(questions));
+
+      displayQuestion(question);
+      form.reset();
+    }
+  });
+
+  function displayQuestion(q) {
+    const card = document.createElement('div');
+    card.className = 'question-card';
+    card.innerHTML = `
+      <h3 class="question-title">${q.titre}</h3>
+      <p class="question-author">Posté par: ${q.auteur}</p>
+      <div class="answers">
+        <p>${q.contenu}</p>
+      </div>
+      <form class="response-form">
+        <textarea placeholder="Votre réponse..." rows="3" required></textarea>
+        <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Répondre</button>
+      </form>
+      <div class="response-list"></div>
+    `;
+
+    const responseForm = card.querySelector('.response-form');
+    const responseList = card.querySelector('.response-list');
+
+    responseForm.addEventListener('submit', function (event) {
+      event.preventDefault();
+      const nom = currentUser || "Anonyme";
+      const contenuRep = responseForm.querySelector('textarea').value.trim();
+
+      if (nom && contenuRep) {
+        const date = new Date();
+        const heure = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+        const responseItem = document.createElement('div');
+        responseItem.className = 'answer';
+        responseItem.innerHTML = `
+          <p>${contenuRep}</p>
+          <p class="answer-author">Répondu par ${nom} à ${heure}</p>
         `;
+        responseList.appendChild(responseItem);
 
-        const responseForm = card.querySelector('.response-form');
-        const responseList = card.querySelector('.response-list');
-
-        responseForm.addEventListener('submit', function (event) {
-          event.preventDefault();
-          const nom = responseForm.querySelector('input').value.trim();
-          const contenuRep = responseForm.querySelector('textarea').value.trim();
-          if (nom && contenuRep) {
-            const date = new Date();
-            const heure = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-            const responseItem = document.createElement('div');
-            responseItem.className = 'answer';
-            responseItem.innerHTML = `
-              <p>${contenuRep}</p>
-              <p class="answer-author">Répondu par ${nom} à ${heure}</p>
-            `;
-            responseList.appendChild(responseItem);
-            responseForm.reset();
-          }
+        
+        q.reponses.push({
+          auteur: nom,
+          contenu: contenuRep,
+          heure
         });
+        localStorage.setItem("questions", JSON.stringify(questions));
 
-        questionList.prepend(card);
-        form.reset();
+        responseForm.reset();
       }
     });
-  </script>
+
+    questionList.prepend(card);
+  }
+</script>
 </body>
 </html>

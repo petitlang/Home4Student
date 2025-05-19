@@ -10,7 +10,15 @@
 require_once __DIR__ . '/../models/Admodel.php';
 require_once __DIR__ . '/../models/FavorisModel.php';
 
-// 1️⃣ Paramètres GET -----------------------------------------------------------
+
+session_start();
+$_SESSION['user'] = [
+  'nom' => 'Zabala',
+  'prenom' => 'Danaé',
+  'role' => 'admin'
+];
+
+$id = 1;
 $id = isset($_GET['id']) ? (int)$_GET['id'] : null;
 if (!$id) {
     http_response_code(400);
@@ -25,14 +33,14 @@ if (!$ad) {
 }
 
 // 检查用户是否已登录
-session_start();
+
 $user = $_SESSION['user'] ?? null;
 $userId = $user['id'] ?? null;
 $role = $_SESSION['role'] ?? 'etudiant';
 $isFavoris = $userId ? is_favoris($userId, $id, $role) : false;
 $favorisCount = $userId ? get_favoris_count($userId, $role) : 0;
 
-// 2️⃣ Préparation des variables "safe" ---------------------------------------
+
 $Titre        = htmlspecialchars($ad['Titre']        ?? '', ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 $Prix         = htmlspecialchars($ad['Prix']         ?? '', ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 $Type         = htmlspecialchars($ad['Type']         ?? '', ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
@@ -54,6 +62,8 @@ $adresse      = trim("$rue, $postal $ville, $pays", ', ');
   <title><?= $Titre ?></title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" />
   <link rel="stylesheet" href="/views/ad.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <style>
     .btn-favoris {
       display: flex;
@@ -97,6 +107,37 @@ $adresse      = trim("$rue, $postal $ville, $pays", ', ');
     }
   </style>
 </head>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const adresse = <?= json_encode($adresse) ?>;
+
+    var map = L.map('map').setView([48.8566, 2.3522], 13);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(adresse)}`)
+      .then(response => response.json())
+      .then(data => {
+        if (data.length > 0) {
+          var lat = parseFloat(data[0].lat);
+          var lon = parseFloat(data[0].lon);
+          map.setView([lat, lon], 15);
+          L.marker([lat, lon]).addTo(map)
+            .bindPopup(adresse).openPopup();
+        } else {
+          console.warn("Adresse non trouvée :", adresse);
+          document.getElementById('map').innerHTML = "Adresse non trouvée.";
+        }
+      })
+      .catch(err => {
+        console.error("Erreur lors du géocodage :", err);
+        document.getElementById('map').innerHTML = "Erreur lors du chargement de la carte.";
+      });
+  });
+</script>
+
 <body>
   <header>
     <nav class="navbar">
@@ -190,6 +231,7 @@ $adresse      = trim("$rue, $postal $ville, $pays", ', ');
   <div class="info-section">
     <h1><?= $Titre ?></h1>
     <div class="address"><?= $adresse ?></div>
+    <div id="map" style="height: 400px; margin-top: 1em;"></div>
 
     <div class="details-row">
       <div><?= $Type ?></div>

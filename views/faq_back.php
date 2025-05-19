@@ -1,162 +1,156 @@
+<?php
+session_start();
+
+// Simuler un utilisateur admin pour test
+$_SESSION['user'] = [
+    'nom' => 'Zabala',
+    'prenom' => 'Danaé',
+    'role' => 'admin'
+];
+
+// Connexion DB
+$pdo = new PDO('mysql:host=localhost;dbname=home4student', 'root', 'root');
+$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - Admin</title>
     <link rel="stylesheet" href="/views/faq_back.css">
-    
+
     <script defer>
-        function toggleFAQ(element) {
-            element.nextElementSibling.classList.toggle("active");
-        }
+        document.addEventListener("DOMContentLoaded", () => {
+            const form = document.getElementById("adminAddFaqForm");
+            const message = document.getElementById("adminMessage");
+            const faqContainer = document.getElementById("publicFaq");
+
+            if (form) {
+                form.addEventListener("submit", function (e) {
+                    e.preventDefault();
+                    const formData = new FormData(form);
+
+                    fetch("faq_ajouter_question.php", {
+                        method: "POST",
+                        body: formData
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.success) {
+                            message.textContent = data.message;
+
+                            const newFaq = document.createElement("div");
+                            newFaq.className = "faq-item";
+                            newFaq.innerHTML = `
+                                <p><strong>Question :</strong> ${data.question}</p>
+                                <p><strong>Réponse :</strong> ${data.reponse}</p>
+                                <hr>`;
+                            faqContainer.prepend(newFaq);
+                            form.reset();
+                        } else {
+                            message.textContent = data.message;
+                        }
+                    })
+                    .catch(() => {
+                        message.textContent = "Erreur serveur.";
+                    });
+                });
+            }
+        });
     </script>
 </head>
 <body>
-    
-     
 
-    <!-- Barre de navigation -->
-    <header>
-        <div class="container">
-            <nav class="navbar">
-                <div class="logo">
-                    <div class="flex items-center">
-                        <img src="/views/logo-removebg-preview.png" alt="logo">
-                    </div>
-                </div>
-    
-                <div class="nav-links">
-                    <a href="#" class="nav-link">Offres</a>
-                    <a href="#" class="nav-link">Messagerie</a>
-                    <a href="/views/faq_back.html" class="nav-link active">FAQ</a>
-                    <a href="/views/contact.html" class="nav-link">Contact</a>
-    
-                    <?php if (!isset($_SESSION['user'])): ?>
-                        <a href="/views/login.html" class="btn btn-outline">Se connecter</a>
-                        <a href="/views/register.html" class="btn btn-primary">S'inscrire</a>
-                    <?php endif; ?>
-                </div>
-    
-                <?php if (isset($_SESSION['user'])): ?>
-                    <div class="user-section">
-                        <div id="userProfile" class="user-profile" onclick="window.location.href='/views/profile-edit.php'">
-                            <?php echo htmlspecialchars($user["prenom"] . " " . $user["nom"]); ?>
-                            <div id="userAvatar">
-                                <?php if (!empty($user["photo"])): ?>
-                                    <img src="<?php echo htmlspecialchars($user["photo"]); ?>" alt="Photo de profil" class="profile-img">
-                                <?php else: ?>
-                                    <div class="default-avatar"></div>
-                                <?php endif; ?>
-                            </div>
-                        </div>
-                        <a href="../controllers/UserController.php?action=logout" class="btn btn-secondary">Se déconnecter</a>
-                    </div>
+<header>
+    <div class="container">
+        <nav class="navbar">
+            <div class="logo">
+                <img src="/views/logo-removebg-preview.png" alt="logo">
+            </div>
+            <div class="nav-links">
+                <a href="#" class="nav-link">Offres</a>
+                <a href="#" class="nav-link">Messagerie</a>
+                <a href="/views/faq_back.php" class="nav-link active">FAQ</a>
+                <a href="/views/contact.html" class="nav-link">Contact</a>
+                <?php if (!isset($_SESSION['user'])): ?>
+                    <a href="/views/login.html" class="btn btn-outline">Se connecter</a>
+                    <a href="/views/register.html" class="btn btn-primary">S'inscrire</a>
+                <?php else: ?>
+                    <a href="/controllers/UserController.php?action=logout" class="btn btn-secondary">Se déconnecter</a>
                 <?php endif; ?>
-            </nav>
-        </div>
-    </header>
-    
+            </div>
+        </nav>
+    </div>
+</header>
 
-    <!---Section FAQ texte-->
+<main>
     <section class="faq">
         <h1>FAQ</h1>
         <p>Retrouvez ci-dessous toutes les informations utiles</p>
     </section>
 
-    <!-- Section FAQ -->   
-    <?php
-    //require '../models/connection.php';
-    $pdo = new PDO('mysql:host=localhost;dbname=home4student', 'root', 'root');
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        <!-- FAQ publique -->
+        <section id="publicFaq" class="public-faq">
+            <h2>Foire aux questions</h2>
+            <?php
+            $faqs = $pdo->query("SELECT * FROM faq WHERE reponse IS NOT NULL ORDER BY IdFAQ DESC");
+            if ($faqs->rowCount() > 0):
+                while ($faq = $faqs->fetch(PDO::FETCH_ASSOC)):
+            ?>
+                <div class="faq-item" id="faq-<?= $faq['IdFAQ'] ?>">
+                    <?php if (isset($_GET['edit']) && $_GET['edit'] == $faq['IdFAQ'] && isset($_SESSION['user']) && $_SESSION['user']['role'] === 'admin'): ?>
+                        <!-- Formulaire édition -->
+                        <form method="POST" action="faq_modifier_question.php">
+                            <input type="hidden" name="id" value="<?= $faq['IdFAQ'] ?>">
+                            <label>Question :</label><br>
+                            <textarea name="question" required><?= htmlspecialchars($faq['question']) ?></textarea><br>
+                            
+                            <label>Réponse :</label><br>
+                            <textarea name="reponse" required><?= htmlspecialchars($faq['reponse']) ?></textarea><br>
+                            
+                            <button type="submit">Enregistrer</button>
+                            <a href="faq_back.php">Annuler</a>
+                        </form>
+                    <?php else: ?>
+                        <p><strong>Question :</strong> <?= htmlspecialchars($faq['question']) ?></p>
+                        <p><strong>Réponse :</strong> <?= nl2br(htmlspecialchars($faq['reponse'])) ?></p>
 
-    $faqs = $pdo->query("SELECT * FROM faq WHERE reponse IS NOT NULL ORDER BY IdFAQ DESC");
-    ?>
+                        <?php if (isset($_SESSION['user']) && $_SESSION['user']['role'] === 'admin'): ?>
+                            <a href="faq_back.php?edit=<?= $faq['IdFAQ'] ?>" class="btn-modifier">✏️ Modifier</a>
 
-    <section class="public-faq">
-        <h2>Foire aux questions</h2>
-        <?php if ($faqs->rowCount() > 0): ?>
-            <?php while ($faq = $faqs->fetch(PDO::FETCH_ASSOC)): ?>
-                <div class="faq-item">
-                    <p><strong>Question :</strong> <?= htmlspecialchars($faq['question']) ?></p>
-                    <p><strong>Réponse :</strong> <?= nl2br(htmlspecialchars($faq['reponse'])) ?></p>
+                            <!-- Formulaire suppression en POST pour sécurité -->
+                            <form method="POST" action="faq_supprimer_question.php" style="display:inline;" onsubmit="return confirm('Voulez-vous vraiment supprimer cette question ?');">
+                                <input type="hidden" name="id" value="<?= $faq['IdFAQ'] ?>">
+                                <button type="submit" class="btn-supprimer" style="background:none; border:none; color:red; cursor:pointer;">🗑️ Supprimer</button>
+                            </form>
+                        <?php endif; ?>
+                    <?php endif; ?>
                 </div>
-                <hr>
-            <?php endwhile; ?>
-        <?php else: ?>
+                <hr>           
+                
+            
+            <?php endwhile; else: ?>
             <p>Aucune question n’a encore été répondue.</p>
         <?php endif; ?>
     </section>
-    
-    <!--partie réponse admin-->
-        <?php
-    session_start();
-    $_SESSION['user'] = [
-        'nom' => 'Zabala',
-        'prenom' => 'Danaé',
-        'role' => 'admin'
-    ];
-    
 
-    // Vérifie que l'utilisateur est connecté et est un admin
-    if (isset($_SESSION['user']) && $_SESSION['user']['role'] === 'admin'):
+    <!-- Formulaire d'ajout admin -->
+    <?php if (isset($_SESSION['user']) && $_SESSION['user']['role'] === 'admin'): ?>
+        <section class="admin-add-faq">
+            <h2>Ajouter une nouvelle question/réponse</h2>
+            <form id="adminAddFaqForm">
+                <label for="question_admin">Question :</label>
+                <textarea name="question" id="question_admin" required></textarea>
 
-        //require '../models/connection.php';
-        $pdo = new PDO('mysql:host=localhost;dbname=home4student', 'root', 'root');
-        $stmt = $pdo->query("SELECT * FROM faq WHERE reponse IS NULL");
+                <label for="reponse_admin">Réponse :</label>
+                <textarea name="reponse" id="reponse_admin" required></textarea>
 
-        if ($stmt->rowCount() > 0):
-    ?>
-        <section class="admin-answers">
-            <h2>Questions en attente de réponse</h2>
-            <?php while ($row = $stmt->fetch(PDO::FETCH_ASSOC)): ?>
-                <form action="faq_ajouter_question.php" method="POST" style="margin-bottom: 20px;">
-                    <p><strong>Question :</strong> <?= htmlspecialchars($row['question']) ?></p>
-                    <input type="hidden" name="id" value="<?= $row['IdFAQ'] ?>">
-                    <textarea name="reponse" placeholder="Votre réponse ici..." required></textarea>
-                    <button type="submit">Répondre</button>
-                </form>
-                <hr>
-            <?php endwhile; ?>
+                <button type="submit">Ajouter à la FAQ</button>
+            </form>
+            <p id="adminMessage" class="info-message"></p>
         </section>
-    <?php
-        else:
-            echo "<p>Aucune question en attente.</p>";
-        endif;
-    endif;
-    ?>
-
-
-
-
-    <!-- Section poser une question -->
-    <form id="questionForm">
-        <label for="question">Posez votre question :</label>
-        <textarea name="question" id="question" required></textarea>
-        <button type="submit">Envoyer</button>
-    </form>
-
-    <script>
-        document.getElementById("questionForm").addEventListener("submit", function(e) {
-            e.preventDefault(); // Empêche le rechargement de la page
-
-            const formData = new FormData(this);
-
-            fetch("faq_poser_question.php", {
-                method: "POST",
-                body: formData
-            })
-            .then(response => response.text())
-            .then(data => {
-                alert("Réponse serveur : " + data);
-                document.getElementById("questionForm").reset();
-            })
-            .catch(error => {
-                alert("Erreur lors de l'envoi.");
-                console.error(error);
-            });
-        });
-    </script>
-
+    <?php endif; ?>    
 
     <!-- Formulaire de contact -->
     <section class="contact">

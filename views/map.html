@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Carte dynamique</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    #map { height: 400px; margin-top: 1em; }
+  </style>
+</head>
+<body>
+
+  <h2>Entrez une adresse :</h2>
+  <input type="text" id="address" placeholder="Ex : 10 rue de Rivoli, Paris" size="50">
+  <button onclick="searchAddress()">Afficher la carte</button>
+
+  <div id="map"></div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    // Crée la carte (centrée temporairement sur Paris)
+    var map = L.map('map').setView([48.8566, 2.3522], 13);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+    var marker; // Pour stocker le marqueur
+
+    function searchAddress() {
+      var address = document.getElementById('address').value;
+      var url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`;
+
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          if (data.length > 0) {
+            var lat = data[0].lat;
+            var lon = data[0].lon;
+            map.setView([lat, lon], 15);
+            if (marker) map.removeLayer(marker);
+            marker = L.marker([lat, lon]).addTo(map)
+              .bindPopup(address).openPopup();
+          } else {
+            alert("Adresse non trouvée.");
+          }
+        })
+        .catch(error => {
+          console.error("Erreur : ", error);
+          alert("Échec lors de la recherche.");
+        });
+    }
+  </script>
+</body>
+</html>

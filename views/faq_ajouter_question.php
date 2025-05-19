@@ -1,26 +1,37 @@
 <?php
 session_start();
 
-// Vérifie que l'utilisateur est connecté et qu'il est admin
-if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'admin') {
-    die("Accès refusé.");
-}
-
-$pdo = new PDO('mysql:host=localhost;dbname=home4student', 'root', '');
-$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $id = (int) $_POST['id'];
-    $reponse = trim($_POST['reponse']);
+    if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'admin') {
+        echo json_encode(['success' => false, 'message' => 'Accès refusé']);
+        exit;
+    }
 
-    
-    $stmt = $pdo->prepare("UPDATE faq SET reponse = :reponse WHERE IdFAQ = :id");
-    $stmt->execute([
-        ':reponse' => $reponse,
-        ':id' => $id
-    ]);
+    $question = trim($_POST['question'] ?? '');
+    $reponse = trim($_POST['reponse'] ?? '');
 
-    header('Location: faq_back.php');
-    exit;
+    if (empty($question) || empty($reponse)) {
+        echo json_encode(['success' => false, 'message' => 'Tous les champs sont requis.']);
+        exit;
+    }
+
+    try {
+        $pdo = new PDO('mysql:host=localhost;dbname=home4student', 'root', 'root');
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        $stmt = $pdo->prepare("INSERT INTO faq (question, reponse) VALUES (?, ?)");
+        $stmt->execute([$question, $reponse]);
+
+        echo json_encode([
+            'success' => true,
+            'message' => 'Question ajoutée avec succès.',
+            'question' => htmlspecialchars($question),
+            'reponse' => nl2br(htmlspecialchars($reponse))
+        ]);
+    } catch (PDOException $e) {
+        echo json_encode(['success' => false, 'message' => 'Erreur DB : ' . $e->getMessage()]);
+    }
+} else {
+    echo json_encode(['success' => false, 'message' => 'Méthode non autorisée.']);
 }
 ?>

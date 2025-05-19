@@ -182,6 +182,13 @@ $adresse      = trim("$rue, $postal $ville, $pays", ', ');
         Se connecter pour ajouter aux favoris
       </a>
     <?php endif; ?>
+    <?php if ($userId && $role === 'etudiant'): ?>
+      <div style="margin-top: 1rem; text-align: center;">
+        <a href="/views/signalement.php?id_annonce=<?= $id ?>" class="btn-favoris add" style="display:inline-block; width:auto;">
+          <i class="fas fa-flag"></i> Signaler
+        </a>
+      </div>
+    <?php endif; ?>
   </div>
 </div>
 

@@ -59,6 +59,28 @@ function ad_photos(int $id): array
     return $stmt->fetchAll(PDO::FETCH_COLUMN);
 }
 
+function get_owner_ads($ownerId, $page, $perPage) {
+    global $pdo;
+    $offset = ($page - 1) * $perPage;
+    $sql = "SELECT * FROM annonce WHERE IdProprietaire = ? ORDER BY IdAnnonce DESC LIMIT ? OFFSET ?";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([$ownerId, $perPage, $offset]);
+    $ads = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+    $sqlCount = "SELECT COUNT(*) FROM annonce WHERE IdProprietaire = ?";
+    $stmtCount = $pdo->prepare($sqlCount);
+    $stmtCount->execute([$ownerId]);
+    $total = $stmtCount->fetchColumn();
+    
+    $totalPages = ceil($total / $perPage);
+    return [
+        'ads' => $ads,
+        'totalPages' => $totalPages,
+        'currentPage' => $page,
+        'total' => $total
+    ];
+}
+
 // ────────────────────────────────
 //  Tiny JSON API fallback.
 //  Only runs when this file is *directly* requested, not when included.

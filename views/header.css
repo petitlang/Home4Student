@@ -11,23 +11,43 @@
     --secondary: #e74c3c;
 }
 
-.navbar {
+header {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    background-color: var(--primary-color);
-    padding: 24px 40px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 30px;
-    margin: 32px 2vw 36px 2vw;
-    min-height: 140px;
-    gap: 30px;
+    flex-direction: column;
+    width: 90vw;
+    margin: 0 auto;
+    padding: 0;
     position: relative;
+    left: 0;
+    top: 0;
+    box-sizing: border-box;
+    background-color: var(--primary-color);
+}
+
+header .container {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 0;
+    margin: 0;
+    position: static;
+    min-height: 80px;
+    padding: 0 40px;
+    box-shadow: none;
+    background-color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 .logo {
-    flex: 0 0 auto;
+    flex-shrink: 0;
 }
 
 .logo img {
@@ -42,7 +62,8 @@
     gap: 2.5rem;
     align-items: center;
     justify-content: center;
-    flex: 1;
+    flex: 1 1 0%;
+    min-width: 0;
 }
 
 .nav-links a {
@@ -62,12 +83,13 @@
 }
 
 .user-section {
+    min-width: 200px;
+    flex-shrink: 0;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     gap: 1rem;
     justify-content: center;
-    min-width: 200px;
 }
 
 .perso {
@@ -157,6 +179,23 @@
 }
 
 .btn-secondary:hover {
+    opacity: 0.9;
+}
+
+.btn-home {
+    background-color: var(--secondary);
+    color: rgb(255, 255, 255);
+    border: none;
+    padding: 0.8rem 2.2rem;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-decoration: none;
+    transition: var(--transition);
+    white-space: nowrap;
+}
+
+.btn-home:hover {
     opacity: 0.9;
 }
 

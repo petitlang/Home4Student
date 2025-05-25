@@ -25,66 +25,6 @@ body {
     padding: 0 2rem;
 }
 
-header {
-    background-color: var(--white);
-    box-shadow: var(--shadow);
-    position: relative;
-    z-index: 1000;
-    height: 80px;
-}
-
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #66A182;
-    padding: 15px 30px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    position: fixed;
-    top: 0;
-    z-index: 1000;
-    margin-top: 20px;
-    border-radius: 10px;
-    gap: 15px;
-    width: 90%;
-    
-}
-
-
-
-img{
-    height: 80px;
-    width: 150px 
-   }
-
-   .logo {
-    display: flex;
-    align-items: center;
-}
-
-
-   .nav-links {
-    display: flex;
-    gap: 1.5rem;
-    align-items: center;
-}
-
-
-.nav-link {
-    color: var(--text-dark);
-    font-weight: 500;
-    padding: 0.5rem 0.75rem;
-    border-radius: 0.375rem;
-    transition: var(--transition);
-    text-decoration: none;
-}
-
-.nav-link:hover {
-    color: var(--primary-color);
-    background-color: white;
-}
-
-
 .btn {
     display: inline-flex;
     align-items: center;

@@ -26,28 +26,7 @@
     
     }
 
-  header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #66A182;
-    padding: 15px 30px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    height: 80px;
-    margin-top: 20px;
-    margin-left: 13%;
-    width: 1200px ;
-    border-radius: 10px;
-  }
-
-  .logo {
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: var(--primary);
-  }
+  
 
   #back-link {
       background: var(--secondary);
@@ -75,30 +54,7 @@
     margin-bottom: 1rem;
   }
 
-  .nav-bar {
-    display: flex;
-    gap: 15px;
-    
-}
-
-
-.nav-btn{
-  background-color: #66A182;
-  color:white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: background 0.3s, color 0.3s;
-  transition: color 0.3s ease;
-}
-
-.nav-btn:hover {
-  background-color:white;
-  color: black;
   
-}
 
   .contact-card {
     max-width: 500px;

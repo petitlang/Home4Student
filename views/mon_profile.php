@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['user'])) {
-    header('Location: /views/login.html');
+    header('Location: /views/login.php');
     exit();
 }
 $user = $_SESSION['user'];
@@ -30,7 +30,7 @@ $role = $user['role'];
         <a href="/views/ads_list.php">Offres</a>
         <a href="/views/chat.php">Messagerie</a>
         <a href="/views/faq_back.html">FAQ</a>
-        <a href="/views/contact.html">Contact</a>
+        <a href="/views/contact.php">Contact</a>
         <a href="/views/cgu.html">CGU</a>
       </div>
     </div>

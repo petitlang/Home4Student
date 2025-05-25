@@ -43,6 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </style>
 </head>
 <body>
+    <?php include __DIR__ . '/header.php'; ?>
     <h2>Modifier l'annonce</h2>
     <?php if (!empty($error)) echo '<div style="color:red;">'.$error.'</div>'; ?>
     <form method="post">
@@ -57,5 +58,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <label>Descriptions <textarea name="Descriptions" required><?= htmlspecialchars($ad['Descriptions']) ?></textarea></label>
         <button type="submit">Enregistrer</button>
     </form>
+    <?php include __DIR__ . '/footer.php'; ?>
 </body>
 </html> 

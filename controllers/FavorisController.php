@@ -6,7 +6,7 @@ session_start();
 $user = $_SESSION['user'] ?? null;
 $role = $_SESSION['role'] ?? 'etudiant';
 if (!$user) {
-    header('Location: /views/login.html');
+    header('Location: /views/login.php');
     exit;
 }
 $userId = $user['id'];

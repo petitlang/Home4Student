@@ -244,7 +244,7 @@ $user = $_SESSION['user'];
         </div>
     </div>
 
-    <?php include 'footer.php'; ?>
+    <?php include 'footer.html'; ?>
     
 </body>
 </html>

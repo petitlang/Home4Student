@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+
   <meta charset="UTF-8">
   <title>Forum des annonces </title>
   <link rel="stylesheet" href="style.css">
@@ -430,20 +431,7 @@
 </head>
 <body>
 
-<header>
-  <nav>
-    <div class="nav-left">
-      <button>Offres</button>
-      <button>Messagerie</button>
-      <button class="active">Forum</button>
-      <button>Contact</button>
-    </div>
-    <div class="nav-right">
-      <button>Sign in</button>
-      <button class="register">Register</button>
-    </div>
-  </nav>
-</header>
+<?php include __DIR__ . '/header.php'; ?>
 
 <main>
   <div id="admin-login">
@@ -481,4 +469,3 @@
 
 </body>
 </html>
-

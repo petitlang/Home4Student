@@ -5,7 +5,7 @@ $user = $_SESSION['user'] ?? null;
 $userId = $user['id'] ?? null;
 
 if (!$userId) {
-    header('Location: /views/login.html');
+    header('Location: /views/login.php');
     exit;
 }
 

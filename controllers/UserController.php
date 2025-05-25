@@ -91,7 +91,7 @@ switch ($action) {
                     break;
 
                 default:
-                    echo "<p>Rôle non reconnu. <a href='../views/login.html'>Retour</a></p>";
+                    echo "<p>Rôle non reconnu. <a href='../views/login.php'>Retour</a></p>";
                     exit;
             }
 
@@ -111,7 +111,7 @@ switch ($action) {
                 //echo "<p>user est : $user<p>";
                 unset($user);
                 session_destroy();
-                echo "<p>Identifiants ou MDP incorrects. <a href='../views/login.html'>Retour</a></p>";
+                echo "<p>Identifiants ou MDP incorrects. <a href='../views/login.php'>Retour</a></p>";
             }
         }
         break;
@@ -163,7 +163,7 @@ switch ($action) {
                     ->execute([':mdp' => $hashedPwd, ':id' => $id]);
             }
 
-            echo "<script>alert('Mot de passe modifié avec succès !'); window.location.href = '../views/login.html';</script>";
+            echo "<script>alert('Mot de passe modifié avec succès !'); window.location.href = '../views/login.php';</script>";
             exit;
         } else {
             echo "<p>Échec de la vérification. Reconnectez-vous ou code invalide.</p>";

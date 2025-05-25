@@ -25,12 +25,7 @@
     </style>
 </head>
 <body>
-    <header>
-        <div class="logo">SeLogerFacilement</div>
-        <nav>
-            <a href="/views/index2.php" class="btn btn-primary">Page d'accueil</a>
-        </nav>
-    </header>
+    <?php include __DIR__ . '/header.php'; ?>
 
     <div class="login-section">
         <div class="login-container">
@@ -60,7 +55,7 @@
         </div>
     </div>
 
-    
+    <?php include __DIR__ . '/footer.html'; ?>
 
 <script>
 // JS réduit : actions de redirection uniquement

@@ -18,18 +18,19 @@
                 </div>
             </div>
             <div class="nav-links">
-                <a href="/views/ads_list.php" class="nav-link">Offres</a>
+                <a href="/views/search.php" class="nav-link">Offres</a>
                 <?php
                 if (isset($_SESSION['user'])) {
                     // 已登录，跳转到 chat.php
                     echo '<a href="/controllers/ChatController.php?action=getNav" class="nav-link">Messagerie</a>';
                 } else {
                     // 未登录，跳转到登录页
-                    echo '<a href="/views/login.html" class="nav-link">Messagerie</a>';
+                    echo '<a href="/views/login.php" class="nav-link">Messagerie</a>';
                 }
                 ?>
                 <a href="/views/faq_back.php" class="nav-link">FAQ</a>
-                <a href="/views/contact.html" class="nav-link">Contact</a>
+                <a href="/views/contact.php" class="nav-link">Contact</a>
+                <a href="/views/forum.php" class="nav-link">Forum</a>
             </div>
 
             <div class="user-section">
@@ -38,8 +39,8 @@
                 if (!isset($_SESSION['user'])) {
                     // 未登录，显示登录和注册按钮
                     echo '<div class="perso">
-                            <a href="/views/login.html" class="btn btn-outline">Se connecter</a>
-                            <a href="/views/register.html" class="btn btn-primary">S\'inscrire</a>
+                            <a href="/views/login.php" class="btn btn-outline">Se connecter</a>
+                            <a href="/views/register.php" class="btn btn-primary">S\'inscrire</a>
                         </div>';
                 } else {
                     // 已登录，显示用户信息和退出按钮
@@ -56,7 +57,7 @@
                 }
                 $currentFile = basename($_SERVER['SCRIPT_NAME']);
                 if ($currentFile !== 'index.php' && $currentFile !== 'index2.php') {
-                    echo '<a href="/views/index2.php" class="btn btn-solid" style="margin-right:1rem;">Page d\'accueil</a>';
+                    echo '<a href="/views/index2.php" class="btn btn-home btn-secondary">Page d\'accueil</a>';
                 }
                 ?>
             </div>

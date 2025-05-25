@@ -117,10 +117,7 @@
   </style>
 </head>
 <body>
-  <header>
-    <div class="logo">SeLogerFacilement</div>
-    <a class="back-link" href="profile.html">Retour au profil</a>
-  </header>
+    <?php include __DIR__ . '/header.php'; ?>
 
   <h2>📄 Mes candidatures</h2>
 
@@ -176,5 +173,6 @@
 
     observer.observe(loading);
   </script>
+  <?php include __DIR__ . '/footer.html'; ?>
 </body>
 </html>

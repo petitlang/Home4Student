@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'admin') {
-    header('Location: /views/login.html');
+    header('Location: /views/login.php');
     exit();
 }
 require_once __DIR__ . '/../models/connection.php';
@@ -19,25 +19,7 @@ $signalements = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <link rel="stylesheet" href="/views/search.css">
 </head>
 <body>
-    <header>
-        <nav class="navbar">
-            <div class="logo">
-                <img src="/views/logo-removebg-preview.png" alt="logo" />
-            </div>
-            <div class="nav-center">
-                <div class="nav-links">
-                    <a href="/views/ads_list.php">Offres</a>
-                    <a href="/views/chat.php">Messagerie</a>
-                    <a href="/views/faq_back.html">FAQ</a>
-                    <a href="/views/contact.html">Contact</a>
-                    <a href="/views/cgu.html">CGU</a>
-                </div>
-            </div>
-            <div class="nav-buttons">
-                <a href="/views/index2.php" class="btn-solid">Page d'accueil</a>
-            </div>
-        </nav>
-    </header>
+    <?php include __DIR__ . '/header.php'; ?>
     <div class="container search-bg">
         <h1>Tous les signalements</h1>
         <div class="filters">
@@ -56,6 +38,7 @@ $signalements = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </div>
         <div id="cards" class="cards"></div>
     </div>
+    <?php include __DIR__ . '/footer.html'; ?>
     <script>
         const allSignalements = <?php echo json_encode($signalements, JSON_UNESCAPED_UNICODE); ?>;
         const cardsContainer = document.getElementById('cards');

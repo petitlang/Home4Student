@@ -14,7 +14,7 @@ if (isset($_SESSION['user'])) {
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <?php include 'header.php'; ?>
+    <?php include __DIR__ . '/header.php'; ?>
 
     <div class="login-section">
         <div class="login-container">
@@ -46,14 +46,14 @@ if (isset($_SESSION['user'])) {
                     <p id="error-msg" style="color: red; text-align: center;"></p>
                 <button type="submit" class="btn btn-primary">Réinitialiser le mot de passe</button>
             </form>
-            <p class="noir-text">Retour à la connexion ? <a href="/views/login.html">Se connecter</a></p>
+            <p class="noir-text">Retour à la connexion ? <a href="/views/login.php">Se connecter</a></p>
         </div>
         <?php 
         
             echo '<script>alert("session post code est : ' . $_SESSION['POST_CODE'] . ', verification code est ' . $_SESSION['email_verification_code'] . '");</script>';
         ?>
     </div>
-    <?php include 'footer.php'; ?>
+    <?php include 'footer.html'; ?>
 </body>
 </html>
 

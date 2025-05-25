@@ -25,12 +25,7 @@
     </style>
 </head>
 <body>
-    <header>
-        <div class="logo">SeLogerFacilement</div>
-        <nav>
-            <a href="#" id="homePageLink" class="btn btn-primary">Page d'accueil</a>
-        </nav>
-    </header>
+    <?php include __DIR__ . '/header.php'; ?>
 
     <div class="login-section">
         <div class="login-container">
@@ -59,7 +54,7 @@
 
         </div>
     </div>
-
+    <?php include __DIR__ . '/footer.html'; ?>
     <script>
         window.addEventListener('load', function() {
             var email = localStorage.getItem('connectedUserEmail');
@@ -67,7 +62,7 @@
             var user = users.find(u => u.email === email);
 
             if (!email || !user) {
-                window.location.href = '/views/login.html';
+                window.location.href = '/views/login.php';
             } else {
                 // Pré-remplir les champs si le profil existe
                 document.getElementById('firstName').value = user.firstName || '';

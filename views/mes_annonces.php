@@ -5,13 +5,13 @@ $user = $_SESSION['user'] ?? null;
 $userId = $user['id'] ?? null;
 
 if (!$userId) {
-    header('Location: /views/login.html');
+    header('Location: /views/login.php');
     exit;
 }
 
 if ($user['role'] !== 'proprietaire') {
     //echo "<script>alert('Accès refusé. Vous n\'êtes pas autorisé à accéder à cette page.');</script>";
-    header('Location: /views/login.html');
+    header('Location: /views/login.php');
     exit;
 }
 

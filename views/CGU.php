@@ -9,7 +9,7 @@
     
 </head>
 <body>
-    <?php include 'header.php'; ?>
+    <?php include __DIR__ . '/header.php'; ?>
     <div class="cgu-container">
         <h1>Conditions Générales d'Utilisation</h1>
 
@@ -38,6 +38,6 @@
         <p>Pour toute question, contactez-nous à <a href="mailto:support@selogerfacilement.fr">support@selogerfacilement.fr</a>.</p>
     </div>
 
-    <?php include 'footer.php'; ?>
+    <?php include 'footer.html'; ?>
 </body>
 </html>

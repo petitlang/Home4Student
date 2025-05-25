@@ -8,18 +8,7 @@
   
 </head>
 <body>
-  <header>
-    <div class="logo"><a href="index.php"><img src="/views/logo-removebg-preview.png" alt="logo"></div>
-    <nav class="nav-bar">
-      <button class="nav-btn">Accueil</button>
-        <button class="nav-btn">Offres</button>
-        <button class="nav-btn">À propos</button>
-        <button class="nav-btn">Contact</button>
-        <a href="index.html"><button class="nav-btn" >CGU</button></a>
-        <button class="nav-btn">Connexion</button>
-    </nav>
-    <a id="back-link" href="index.php">Retour à l'accueil</a>
-  </header>
+  <?php include __DIR__ . '/header.php'; ?>
 
   <div class="contact-card">
     <h2>📬 Contactez-nous</h2>
@@ -47,5 +36,6 @@
       <button class="submit-btn" type="submit">Envoyer</button>
     </form>
   </div>
+  <?php include __DIR__ . '/footer.html'; ?>
 </body>
 </html>

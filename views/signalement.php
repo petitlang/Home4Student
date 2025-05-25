@@ -8,7 +8,7 @@ $isEtudiant = isset($_SESSION['user']) && $_SESSION['user']['role'] === 'etudian
 
 // 管理员/学生都能看，未登录跳转
 if (!$isAdmin && !$isEtudiant) {
-    header('Location: /views/login.html');
+    header('Location: /views/login.php');
     exit;
 }
 
@@ -40,6 +40,7 @@ if ($isAdmin && $id) {
     </style>
 </head>
 <body>
+    <?php include __DIR__ . '/header.php'; ?>
     <div class="signalement-form">
         <?php if ($isAdmin && $id): ?>
             <h2>Détail du signalement</h2>
@@ -93,5 +94,6 @@ if ($isAdmin && $id) {
             </form>
         <?php endif; ?>
     </div>
+    <?php include __DIR__ . '/footer.html'; ?>
 </body>
 </html> 

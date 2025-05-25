@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/views/register.css" />
 </head>
 <body>
+    <?php include __DIR__ . '/header.php'; ?>
     <main>
       <div class="form-container">
         <h2>Créer un compte</h2>
@@ -70,7 +71,7 @@
           <button type="submit" class="btn">S'inscrire</button>
         </form>
   
-        <p>Déjà un compte ? <a href="/Home4Student-mvc/views/login.html">Se connecter</a></p>
+        <p>Déjà un compte ? <a href="/Home4Student-mvc/views/login.php">Se connecter</a></p>
       </div>
     </main>
 

@@ -43,7 +43,7 @@ switch ($action) {
                     if ($user && isset($_FILES['photo'])) {
                         $photoPath = UserModel::enregistrerPhotoProprietaire($user['IdProprietaire'], $_FILES['photo']);
                         UserModel::updateProprietaire($user['IdProprietaire'], $data, $photoPath);
-                        $user = UserModel::verifierConnexionEtudiant($data['email'], $data['mdp']);
+                        $user = UserModel::verifierConnexionProprietaire($data['email'], $data['mdp']);
                     }
                 } elseif ($role === 'admin') {
                     // TODO: Ajouter une méthode creerAdministrateur si nécessaire, pour securite +> NON !!

@@ -1,3 +1,53 @@
+body .main-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+button, .btn {
+  background-color: #6b9080;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover, .btn:hover {
+  background-color: #4d6a5c;
+}
+
+input[type="date"], input[type="number"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.gallery-and-actions {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.gallery {
+  flex: 1;
+}
+
+.action-box {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #f6fff8;
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+}
+
 .btn-favoris {
   display: flex;
   align-items: center;

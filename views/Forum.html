@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Forum Étudiant</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="Forum.css"> 
 </head>
 <body>
 
@@ -16,7 +15,7 @@
      <div class="header-bottom">
       <nav class="navbar">
       <div class="nav-links">
-        <a href="AdminForum.html" class="nav-link" style="font-weight: bold;">Espace Admin</a>
+        <a href="admin.html" class="nav-link" style="font-weight: bold;">Espace Admin</a>
         <a href="#questions" class="nav-link">Questions</a>
         <a href="#create" class="nav-link">Poser une question</a>
       </div>
@@ -82,7 +81,10 @@
  <script>
   const form = document.getElementById('questionForm');
   const questionList = document.getElementById('questionList');
-  const currentUser = sessionStorage.getItem('currentUser');
+
+  
+  const currentUser = sessionStorage.getItem('currentUser') || "Anonyme";
+  const currentUserProfile = JSON.parse(sessionStorage.getItem('currentUserProfile')) || { pseudo: "Anonyme", photo: "photos/default-avatar.png" };
 
   let questions = JSON.parse(localStorage.getItem("questions")) || [];
 
@@ -96,10 +98,12 @@
     const contenu = document.getElementById('contenu').value.trim();
 
     if (titre && contenu) {
+      
       const question = {
         titre,
         contenu,
-       auteur: currentUser || "Anonyme",
+        auteur: currentUserProfile.pseudo,
+        photoAuteur: currentUserProfile.photo,
         reponses: []
       };
 
@@ -114,9 +118,14 @@
   function displayQuestion(q) {
     const card = document.createElement('div');
     card.className = 'question-card';
+
+    
     card.innerHTML = `
       <h3 class="question-title">${q.titre}</h3>
-      <p class="question-author">Posté par: ${q.auteur}</p>
+      <div class="question-author" style="display:flex; align-items:center; gap: 10px;">
+        <img src="${q.photoAuteur || "photos/default-avatar.png"}" alt="Photo de ${q.auteur}" style="width:35px; height:35px; border-radius:50%; object-fit:cover;"/>
+        <span>Posté par: ${q.auteur}</span>
+      </div>
       <div class="answers">
         <p>${q.contenu}</p>
       </div>
@@ -130,12 +139,28 @@
     const responseForm = card.querySelector('.response-form');
     const responseList = card.querySelector('.response-list');
 
+    if (q.reponses && q.reponses.length > 0) {
+      q.reponses.forEach(r => {
+        const responseItem = document.createElement('div');
+        responseItem.className = 'answer';
+        responseItem.innerHTML = `
+          <p>${r.contenu}</p>
+          <div class="answer-author" style="display:flex; align-items:center; gap: 10px; font-size:0.85rem; color: var(--text-light); margin-top:0.25rem;">
+            <img src="${r.photoAuteur || "photos/default-avatar.png"}" alt="Photo de ${r.auteur}" style="width:25px; height:25px; border-radius:50%; object-fit:cover;"/>
+            <span>Répondu par ${r.auteur} à ${r.heure}</span>
+          </div>
+        `;
+        responseList.appendChild(responseItem);
+      });
+    }
+
+    
     responseForm.addEventListener('submit', function (event) {
       event.preventDefault();
-      const nom = currentUser || "Anonyme";
+
       const contenuRep = responseForm.querySelector('textarea').value.trim();
 
-      if (nom && contenuRep) {
+      if (contenuRep) {
         const date = new Date();
         const heure = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
@@ -143,13 +168,17 @@
         responseItem.className = 'answer';
         responseItem.innerHTML = `
           <p>${contenuRep}</p>
-          <p class="answer-author">Répondu par ${nom} à ${heure}</p>
+          <div class="answer-author" style="display:flex; align-items:center; gap: 10px; font-size:0.85rem; color: var(--text-light); margin-top:0.25rem;">
+            <img src="${currentUserProfile.photo || "photos/default-avatar.png"}" alt="Photo de ${currentUserProfile.pseudo}" style="width:25px; height:25px; border-radius:50%; object-fit:cover;"/>
+            <span>Répondu par ${currentUserProfile.pseudo} à ${heure}</span>
+          </div>
         `;
         responseList.appendChild(responseItem);
 
         
         q.reponses.push({
-          auteur: nom,
+          auteur: currentUserProfile.pseudo,
+          photoAuteur: currentUserProfile.photo,
           contenu: contenuRep,
           heure
         });
@@ -162,5 +191,6 @@
     questionList.prepend(card);
   }
 </script>
+
 </body>
 </html>

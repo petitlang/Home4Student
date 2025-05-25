@@ -1,0 +1,116 @@
+:root {
+    --primary-color: #6b9080;
+    --primary-dark: #4d6a5c;
+    --primary-light: #a4c3b2;
+    --secondary-color: #f6fff8;
+    --text-dark: #2c3e50;
+    --text-light: #7f8c8d;
+    --white: #ffffff;
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --transition: all 0.3s ease;
+    --secondary: #e74c3c;
+}
+
+@media (max-width: 900px) {
+    .container {
+        padding: 18px;
+    }
+    .cards {
+        gap: 14px;
+    }
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 6px;
+    }
+    .filters {
+        gap: 10px;
+    }
+    .card {
+        padding: 16px 8px 12px 8px;
+    }
+    h1 {
+        font-size: 1.5rem;
+    }
+}
+
+footer {
+    background-color: var(--primary-dark);
+    color: var(--white);
+    padding: 3rem 0 1.5rem;
+}
+
+footer .container {
+    background: none;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0 2rem;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+}
+
+.footer-heading {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--white);
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-link {
+    margin-bottom: 0.5rem;
+}
+
+.footer-link a {
+    color: var(--secondary-color);
+    transition: var(--transition);
+    text-decoration: none !important;
+}
+
+.footer-link a:hover {
+    color: var(--white);
+    padding-left: 5px;
+    text-decoration: none !important;
+}
+
+.social-links {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--white);
+    transition: var(--transition);
+}
+
+.social-link:hover {
+    background-color: var(--primary-color);
+    transform: translateY(-3px);
+}
+
+.copyright {
+    text-align: center;
+    padding-top: 2rem;
+    margin-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 0.875rem;
+    color: var(--secondary-color);
+} 

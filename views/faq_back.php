@@ -62,27 +62,7 @@ $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 </head>
 <body>
 
-<header>
-    <div class="container">
-        <nav class="navbar">
-            <div class="logo">
-                <img src="/views/logo-removebg-preview.png" alt="logo">
-            </div>
-            <div class="nav-links">
-                <a href="#" class="nav-link">Offres</a>
-                <a href="#" class="nav-link">Messagerie</a>
-                <a href="/views/faq_back.php" class="nav-link active">FAQ</a>
-                <a href="/views/contact.html" class="nav-link">Contact</a>
-                <?php if (!isset($_SESSION['user'])): ?>
-                    <a href="/views/login.html" class="btn btn-outline">Se connecter</a>
-                    <a href="/views/register.html" class="btn btn-primary">S'inscrire</a>
-                <?php else: ?>
-                    <a href="/controllers/UserController.php?action=logout" class="btn btn-secondary">Se déconnecter</a>
-                <?php endif; ?>
-            </div>
-        </nav>
-    </div>
-</header>
+<?php include __DIR__ . '/header.php'; ?>
 
 <main>
     <section class="faq">
@@ -173,29 +153,7 @@ $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
 
     <!-- Pied de page -->
-    <footer>     
-        <div class="logo text-white mb-4">
-            <i class="fas fa-graduation-cap text-2xl mr-2"></i>
-            <span class="font-bold text-lg">Home4Student</span>
-        </div>         
-        <div class="links">
-            <div>
-                <h4>L'entreprise</h4>
-                <a href="#">Qui sommes-nous ?</a>
-                <a href="#">Nous contacter</a>
-            </div>
-            <div>
-                <h4>Service pro</h4>
-                <a href="#">Tous nos services</a>
-                <a href="#">Accès client</a>
-            </div>
-            <div>
-                <h4>A découvrir</h4>
-                <a href="#">Tout l'immobilier</a>
-                <a href="#">Toutes les villes</a>
-            </div>
-        </div>
-    </footer>
+    <?php include __DIR__ . '/footer.php'; ?>
 
 </body>
 </html>

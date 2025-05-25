@@ -78,6 +78,36 @@ switch ($action) {
             ]));
         }
 
+    case 'getUserInfo':
+        $data = json_decode(file_get_contents('php://input'), true);
+        $role = $data['role'] ?? '';
+        $id = $data['id'] ?? '';
+        
+        if (!$role || !$id) {
+            echo json_encode(['success' => false, 'error' => 'Paramètres manquants']);
+            return;
+        }
+        
+        try {
+            global $pdo;
+            if ($role === 'etudiant') {
+                $stmt = $pdo->prepare("SELECT CONCAT(prenom, ' ', nom) as fullname FROM Etudiant WHERE IdEtudiant = ?");
+            } else {
+                $stmt = $pdo->prepare("SELECT CONCAT(prenom, ' ', nom) as fullname FROM Proprietaire WHERE IdProprietaire = ?");
+            }
+            $stmt->execute([$id]);
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+            if ($result) {
+                echo json_encode(['success' => true, 'fullname' => $result['fullname']]);
+            } else {
+                echo json_encode(['success' => false, 'error' => 'Utilisateur non trouvé']);
+            }
+        } catch (Exception $e) {
+            echo json_encode(['success' => false, 'error' => $e->getMessage()]);
+        }
+        exit;
+
     default:
         http_response_code(400);
         exit(json_encode(['error'=>'unknown action']));

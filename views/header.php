@@ -19,7 +19,15 @@
             </div>
             <div class="nav-links">
                 <a href="/views/ads_list.php" class="nav-link">Offres</a>
-                <a href="/views/chat.php" class="nav-link">Messagerie</a>
+                <?php
+                if (isset($_SESSION['user'])) {
+                    // 已登录，跳转到 chat.php
+                    echo '<a href="/controllers/ChatController.php?action=getNav" class="nav-link">Messagerie</a>';
+                } else {
+                    // 未登录，跳转到登录页
+                    echo '<a href="/views/login.html" class="nav-link">Messagerie</a>';
+                }
+                ?>
                 <a href="/views/faq_back.php" class="nav-link">FAQ</a>
                 <a href="/views/contact.html" class="nav-link">Contact</a>
             </div>
@@ -36,10 +44,10 @@
                 } else {
                     // 已登录，显示用户信息和退出按钮
                     echo '<div id="userProfile" class="user-profile" onclick="window.location.href=\'/views/mon_profile.php\'">';
-                    echo htmlspecialchars($user["prenom"] . " " . $user["nom"]);
+                    echo htmlspecialchars($_SESSION['user']["prenom"] . " " . $_SESSION['user']["nom"]);
                     echo '<div id="userAvatar">';
-                    if (!empty($user["photo"])) {
-                        echo '<img src="' . htmlspecialchars($user["photo"]) . '" alt="Photo de profil" class="profile-img">';
+                    if (!empty($_SESSION['user']['photo'])) {
+                        echo '<img src="' . htmlspecialchars($_SESSION['user']["photo"]) . '" alt="Photo de profil" class="profile-img">';
                     } else {
                         echo '<div class="default-avatar"></div>';
                     }

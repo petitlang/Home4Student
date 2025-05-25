@@ -467,12 +467,37 @@ $expediteurId = htmlspecialchars($_SESSION['expediteur'] ?? $_SESSION['user']['i
             return;
         }
         
-        // 组合新的联系人ID
-        const contactName = role + '-' + id;
-        
         try {
+            // 先获取联系人信息
+            const response = await fetch('../controllers/ChatController.php?action=getUserInfo', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    role: role,
+                    id: id
+                })
+            });
+            
+            const userInfo = await response.json();
+            if (!userInfo.success) {
+                alert('Utilisateur non trouvé.');
+                return;
+            }
+            // 检查左侧联系人是否已存在同名（用人名比对）
+            const sidebar = document.querySelector('.sidebar');
+            const exists = [...sidebar.querySelectorAll('.chat-preview strong')].some(
+                el => el.innerText.trim() === userInfo.fullname.trim()
+            );
+            if (exists) {
+                alert('Ce contact existe déjà !');
+                return;
+            }
+            // 组合新的联系人ID
+            const contactName = role + '-' + id;
             // 保存到session
-            const response = await fetch('../controllers/ChatController.php?action=createChat', {
+            const chatResponse = await fetch('../controllers/ChatController.php?action=createChat', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -483,25 +508,22 @@ $expediteurId = htmlspecialchars($_SESSION['expediteur'] ?? $_SESSION['user']['i
                 })
             });
             
-            const result = await response.json();
+            const result = await chatResponse.json();
             
             if (result.success) {
                 // 动态添加到左侧联系人列表
-                const sidebar = document.querySelector('.sidebar');
                 const newDiv = document.createElement('div');
                 newDiv.className = 'chat-preview';
                 newDiv.setAttribute('data-idchat', result.idChat);
-                newDiv.onclick = function() { switchChat(contactName, result.idChat); };
+                newDiv.onclick = function() { switchChat(userInfo.fullname, result.idChat); };
                 newDiv.innerHTML = `
                     <img src="/images/avatar_default.png" class="avatar" alt="avatar">
-                    <strong>${contactName}</strong>
+                    <strong>${userInfo.fullname}</strong>
                 `;
-                
                 // 插入到"Messages"标题和表单之后
                 sidebar.insertBefore(newDiv, sidebar.children[sidebar.children.length - <?php echo empty($chatList) ? 1 : 0; ?>]);
-                
                 // 切换到新会话
-                switchChat(contactName, result.idChat);
+                switchChat(userInfo.fullname, result.idChat);
                 document.getElementById('addContactForm').style.display = 'none';
                 document.getElementById('messageInput').focus();
             } else {

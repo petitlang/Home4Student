@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['user'])) {
-    header('Location: /views/login.html');
+    header('Location: /views/login.php');
     exit();
 }
 $user = $_SESSION['user'];
@@ -30,7 +30,7 @@ $role = $user['role'];
         <a href="/views/ads_list.php">Offres</a>
         <a href="/views/chat.php">Messagerie</a>
         <a href="/views/faq_back.html">FAQ</a>
-        <a href="/views/contact.html">Contact</a>
+        <a href="/views/contact.php">Contact</a>
         <a href="/views/cgu.html">CGU</a>
       </div>
     </div>
@@ -52,7 +52,7 @@ $role = $user['role'];
     </div>
     <div class="name"><?php echo htmlspecialchars($user['prenom']) . ' ' . htmlspecialchars($user['nom']); ?></div>
     <div class="role">
-      <?php echo ($role === 'etudiant') ? 'Étudiante' : (($role === 'proprietaire') ? 'Propriétaire' : 'Admin'); ?>
+      <?php echo ($role === 'etudiant') ? 'Étudiant' : (($role === 'proprietaire') ? 'Propriétaire' : 'Admin'); ?>
     </div>
 
     <div class="info">
@@ -134,50 +134,7 @@ $role = $user['role'];
   </div>
 </div>
 
-<!-- Footer (search page style) -->
-<footer>
-  <div class="container">
-    <div class="footer-grid">
-      <div>
-        <div class="logo text-white mb-4">
-          <i class="fas fa-graduation-cap text-2xl mr-2"></i>
-          <span class="font-bold text-lg">HomeStudent</span>
-        </div>
-        <div class="social-links">
-          <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-          <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-          <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
-          <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
-        </div>
-      </div>
-      <div>
-        <h3 class="footer-heading">L'entreprise</h3>
-        <ul class="footer-links">
-          <li class="footer-link"><a href="#">Qui sommes-nous ?</a></li>
-          <li class="footer-link"><a href="/views/contact.html">Nous contacter</a></li>
-        </ul>
-      </div>
-      <div>
-        <h3 class="footer-heading">Services pro</h3>
-        <ul class="footer-links">
-          <li class="footer-link"><a href="#">Accès client</a></li>
-        </ul>
-      </div>
-      <div>
-        <h3 class="footer-heading">À découvrir</h3>
-        <ul class="footer-links">
-          <li class="footer-link"><a href="#">Tout l'immobilier</a></li>
-          <li class="footer-link"><a href="#">Toutes les villes</a></li>
-          <li class="footer-link"><a href="#">Tous les départements</a></li>
-          <li class="footer-link"><a href="#">Toutes les régions</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="copyright">
-      &copy; 2023 HomeStudent - Se loger Facilement. Tous droits réservés.
-    </div>
-  </div>
-</footer>
+<?php include __DIR__ . '/footer.html'; ?>
 
 <script>
   const avatarUpload = document.getElementById('avatarUpload');

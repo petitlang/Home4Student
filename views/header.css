@@ -1,0 +1,359 @@
+:root {
+    --primary-color: #6b9080;
+    --primary-dark: #4d6a5c;
+    --primary-light: #a4c3b2;
+    --secondary-color: #f6fff8;
+    --text-dark: #2c3e50;
+    --text-light: #7f8c8d;
+    --white: #ffffff;
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --transition: all 0.3s ease;
+    --secondary: #e74c3c;
+}
+
+header {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: var(--primary-dark);
+    box-shadow: none;
+    border-radius: 0;
+    position: relative;
+    left: 0;
+    top: 0;
+}
+
+header .header-container {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background: #4d6a5c;
+    box-shadow: none;
+    border-radius: 0;
+}
+
+.navbar {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    background: none;
+    box-shadow: none;
+    border-radius: 0;
+    position: static;
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+.logo {
+    flex: 0 0 auto;
+    min-width: 0;
+    margin-right: 2rem;
+}
+
+.logo img {
+    height: 60px;
+    width: auto;
+    display: block;
+}
+
+.nav-links {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 2.5rem;
+    align-items: center;
+    justify-content: center;
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.nav-links a {
+    color: white;
+    background-color: var(--primary-dark);
+    padding: 0.4rem 0.8rem;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: var(--transition);
+    white-space: nowrap;
+}
+
+.nav-links a:hover {
+    background-color: var(--primary-light);
+    color: var(--primary-dark);
+}
+
+.user-section {
+    flex: 0 0 auto;
+    min-width: 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 1rem;
+    justify-content: flex-end;
+}
+
+.perso {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 1rem;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.user-profile {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    color: white;
+    padding: 0.5rem;
+    border-radius: 8px;
+    transition: var(--transition);
+    min-width: 0;
+}
+
+.user-profile:hover {
+    background-color: var(--primary-dark);
+}
+
+.profile-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.default-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--primary-light);
+}
+
+.btn-outline {
+    background-color: white;
+    color: var(--text-dark);
+    border: 1px solid #ccc;
+    padding: 0.8rem 2.2rem;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-decoration: none;
+    transition: var(--transition);
+    white-space: nowrap;
+}
+
+.btn-outline:hover {
+    background-color: #f0f0f0;
+}
+
+.btn-primary {
+    background-color: var(--primary-dark);
+    color: white;
+    border: none;
+    padding: 0.8rem 2.2rem;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-decoration: none;
+    transition: var(--transition);
+    white-space: nowrap;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-light);
+    color: var(--primary-dark);
+}
+
+.btn-secondary {
+    background-color: var(--secondary);
+    color: white;
+    border: none;
+    padding: 0.8rem 2.2rem;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-decoration: none;
+    transition: var(--transition);
+    white-space: nowrap;
+}
+
+.btn-secondary:hover {
+    opacity: 0.9;
+}
+
+.btn-home {
+    background-color: var(--secondary);
+    color: rgb(255, 255, 255);
+    border: none;
+    padding: 0.8rem 2.2rem;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-decoration: none;
+    transition: var(--transition);
+    white-space: nowrap;
+}
+
+.btn-home:hover {
+    opacity: 0.9;
+}
+
+/* 大屏幕 (1200px以上) */
+@media (min-width: 1200px) {
+    .navbar {
+        padding: 24px 50px;
+    }
+}
+
+/* 中等屏幕 (992px - 1199px) */
+@media (max-width: 1199px) {
+    .navbar {
+        padding: 20px 30px;
+        min-height: 120px;
+    }
+    .logo img {
+        height: 90px;
+    }
+    .nav-links {
+        gap: 2rem;
+    }
+}
+
+/* 平板 (768px - 991px) */
+@media (max-width: 991px) {
+    .navbar {
+        flex-wrap: wrap;
+        justify-content: center;
+        text-align: center;
+    }
+    .logo {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 15px;
+    }
+    .logo img {
+        height: 80px;
+    }
+    .nav-links {
+        width: 100%;
+        justify-content: center;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+    }
+    .nav-links a {
+        padding: 0.3rem 0.6rem;
+        font-size: 0.9rem;
+    }
+    .btn-outline, .btn-primary, .btn-secondary {
+        padding: 0.6rem 1.5rem;
+        font-size: 1rem;
+    }
+    .user-section {
+        width: 100%;
+        margin-top: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .perso {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    .user-profile {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+}
+
+/* 大手机 (576px - 767px) */
+@media (max-width: 767px) {
+    .navbar {
+        margin: 20px 1vw;
+        padding: 15px;
+        border-radius: 20px;
+    }
+    .logo img {
+        height: 70px;
+    }
+    .nav-links {
+        gap: 1rem;
+    }
+    .nav-links a {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.85rem;
+    }
+    .user-section {
+        flex-direction: column;
+    }
+    .perso {
+        flex-direction: column;
+        width: 100%;
+    }
+    .user-profile {
+        width: 100%;
+        justify-content: center;
+    }
+    .btn-outline, .btn-primary, .btn-secondary {
+        padding: 0.5rem 1.2rem;
+        font-size: 0.9rem;
+        width: 100%;
+        text-align: center;
+    }
+    .profile-img, .default-avatar {
+        width: 35px;
+        height: 35px;
+    }
+}
+
+/* 小手机 (575px以下) */
+@media (max-width: 575px) {
+    .navbar {
+        margin: 15px 0.5vw;
+        padding: 10px;
+        border-radius: 15px;
+    }
+    .logo img {
+        height: 60px;
+    }
+    .nav-links {
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+    .nav-links a {
+        padding: 0.2rem 0.4rem;
+        font-size: 0.8rem;
+        width: 100%;
+        text-align: center;
+    }
+    .user-section {
+        gap: 0.5rem;
+    }
+    .perso {
+        gap: 0.5rem;
+    }
+    .user-profile {
+        padding: 0.3rem;
+    }
+    .profile-img, .default-avatar {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+body {
+    overflow-x: hidden;
+} 

@@ -22,30 +22,6 @@
             min-height: 100vh;
         }
 
-        header {
-            padding: 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(44, 62, 80, 0.95);
-        }
-
-        .logo {
-            font-size: 2rem;
-            font-weight: bold;
-            color: var(--primary);
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin-left: 2rem;
-            transition: color 0.3s;
-        }
-
-        nav a:hover {
-            color: var(--primary);
-        }
 
         .ads-container {
             padding: 2rem;
@@ -171,3 +147,22 @@
             color: white;
             cursor: pointer;
         }
+
+        .btn-favoris {
+            background: #f97316;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            display: inline-block;
+            min-width: 100px;
+            text-align: center;
+        }
+
+        .btn-favoris:hover {
+            background: #ea580c;
+        }
+        

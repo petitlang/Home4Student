@@ -4,33 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Créer mon profil</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        :root { --primary: #2ecc71; --secondary: #e74c3c; --accent: #3498db; --dark: #2c3e50; --light: #ecf0f1; }
-        body { background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'); background-size: cover; background-position: center; color: white; min-height: 100vh; }
-        header { padding: 1.5rem; display: flex; justify-content: space-between; align-items: center; background: rgba(44, 62, 80, 0.95); }
-        .logo { font-size: 2rem; font-weight: bold; color: var(--primary); }
-        nav a { color: white; text-decoration: none; margin-left: 2rem; transition: color 0.3s; }
-        nav a:hover { color: var(--primary); }
-        .login-section { display: flex; justify-content: center; align-items: center; min-height: 100vh; background: rgba(44, 62, 80, 0.8); }
-        .login-container { background: rgba(255, 255, 255, 0.95); padding: 3rem; border-radius: 10px; width: 100%; max-width: 400px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); }
-        .login-container h2 { text-align: center; color: var(--primary); margin-bottom: 2rem; font-size: 2rem; }
-        .input-group { margin-bottom: 1.5rem; }
-        .input-group label { font-size: 1rem; color: var(--dark); }
-        .input-group input { width: 100%; padding: 1rem; border: 1px solid #ddd; border-radius: 5px; margin-top: 0.5rem; font-size: 1rem; }
-        .input-group input:focus { border-color: var(--primary); outline: none; }
-        .btn { width: 100%; padding: 1rem; border: none; border-radius: 25px; font-weight: bold; cursor: pointer; transition: opacity 0.3s; }
-        .btn-primary { background: var(--primary); color: white; }
-        .btn-primary:hover { opacity: 0.8; }
-    </style>
+    <link rel="stylesheet" href="/views/profile-edit.css">
 </head>
 <body>
-    <header>
-        <div class="logo">SeLogerFacilement</div>
-        <nav>
-            <a href="/views/index2.php" class="btn btn-primary">Page d'accueil</a>
-        </nav>
-    </header>
+    <?php include __DIR__ . '/header.php'; ?>
 
     <div class="login-section">
         <div class="login-container">
@@ -60,7 +37,7 @@
         </div>
     </div>
 
-    
+    <?php include __DIR__ . '/footer.html'; ?>
 
 <script>
 // JS réduit : actions de redirection uniquement

@@ -1,7 +1,8 @@
 <?php
+session_start(); // 确保session已启动
 /**
  * ad.php — Page de détail pour une annonce
- * Reçoit ?id=xx (optionnellement ?action=show) depuis search.html.
+ * Reçoit ?id=xx (optionnellement ?action=show) depuis search.php.
  * Récupère la ligne via ad_get() puis affiche les infos.
  *
  * Emplacement conseillé : /views/ad.php
@@ -9,16 +10,8 @@
 
 require_once __DIR__ . '/../models/Admodel.php';
 require_once __DIR__ . '/../models/FavorisModel.php';
+require_once __DIR__ . '/../models/UserModel.php';
 
-
-session_start();
-$_SESSION['user'] = [
-  'nom' => 'Zabala',
-  'prenom' => 'Danaé',
-  'role' => 'admin'
-];
-
-$id = 1;
 $id = isset($_GET['id']) ? (int)$_GET['id'] : null;
 if (!$id) {
     http_response_code(400);
@@ -36,7 +29,7 @@ if (!$ad) {
 
 $user = $_SESSION['user'] ?? null;
 $userId = $user['id'] ?? null;
-$role = $_SESSION['role'] ?? 'etudiant';
+$role = $_SESSION['role'] ?? null; // 不要默认'etudiant'，以免误判
 $isFavoris = $userId ? is_favoris($userId, $id, $role) : false;
 $favorisCount = $userId ? get_favoris_count($userId, $role) : 0;
 
@@ -53,6 +46,7 @@ $Descriptions = htmlspecialchars($ad['Descriptions'] ?? '', ENT_QUOTES | ENT_SUB
 $IdProp       = (int)($ad['IdProprietaire']          ?? 0);
 
 $adresse      = trim("$rue, $postal $ville, $pays", ', ');
+$ownerInfo = UserModel::getProprietaireById($IdProp);
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -64,48 +58,7 @@ $adresse      = trim("$rue, $postal $ville, $pays", ', ');
   <link rel="stylesheet" href="/views/ad.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <style>
-    .btn-favoris {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.75rem 1.5rem;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: 500;
-      transition: all 0.3s ease;
-      width: 100%;
-      justify-content: center;
-      margin-top: 1rem;
-    }
-    .btn-favoris.add {
-      background-color: #e53e3e;
-      color: white;
-      box-shadow: 0 2px 4px rgba(229, 62, 62, 0.2);
-    }
-    .btn-favoris.add:hover {
-      background-color: #c53030;
-      transform: translateY(-1px);
-      box-shadow: 0 4px 6px rgba(229, 62, 62, 0.3);
-    }
-    .btn-favoris.remove {
-      background-color: #718096;
-      color: white;
-      box-shadow: 0 2px 4px rgba(113, 128, 150, 0.2);
-    }
-    .btn-favoris.remove:hover {
-      background-color: #4a5568;
-      transform: translateY(-1px);
-      box-shadow: 0 4px 6px rgba(113, 128, 150, 0.3);
-    }
-    .btn-favoris i {
-      font-size: 1.1rem;
-    }
-    .btn-favoris:active {
-      transform: translateY(0);
-    }
-  </style>
+  <link rel="stylesheet" href="/views/ad.css">
 </head>
 
 <script>
@@ -139,33 +92,7 @@ $adresse      = trim("$rue, $postal $ville, $pays", ', ');
 </script>
 
 <body>
-  <header>
-    <nav class="navbar">
-      <div class="logo">
-        <img src="/views/logo-removebg-preview.png" alt="logo" />
-      </div>
-      <div class="nav-center">
-        <div class="nav-links">
-          <a href="/views/ads_list.php">Offres</a>
-          <a href="/views/chat.php">Messagerie</a>
-          <a href="/views/favoris.php" class="relative">
-            Favoris
-            <?php if ($userId && $favorisCount > 0): ?>
-              <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                <?php echo $favorisCount; ?>
-              </span>
-            <?php endif; ?>
-          </a>
-          <a href="/views/faq_back.html">FAQ</a>
-          <a href="/views/contact.html">Contact</a>
-          <a href="/views/cgu.html">CGU</a>
-        </div>
-      </div>
-      <div class="nav-buttons">
-        <a href="/views/index2.php" class="btn-solid">Page d'accueil</a>
-      </div>
-    </nav>
-  </header>
+<?php include __DIR__ . '/header.php'; ?>
 <div class="main-container">
     <!-- Galerie d'images (réelles) -->
     <div class="gallery">
@@ -191,7 +118,16 @@ $adresse      = trim("$rue, $postal $ville, $pays", ', ');
 
   <!-- Boîte d'action (prix + candidature) -->
   <div class="action-box">
-    <div class="price"><?= $Prix ?> € / mois</div>
+    <div style="display: flex; align-items: center; gap: 0.5rem;">
+      <div class="price"><?= $Prix ?> € / mois</div>
+      <?php if ($role === 'admin' || $role === 'proprietaire'): ?>
+        <a href="/views/edit_ad.php?id=<?= $id ?>" class="btn-admin-action" style="background: #f97316; color: white; padding: 8px 16px; border-radius: 8px; text-decoration: none; margin-right: 10px; transition: all 0.3s ease; border: none; cursor: pointer;">Edit</a>
+        <form method="post" action="/controllers/DeleteAdController.php" style="display:inline;">
+          <input type="hidden" name="id_annonce" value="<?= $id ?>">
+          <button type="submit" class="btn-admin-action" style="background:#38a169;" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette annonce ?');">Delete</button>
+        </form>
+      <?php endif; ?>
+    </div>
     <form method="post" action="/controllers/CandidatureController.php" style="display:flex;flex-direction:column;gap:1rem;">
       <input type="hidden" name="id_annonce" value="<?= $id ?>">
       <div class="date-select">
@@ -222,14 +158,14 @@ $adresse      = trim("$rue, $postal $ville, $pays", ', ');
         <i class="fas fa-heart"></i>
         Se connecter pour ajouter aux favoris
       </a>
+      
     <?php endif; ?>
-    <?php if ($userId && $role === 'etudiant'): ?>
-      <div style="margin-top: 1rem; text-align: center;">
-        <a href="/views/signalement.php?id_annonce=<?= $id ?>" class="btn-favoris add" style="display:inline-block; width:auto;">
-          <i class="fas fa-flag"></i> Signaler
+    <?php if ($role === 'etudiant'): ?>
+        <a href="/views/signalement.php?id_annonce=<?= $id ?>" class="btn-favoris add" style="text-decoration: none; margin-top: 1rem; display: block; text-align: center;">
+          <i class="fas fa-flag"></i>
+          Signaler
         </a>
-      </div>
-    <?php endif; ?>
+     <?php endif; ?>
   </div>
 </div>
 
@@ -250,54 +186,16 @@ $adresse      = trim("$rue, $postal $ville, $pays", ', ');
     </div>
 
     <div class="owner">
-      <p><span>Id du propriétaire :</span> <?= $IdProp ?></p>
-      <!-- Ici vous pouvez faire un JOIN pour récupérer email / tél. si nécessaire -->
+      <?php if ($ownerInfo): ?>
+        <p><span>Propriétaire :</span> <?= htmlspecialchars($ownerInfo['nom'] . ' ' . $ownerInfo['prenom']) ?></p>
+        <p><span>Email :</span> <?= htmlspecialchars($ownerInfo['Email']) ?></p>
+        <p><span>Téléphone :</span> <?= htmlspecialchars($ownerInfo['Tele']) ?></p>
+      <?php else: ?>
+        <p>Informations du propriétaire indisponibles.</p>
+      <?php endif; ?>
     </div>
   </div>
 </div>
-
-<footer>
-  <div class="container">
-      <div class="footer-grid">
-          <div>
-              <div class="logo text-white mb-4">
-                  <i class="fas fa-graduation-cap text-2xl mr-2"></i>
-                  <span class="font-bold text-lg">HomeStudent</span>
-              </div>
-              <div class="social-links">
-                  <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                  <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                  <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
-                  <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
-              </div>
-          </div>
-          <div>
-              <h3 class="footer-heading">L'entreprise</h3>
-              <ul class="footer-links">
-                  <li class="footer-link"><a href="#">Qui sommes-nous ?</a></li>
-                  <li class="footer-link"><a href="/views/contact.html">Nous contacter</a></li>
-              </ul>
-          </div>
-          <div>
-              <h3 class="footer-heading">Services pro</h3>
-              <ul class="footer-links">
-                  <li class="footer-link"><a href="#">Accès client</a></li>
-              </ul>
-          </div>
-          <div>
-              <h3 class="footer-heading">À découvrir</h3>
-              <ul class="footer-links">
-                  <li class="footer-link"><a href="#">Tout l'immobilier</a></li>
-                  <li class="footer-link"><a href="#">Toutes les villes</a></li>
-                  <li class="footer-link"><a href="#">Tous les départements</a></li>
-                  <li class="footer-link"><a href="#">Toutes les régions</a></li>
-              </ul>
-          </div>
-      </div>
-      <div class="copyright">
-          &copy; 2023 HomeStudent - Se loger Facilement. Tous droits réservés.
-      </div>
-  </div>
-</footer>
+<?php include __DIR__ . '/footer.html'; ?>
 </body>
 </html>

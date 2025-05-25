@@ -19,41 +19,7 @@ if (isset($_SESSION['user'])) {
 </head>
 <body>
 
-  <header>
-        <div class="container">
-            <nav class="navbar">
-                <div class="logo">
-                    <div class="flex items-center">
-                        <img src="/views/logo-removebg-preview.png" alt="logo"></img>
-                    </div>
-                </div>
-                <div class="nav-links">
-                    <a href="#" class="nav-link">Offres</a>
-                     <a href="#" class="nav-link">Messagerie</a>
-                     <a href="/views/faq_back.php" class="nav-link">FAQ</a>
-                     <a href="/views/contact.html" class="nav-link">Contact</a>
-                       <?php if (!isset($_SESSION['user'])): ?>
-                        <div class="perso">
-                      <a href="/views/login.html" class="btn btn-outline">Se connecter</a>
-                        <a href="/views/register.html" class="btn btn-primary">S'inscrire</a>
-                        </div>
-                    <?php endif; ?>
-                  </div>
-
-                <div class="user-section">
-                <div id="userProfile" class="user-profile" onclick="window.location.href='/views/profile-edit.php'">
-                    <div id="userAvatar">
-                        <?php if (!empty($user["photo"])): ?>
-                            <img src="<?php echo htmlspecialchars($user["photo"]); ?>" alt="Photo de profil" class="profile-img">
-                        <?php else: ?>
-                            <div class="default-avatar"></div>
-                        <?php endif; ?>
-                    </div>
-                </div>
-            </div>
-            </nav>
-        </div>
-    </header>
+<?php include __DIR__ . '/header.php'; ?>
 
   <div class="hero-slogan">
         <h1>Bienvenue !</h1>
@@ -94,7 +60,7 @@ if (isset($_SESSION['user'])) {
                             </div>
                         </div>
                         <div class="cta">
-                            <a href="/views/search.html" class="btn btn-primary btn-icon">
+                            <a href="/views/search.php" class="btn btn-primary btn-icon">
                                 <span>Accéder aux annonces</span>
                                 <i class="fas fa-arrow-right"></i>
                             </a>
@@ -149,7 +115,7 @@ if (isset($_SESSION['user'])) {
                             </div>
                         </div>
                         <div class="cta">
-                            <a href="/views/login.html" class="btn btn-primary btn-icon">
+                            <a href="/views/login.php" class="btn btn-primary btn-icon">
                                 <span>Déposer une annonce</span>
                                 <i class="fas fa-upload ml-2"></i>
                             </a>
@@ -164,55 +130,6 @@ if (isset($_SESSION['user'])) {
     </div>
   </main>
 
-  
-     
-
-  <!-- FOOTER -->
-  <footer>
-        <div class="container">
-            <div class="footer-grid">
-                <div>
-                    <div class="logo text-white mb-4">
-                        <i class="fas fa-graduation-cap text-2xl mr-2"></i>
-                        <span class="font-bold text-lg">HomeStudent</span>
-                    </div>
-                    <div class="social-links">
-                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
-                    </div>
-                </div>
-
-                <div>
-                    <h3 class="footer-heading">L'entreprise</h3>
-                    <ul class="footer-links">
-                        <li class="footer-link"><a href="#">Qui sommes-nous ?</a></li>
-                        <li class="footer-link"><a href="/views/contact.html">Nous contacter</a></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h3 class="footer-heading">Services pro</h3>
-                    <ul class="footer-links">
-                        <li class="footer-link"><a href="#">Accès client</a></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h3 class="footer-heading">À découvrir</h3>
-                    <ul class="footer-links">
-                        <li class="footer-link"><a href="#">Tout l'immobilier</a></li>
-                        <li class="footer-link"><a href="#">Toutes les villes</a></li>
-                        <li class="footer-link"><a href="#">Tous les départements</a></li>
-                        <li class="footer-link"><a href="#">Toutes les régions</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="copyright">
-                &copy; 2023 HomeStudent - Se loger Facilement. Tous droits réservés.
-            </div>
-        </div>
-    </footer>
+<?php include __DIR__ . '/footer.html'; ?>
 </body>
 </html>

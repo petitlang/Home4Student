@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'etudiant') {
-    header('Location: /views/login.html');
+    header('Location: /views/login.php');
     exit();
 }
 require_once __DIR__ . '/../models/CandidatureModel.php';

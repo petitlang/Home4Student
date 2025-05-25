@@ -3,7 +3,7 @@ session_start();
 require_once __DIR__ . '/../models/connection.php';
 
 if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'admin') {
-    header('Location: /views/login.html');
+    header('Location: /views/login.php');
     exit();
 }
 

@@ -13,7 +13,7 @@ if (!$userId) {
     if (isset($_GET['redirect'])) {
         $_SESSION['redirect_after_login'] = $_GET['redirect'];
     }
-    header('Location: /views/login.html');
+    header('Location: /views/login.php');
     exit;
 }
 
@@ -72,24 +72,7 @@ $favorisCount = get_favoris_count($userId, $role);
     </style>
 </head>
 <body class="min-h-screen bg-green-50">
-    <header class="bg-green-200 py-3 shadow-sm">
-        <div class="container mx-auto flex items-center justify-between px-4">
-            <div class="flex items-center gap-3">
-                <img src="/views/logo-removebg-preview.png" alt="logo" class="h-10 w-10 rounded-full bg-white shadow">
-                <span class="text-2xl font-bold text-green-900">Home4Student</span>
-            </div>
-            <div class="flex items-center gap-4">
-                <h1 class="text-xl font-semibold text-green-900">Mes favoris</h1>
-                <span class="bg-green-500 text-white px-3 py-1 rounded-full text-sm">
-                    <i class="fas fa-heart"></i> <?php echo $favorisCount; ?> favoris
-                </span>
-            </div>
-            <div class="flex gap-3">
-                <a href="/views/search.html" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition flex items-center gap-2"><i class="fas fa-home"></i> Voir les offres</a>
-                <a href="/views/index2.php" class="bg-gray-200 hover:bg-green-300 text-green-900 font-bold py-2 px-4 rounded transition flex items-center gap-2"><i class="fas fa-arrow-left"></i> Page d'accueil</a>
-            </div>
-        </div>
-    </header>
+    <?php include __DIR__ . '/header.php'; ?>
 
     <?php if (isset($_SESSION['success_message'])): ?>
         <div class="container mx-auto px-4 mt-4">
@@ -197,5 +180,6 @@ $favorisCount = get_favoris_count($userId, $role);
         </div>
         <?php endif; ?>
     </main>
+    <?php include __DIR__ . '/footer.html'; ?>
 </body>
 </html> 

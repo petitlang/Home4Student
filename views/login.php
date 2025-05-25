@@ -8,15 +8,7 @@
 </head>
 <body>
 
-<header>
-  <div class="logo">
-    <img src="/views/logo-removebg-preview.png" alt="Logo">
-    <span class="logo-text">Home4Student</span>
-  </div>
-  <nav class="navbar-links">
-    <a href="/views/index.php" class="btn btn-secondary">Page d'accueil</a>
-  </nav>
-</header>
+<?php include __DIR__ . '/header.php'; ?>
 
   <div class="login-section">
     <div class="login-container">
@@ -45,43 +37,13 @@
         <button type="submit" class="btn-primary">Se connecter</button>
       </form>
 
-      <p>Pas encore de compte ? <a href="/views/register.html">S'inscrire</a></p>
+      <p>Pas encore de compte ? <a href="/views/register.php">S'inscrire</a></p>
       <p><a href="/views/reset_password.php" class="forgot-password">Mot de passe oublié ?</a></p>
     </div>
   </div>
 </div>
 
-  <footer>
-    <div class="footer-grid">
-      <div class="footer-section">
-        <div class="social-icons">
-          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-          <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-        </div>
-      </div>
-
-    <div class="footer-section">
-      <h4>L'entreprise</h4>
-      <div><a href="#">Qui sommes-nous ?</a></div>
-      <div><a href="/views/contact.html">Nous contacter</a></div>
-    </div>
-
-      <div class="footer-section">
-        <h4>Services pro</h4>
-        <a href="#partners">Tous nos services</a>
-        <a href="#agencies">Accès client</a>
-      </div>
-
-      <div class="footer-section">
-        <h4>À découvrir</h4>
-        <a href="#contact">Tout l'immobilier</a>
-        <a href="#faq">Toutes les villes</a>
-        <a href="#guides">Tous les départements</a>
-      </div>
-    </div>
-  </footer>
+<?php include __DIR__ . '/footer.html'; ?>
 
   <script>
     document.getElementById('togglePassword').addEventListener('click', function () {

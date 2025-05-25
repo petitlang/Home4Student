@@ -81,6 +81,24 @@ function get_owner_ads($ownerId, $page, $perPage) {
     ];
 }
 
+function ad_update($id, $data) {
+    global $pdo;
+    $sql = "UPDATE annonce SET 
+        Titre = :Titre,
+        Type = :Type,
+        Prix = :Prix,
+        Etat = :Etat,
+        rue = :rue,
+        codepostal = :codepostal,
+        ville = :ville,
+        Pays = :Pays,
+        Descriptions = :Descriptions
+        WHERE IdAnnonce = :id";
+    $stmt = $pdo->prepare($sql);
+    $data['id'] = $id;
+    return $stmt->execute($data);
+}
+
 // ────────────────────────────────
 //  Tiny JSON API fallback.
 //  Only runs when this file is *directly* requested, not when included.

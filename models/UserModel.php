@@ -205,4 +205,12 @@ class UserModel {
         $stmt->execute([':email' => $email]);
         return $stmt->fetchColumn() > 0;
     }
+
+    // ===== 获取房东信息 =====
+    public static function getProprietaireById($id) {
+        global $pdo;
+        $stmt = $pdo->prepare("SELECT nom, prenom, Email, Tele FROM Proprietaire WHERE IdProprietaire = :id");
+        $stmt->execute([':id' => $id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 }

@@ -8,30 +8,7 @@
     <link rel="stylesheet" href="/views/register.css" />
 </head>
 <body>
-    <header>
-      <div class="header-top">
-        <img src="/views/logo-removebg-preview.png" alt="Logo Home4Student" class="logo" />
-      </div>
-  
-      <div class="header-bottom">
-        <nav class="navbar">
-          <div class="nav-center">
-            <div class="nav-links">
-              <a href="#">Offres</a>
-              <a href="#">Messagerie</a>
-              <a href="#">FAQ</a>
-              <a href="#">Contact</a>
-              <a href="#">CGU</a>
-            </div>
-          </div>
-          <div class="nav-buttons">
-            <a href="/views/login.html" class="btn-solid">Se connecter</a>
-            <a href="/views/register.html" class="btn-outline">S'inscrire</a>
-          </div>
-        </nav>
-      </div>
-    </header>
-
+    <?php include __DIR__ . '/header.php'; ?>
     <main>
       <div class="form-container">
         <h2>Créer un compte</h2>
@@ -87,47 +64,17 @@
                 
           <div class="cgu-group">
               <input type="checkbox" id="cgu" name="cgu" required>
-              <label for="cgu">J'accepte les <a href="/views/cgu.html">CGU</a> et les conditions d'utilisation du site.</label>
+              <label for="cgu">J'accepte les <a href="/views/CGU.php">CGU</a> et les conditions d'utilisation du site.</label>
           </div>
   
           <button type="submit" class="btn">S'inscrire</button>
         </form>
   
-        <p>Déjà un compte ? <a href="/Home4Student-mvc/views/login.html">Se connecter</a></p>
+        <p>Déjà un compte ? <a href="/Home4Student-mvc/views/login.php">Se connecter</a></p>
       </div>
     </main>
 
-    <footer>
-      <div class="footer-grid">
-        <div class="footer-section">
-          <div class="social-icons">
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-youtube"></i></a>
-            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-          </div>
-        </div>
-  
-        <div class="footer-section">
-          <h4>Notre entreprise</h4>
-          <a href="#">Qui sommes-nous ?</a>
-          <a href="#">Nous contacter</a>
-        </div>
-  
-        <div class="footer-section">
-          <h4>Services pro</h4>
-          <a href="#">Tous nos services</a>
-          <a href="#">Accès client</a>
-        </div>
-  
-        <div class="footer-section">
-          <h4>À découvrir</h4>
-          <a href="#">Tout l'immobilier</a>
-          <a href="#">Toutes les villes</a>
-          <a href="#">Tous les départements</a>
-        </div>
-      </div>
-    </footer>
+<?php include __DIR__ . '/footer.html'; ?>
 
     <script>
       const params = new URLSearchParams(window.location.search);

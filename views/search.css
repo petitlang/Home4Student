@@ -1,3 +1,12 @@
+.header-container, 
+.header-container * {
+    all: unset;
+    all: initial;
+    box-sizing: border-box;
+    font-family: inherit;
+    background: #4d6a5c;
+}
+
 :root {
     --primary-color: #6b9080;
     --primary-dark: #4d6a5c;
@@ -18,15 +27,6 @@ body {
     margin: 0;
     padding: 0;
     line-height: 1.6;
-}
-
-.container {
-    max-width: 1200px;
-    margin: 40px auto;
-    background: var(--white);
-    border-radius: 20px;
-    padding: 40px;
-    box-shadow: var(--shadow);
 }
 
 h1 {
@@ -175,173 +175,16 @@ input:focus, select:focus {
     font-weight: 500;
 }
 
-.header-top {
-    background-color: white;
-    padding: 1rem 2rem;
-    display: flex;
-    align-items: center;
-    height: 55px;
+.header-container {
+    width: 100vw !important;
+    margin: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    position: relative !important;
+    background: #6b9080; /* 你的主色 */
+    box-sizing: border-box;
 }
 
-.logo {
-    height: 75px;
-    object-fit: contain;
+.container {
+    background: #4d6a5c;
 }
-
-.header-bottom {
-    background-color: var(--primary-color);
-    padding: 0.5rem 2rem;
-}
-
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: var(--primary-color);
-    padding: 24px 40px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 30px;
-    margin: 32px 2vw 36px 2vw;
-    height: 140px;
-    gap: 30px;
-}
-
-.logo img {
-    height: 110px;
-    width: auto;
-    display: block;
-}
-
-.nav-links {
-    display: flex;
-    gap: 2.5rem;
-    align-items: center;
-}
-
-.nav-links a {
-    color: white;
-    background-color: var(--primary-dark);
-    padding: 0.4rem 0.8rem;
-    border-radius: 5px;
-    text-decoration: none;
-    font-weight: 500;
-    transition: var(--transition);
-}
-
-.nav-links a:hover {
-    background-color: var(--primary-light);
-    color: var(--primary-dark);
-}
-
-.nav-buttons {
-    display: flex;
-    align-items: center;
-    margin-left: 2rem;
-}
-
-.btn-outline {
-    background-color: white;
-    color: var(--text-dark);
-    border: 1px solid #ccc;
-}
-
-.btn-outline:hover {
-    background-color: #f0f0f0;
-}
-
-.btn-solid {
-    background-color: var(--primary-dark);
-    color: white;
-    border: none;
-    padding: 0.8rem 2.2rem;
-    border-radius: 10px;
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin-left: 1rem;
-    transition: var(--transition);
-}
-
-.btn-solid:hover {
-    background-color: var(--primary-light);
-    color: var(--primary-dark);
-}
-
-footer {
-    background-color: var(--primary-dark);
-    color: var(--white);
-    padding: 3rem 0 1.5rem;
-}
-
-footer .container {
-    background: none;
-    border-radius: 0;
-    box-shadow: none;
-    padding: 0 2rem;
-}
-
-.footer-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 2rem;
-}
-
-.footer-heading {
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
-    color: var(--white);
-}
-
-.footer-links {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.footer-link {
-    margin-bottom: 0.5rem;
-}
-
-.footer-link a {
-    color: var(--secondary-color);
-    transition: var(--transition);
-    text-decoration: none !important;
-}
-
-.footer-link a:hover {
-    color: var(--white);
-    padding-left: 5px;
-    text-decoration: none !important;
-}
-
-.social-links {
-    display: flex;
-    gap: 1rem;
-    margin-top: 1rem;
-}
-
-.social-link {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.1);
-    color: var(--white);
-    transition: var(--transition);
-}
-
-.social-link:hover {
-    background-color: var(--primary-color);
-    transform: translateY(-3px);
-}
-
-.copyright {
-    text-align: center;
-    padding-top: 2rem;
-    margin-top: 2rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    font-size: 0.875rem;
-    color: var(--secondary-color);
-} 

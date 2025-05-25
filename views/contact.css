@@ -4,136 +4,86 @@
     --dark: #2c3e50;
     --light: #ecf0f1;
     --secondary: #e74c3c;
-  }
+}
 
-  * {
+* {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
     font-family: 'Segoe UI', sans-serif;
-  }
+}
 
-  body {
+body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     background-image: url(./appartement-connecte.webp);
-   background-position: center center;
-   background-size: cover;
+    background-position: center center;
+    background-size: cover;
     color: #333;
     height: 80vh;
-    
-    
-    }
+}
 
-  header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #66A182;
-    padding: 15px 30px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    height: 80px;
-    margin-top: 20px;
-    margin-left: 13%;
-    width: 1200px ;
-    border-radius: 10px;
-  }
-
-  .logo {
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: var(--primary);
-  }
-
-  #back-link {
-      background: var(--secondary);
-      color: white;
-      display: inline-block;
+#back-link {
+    background: var(--secondary);
+    color: white;
+    display: inline-block;
     padding: 0.8rem 2rem;
     border-radius: 25px;
     text-decoration: none;
     font-weight: bold;
     transition: all 0.3s;
-  }
-  
-  #back-link:hover {
-      background: #c0392b;
-  }
+}
 
+#back-link:hover {
+    background: #c0392b;
+}
 
 #back-link:hover {
     color: var(--primary); /* Change la couleur au survol */
     text-decoration: underline; /* Ajoute un soulignement au survol */
 }
 
-  h2 {
+h2 {
     font-size: 2rem;
-    margin-bottom: 1rem;
-  }
-
-  .nav-bar {
-    display: flex;
-    gap: 15px;
-    
+    margin-bottom: 2rem;
+    color: var(--dark);
 }
 
-
-.nav-btn{
-  background-color: #66A182;
-  color:white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: background 0.3s, color 0.3s;
-  transition: color 0.3s ease;
-}
-
-.nav-btn:hover {
-  background-color:white;
-  color: black;
-  
-}
-
-  .contact-card {
+.contact-card {
     max-width: 500px;
     margin: 30px auto;
-    padding: 10px;
-    background-color: #fff;
+    padding: 30px;
+    background-color: rgba(255, 255, 255, 0.95);
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     text-align: center;
-  }
+}
 
-  .form-group {
+.form-group {
     margin-bottom: 1.2rem;
-  }
+}
 
-  label {
+label {
     font-weight: bold;
     display: block;
     margin-bottom: 0.3rem;
-  }
+}
 
-  input, textarea {
+input, textarea {
     width: 100%;
     padding: 0.8rem;
     border: 1px solid #ccc;
     border-radius: 12px;
     font-size: 1rem;
-  }
+}
 
-  textarea {
+textarea {
     min-height: 120px;
     resize: vertical;
-  }
+}
 
-  .submit-btn {
+.submit-btn {
     background-color: #586F77;
     color: #fff;
     padding: 0.8rem 1.5rem;
@@ -142,9 +92,9 @@
     font-weight: bold;
     cursor: pointer;
     transition: background 0.2s ease;
-  }
+}
 
-  .submit-btn:hover {
+.submit-btn:hover {
     background-color: #586F77;
     color: #fff;
     border: none;
@@ -153,19 +103,40 @@
     cursor: pointer;
     font-size: 18px;
     transition: background 0.3s;
-  }
+}
 
-  img{
+img{
     height: 80px;
     width: 150px 
-   }
+}
 
-   @media (max-width: 768px) {
-    .nav-links {
-      display: none;
-    }
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
 
-    h2 {
-      text-align: center;
+.contact-info p {
+    font-size: 1.2rem;
+    color: var(--dark);
+    margin: 0;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 8px;
+    transition: transform 0.2s ease;
+}
+
+.contact-info p:hover {
+    transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+    .contact-card {
+        margin: 20px;
+        padding: 20px;
     }
-  }
+    
+    .contact-info p {
+        font-size: 1rem;
+    }
+}

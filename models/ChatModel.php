@@ -10,10 +10,35 @@ class ChatModel
     public static function getNav(string $expediteur): array
     {
         global $pdo;
-        $query = "SELECT distinct idchat, destinateur FROM message WHERE expediteur = :expediteur";
+        // 解析expediteur格式（role-id）
+        $expParts = explode('-', $expediteur);
+        $expRole = $expParts[0];
+        $expId = $expParts[1];
+
+        // 获取所有会话
+        $query = "SELECT DISTINCT idchat, destinateur FROM message WHERE expediteur = :expediteur";
         $stmt = $pdo->prepare($query);
-        $stmt->execute([':expediteur'=>$expediteur]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->execute([':expediteur' => $expediteur]);
+        $chats = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // 为每个会话获取实际的人名
+        foreach ($chats as &$chat) {
+            $destParts = explode('-', $chat['destinateur']);
+            $destRole = $destParts[0];
+            $destId = $destParts[1];
+
+            // 根据角色从相应的表中获取用户名
+            if ($destRole === 'etudiant') {
+                $stmt = $pdo->prepare("SELECT CONCAT(prenom, ' ', nom) as fullname FROM Etudiant WHERE IdEtudiant = ?");
+            } else {
+                $stmt = $pdo->prepare("SELECT CONCAT(prenom, ' ', nom) as fullname FROM Proprietaire WHERE IdProprietaire = ?");
+            }
+            $stmt->execute([$destId]);
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            $chat['destinateur'] = $result['fullname'] ?? $chat['destinateur'];
+        }
+
+        return $chats;
     }
 
     /** 取出某条会话的全部消息 */

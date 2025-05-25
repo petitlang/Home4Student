@@ -11,15 +11,10 @@ if (isset($_SESSION['user'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Réinitialiser le mot de passe</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="reset_password.css">
 </head>
 <body>
-    <header>
-        <div class="logo">SeLogerFacilement</div>
-        <nav>
-            <a href="/views/login.html" class="btn btn-secondary">Retour à la connexion</a>
-        </nav>
-    </header>
+    <?php include __DIR__ . '/header.php'; ?>
 
     <div class="login-section">
         <div class="login-container">
@@ -31,7 +26,7 @@ if (isset($_SESSION['user'])) {
                 </div>
                 <div class="input-group">
                     <label for="code">Code vérification</label>
-                    <input type="text" id="code" name="code" placeholder="Entrez le code vérification" required></div>
+                    <input type="text" id="code" name="code" placeholder="Entrez le code vérification" required>
                 </div>
                 <div class="input-group">
                     <label for="password">Nouveau mot de passe</label>
@@ -45,19 +40,16 @@ if (isset($_SESSION['user'])) {
                         <option value="admin">Administrateur</option>
                     </select>
                 </div>
-                <!--<input type="hidden" name="code_ok" value="1">-->
-                <button type="button" onclick="sendVerificationCode()" style="margin-top: 10px;">Envoyer le code</button>
-                    <p id="code-msg" style="color: green; font-size: 0.9rem;"></p>
-                    <p id="error-msg" style="color: red; text-align: center;"></p>
+                <button type="button" onclick="sendVerificationCode()" class="btn" style="margin-top: 10px;">Envoyer le code</button>
+                <p id="code-msg" style="color: green; font-size: 0.9rem;"></p>
+                <p id="error-msg" style="color: red; text-align: center;"></p>
                 <button type="submit" class="btn btn-primary">Réinitialiser le mot de passe</button>
             </form>
-            <p class="noir-text">Retour à la connexion ? <a href="/views/login.html">Se connecter</a></p>
+            <p class="noir-text">Retour à la connexion ? <a href="/views/login.php">Se connecter</a></p>
         </div>
-        <?php 
-        
-            echo '<script>alert("session post code est : ' . $_SESSION['POST_CODE'] . ', verification code est ' . $_SESSION['email_verification_code'] . '");</script>';
-        ?>
     </div>
+
+    <?php include __DIR__ . '/footer.html'; ?>
 </body>
 </html>
 

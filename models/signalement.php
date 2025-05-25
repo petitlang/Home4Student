@@ -28,7 +28,16 @@ if ($isAdmin && $id) {
     <meta charset="UTF-8">
     <title>Signalement</title>
     <link rel="stylesheet" href="/views/ad.css" />
-    <link rel="stylesheet" href="/views/signalement.css" />
+    <style>
+        .signalement-form { max-width: 600px; margin: 2rem auto; background: #fff; padding: 2rem; border-radius: 10px; box-shadow: 0 2px 8px #ccc; }
+        .signalement-form label { display: block; margin-bottom: 0.5rem; font-weight: bold; }
+        .signalement-form select, .signalement-form textarea { width: 100%; margin-bottom: 1rem; padding: 0.5rem; border-radius: 5px; border: 1px solid #ccc; }
+        .signalement-form button { background: #e53e3e; color: #fff; border: none; padding: 0.75rem 2rem; border-radius: 5px; font-size: 1rem; cursor: pointer; }
+        .signalement-form button:hover { background: #c53030; }
+        .admin-btns { display: flex; justify-content: flex-end; gap: 1.5rem; margin-top: 2rem; }
+        .btn-green { background: #4CAF50 !important; }
+        .btn-red { background: #e53e3e !important; }
+    </style>
 </head>
 <body>
     <?php include __DIR__ . '/header.php'; ?>

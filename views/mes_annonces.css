@@ -1,0 +1,27 @@
+body { font-family: 'Poppins', sans-serif; background: #f7fdf9; }
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+.pagination a, .pagination span {
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    background: white;
+    color: #2d3748;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+.pagination a:hover {
+    background: #e2e8f0;
+}
+.pagination .active {
+    background: #48bb78;
+    color: white;
+}
+.pagination .disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}

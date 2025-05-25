@@ -22,30 +22,6 @@ body {
     min-height: 100vh;
 }
 
-header {
-    padding: 1.5rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: rgba(44, 62, 80, 0.95);
-}
-
-.logo {
-    font-size: 2rem;
-    font-weight: bold;
-    color: var(--primary);
-}
-
-nav a {
-    color: white;
-    text-decoration: none;
-    margin-left: 2rem;
-    transition: color 0.3s;
-}
-
-nav a:hover {
-    color: var(--primary);
-}
 
 .deposit-section {
     display: flex;

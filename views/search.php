@@ -10,25 +10,9 @@
   
 </head>
 <body>
-  <header>
-    <nav class="navbar">
-      <div class="logo">
-        <img src="/views/logo-removebg-preview.png" alt="logo" />
-      </div>
-      <div class="nav-center">
-        <div class="nav-links">
-          <a href="/views/ads_list.php">Offres</a>
-          <a href="/views/chat.php">Messagerie</a>
-          <a href="/views/faq_back.html">FAQ</a>
-          <a href="/views/contact.html">Contact</a>
-          <a href="/views/cgu.html">CGU</a>
-        </div>
-      </div>
-      <div class="nav-buttons">
-        <a href="/views/index2.php" class="btn-solid">Page d'accueil</a>
-      </div>
-    </nav>
-  </header>
+  <?php include __DIR__ . '/header.php';  echo "<style> .container {
+    background: #4d6a5c;
+  }</style>"; ?>
   <div class="container search-bg">
     <div class="filters">
       <input type="text" id="search" placeholder="Search services...">
@@ -136,51 +120,6 @@
               cardsContainer.innerHTML = '<p style="color:red">Erreur de chargement des données.</p>';
             });
   </script>
-  <footer>
-    <div class="container">
-        <div class="footer-grid">
-            <div>
-                <div class="logo text-white mb-4">
-                    <i class="fas fa-graduation-cap text-2xl mr-2"></i>
-                    <span class="font-bold text-lg">HomeStudent</span>
-                </div>
-                <div class="social-links">
-                    <a href="#" class="social-link"><i class="fab fa-twitter"></i>
-                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
-                    <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
-                </div>
-            </div>
-
-            <div>
-                <h3 class="footer-heading">L'entreprise</h3>
-                <ul class="footer-links">
-                    <li class="footer-link"><a href="#">Qui sommes-nous ?</a></li>
-                    <li class="footer-link"><a href="/views/contact.html">Nous contacter</a></li>
-                </ul>
-            </div>
-
-            <div>
-                <h3 class="footer-heading">Services pro</h3>
-                <ul class="footer-links">
-                    <li class="footer-link"><a href="#">Accès client</a></li>
-                </ul>
-            </div>
-
-            <div>
-                <h3 class="footer-heading">À découvrir</h3>
-                <ul class="footer-links">
-                    <li class="footer-link"><a href="#">Tout l'immobilier</a></li>
-                    <li class="footer-link"><a href="#">Toutes les villes</a></li>
-                    <li class="footer-link"><a href="#">Tous les départements</a></li>
-                    <li class="footer-link"><a href="#">Toutes les régions</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="copyright">
-            &copy; 2023 HomeStudent - Se loger Facilement. Tous droits réservés.
-        </div>
-    </div>
-</footer>
+<?php include __DIR__ . '/footer.html'; ?>
 </body>
 </html>

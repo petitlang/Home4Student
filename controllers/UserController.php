@@ -43,7 +43,7 @@ switch ($action) {
                     if ($user && isset($_FILES['photo'])) {
                         $photoPath = UserModel::enregistrerPhotoProprietaire($user['IdProprietaire'], $_FILES['photo']);
                         UserModel::updateProprietaire($user['IdProprietaire'], $data, $photoPath);
-                        $user = UserModel::verifierConnexionEtudiant($data['email'], $data['mdp']);
+                        $user = UserModel::verifierConnexionProprietaire($data['email'], $data['mdp']);
                     }
                 } elseif ($role === 'admin') {
                     // TODO: Ajouter une méthode creerAdministrateur si nécessaire, pour securite +> NON !!
@@ -75,7 +75,6 @@ switch ($action) {
             $email = $_POST['email'];
             $mdp = $_POST['password'];
             $role = $_POST['role'];
-            echo "<script>alert('Rôle login usercontroller est : " . $role . "');</script>";
             //$role = (isset($_POST['role']) && trim($_POST['role']) !== '') ? $_POST['role'] : $user['role'];
             $user = null;
 
@@ -91,7 +90,7 @@ switch ($action) {
                     break;
 
                 default:
-                    echo "<p>Rôle non reconnu. <a href='../views/login.html'>Retour</a></p>";
+                    echo "<p>Rôle non reconnu. <a href='../views/login.php'>Retour</a></p>";
                     exit;
             }
 
@@ -111,7 +110,7 @@ switch ($action) {
                 //echo "<p>user est : $user<p>";
                 unset($user);
                 session_destroy();
-                echo "<p>Identifiants ou MDP incorrects. <a href='../views/login.html'>Retour</a></p>";
+                echo "<p>Identifiants ou MDP incorrects. <a href='../views/login.php'>Retour</a></p>";
             }
         }
         break;
@@ -123,7 +122,6 @@ switch ($action) {
 
     case 'reset_password':
         
-        echo "<script>alert('Session ID: " . session_id() . "');</script>";
 
         //echo "<script>alert('reset_password : Rôle est : " . $_POST['role'] . ", code est : " . $_POST['code'] . " ,user est : " . $_SESSION['email_verification_code'] . "');</script>";
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -163,7 +161,7 @@ switch ($action) {
                     ->execute([':mdp' => $hashedPwd, ':id' => $id]);
             }
 
-            echo "<script>alert('Mot de passe modifié avec succès !'); window.location.href = '../views/login.html';</script>";
+            echo "<script>alert('Mot de passe modifié avec succès !'); window.location.href = '../views/login.php';</script>";
             exit;
         } else {
             echo "<p>Échec de la vérification. Reconnectez-vous ou code invalide.</p>";
@@ -176,8 +174,6 @@ switch ($action) {
             $user = $_SESSION['user'];
             //$role = $_POST['role'] ?? $user['role'];
             $role = (isset($_POST['role']) && trim($_POST['role']) !== '') ? $_POST['role'] : $user['role'];
-
-            echo "<script>alert('update_profile : Rôle est : " . $role . "; User est " . $user['role'] . " ; Email est " . $user['Email'] . " ');</script>";
             $photoPath = null;
 
             if (isset($_FILES['photo']) && $_FILES['photo']['error'] === 0) {

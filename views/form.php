@@ -1,3 +1,4 @@
+<?php include __DIR__ . '/header.php'; ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -430,20 +431,7 @@
 </head>
 <body>
 
-<header>
-  <nav>
-    <div class="nav-left">
-      <button>Offres</button>
-      <button>Messagerie</button>
-      <button class="active">Forum</button>
-      <button>Contact</button>
-    </div>
-    <div class="nav-right">
-      <button>Sign in</button>
-      <button class="register">Register</button>
-    </div>
-  </nav>
-</header>
+<?php include __DIR__ . '/header.php'; ?>
 
 <main>
   <div id="admin-login">
@@ -477,36 +465,7 @@
   </section>
 </main>
 
-<footer>
-  <div class="footer-grid">
-    <div class="footer-section">
-      <div class="social-icons">
-        <a href="#"><i class="fab fa-twitter"></i></a>
-        <a href="#"><i class="fab fa-instagram"></i></a>
-        <a href="#"><i class="fab fa-youtube"></i></a>
-        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-      </div>
-    </div>
-  <div class="footer-container">
-    <div class="footer-section">
-      <h4>Notre entreprise</h4>
-      <a href="#">Qui sommes-nous ?</a>
-      <a href="#">Nous contacter</a>
-    </div>
-    <div class="footer-section">
-      <h4>Service pro</h4>
-      <a href="#">Tous nos services</a>
-      <a href="#">Accès client</a>
-    </div>
-    <div class="footer-section">
-      <h4>À découvrir</h4>
-      <a href="#">Tout l'immobilier</a>
-      <a href="#">Toutes les villes</a>
-      <a href="#">Tous les départements </a>
-    </div>
-  </div>
-</footer>
-
+<?php include __DIR__ . '/footer.html'; ?>
 
 </body>
 </html>

@@ -214,31 +214,7 @@ $user = $_SESSION['user'];
 </head>
 
 <body>
-    <header>
-        <div class="logo">SeLogerFacilement</div>
-        <nav>
-            <div class="nav-links">
-                <a href="#contact">Contact</a>
-                <a href="#messagerie">Messagerie</a>
-                <a href="#faq">FAQ</a>
-                <a href="#offres">Offres</a>
-            </div>
-            <div class="user-section">
-                <div id="userProfile" class="user-profile" onclick="window.location.href='/views/profile-edit.php'">
-                    <?php echo htmlspecialchars($user["prenom"] . " " . $user["nom"]); ?>
-                    <div id="userAvatar">
-                        <?php if (!empty($user["photo"])): ?>
-                            <img src="<?php echo htmlspecialchars($user["photo"]); ?>" alt="Photo de profil" class="profile-img">
-                        <?php else: ?>
-                            <div class="default-avatar"></div>
-                        <?php endif; ?>
-                    </div>
-                </div>
-                <a href="../controllers/UserController.php?action=logout" class="btn btn-secondary">Se déconnecter</a>
-            </div>
-        </nav>
-    </header>
-
+    <?php include 'header.php'; ?>
     <div class="hero-slogan">
         <h1>Bienvenue, <?php echo htmlspecialchars($user["prenom"]); ?> !</h1>
     </div>
@@ -268,35 +244,7 @@ $user = $_SESSION['user'];
         </div>
     </div>
 
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-section">
-                <h4>Notre entreprise</h4>
-                <a href="#about">Qui sommes-nous ?</a>
-                <a href="#team">Notre équipe</a>
-                <a href="#press">Presse</a>
-            </div>
-            <div class="footer-section">
-                <h4>Services pro</h4>
-                <a href="#partners">Partenariats</a>
-                <a href="#agencies">Agences</a>
-                <a href="#pro-tools">Outils professionnels</a>
-            </div>
-            <div class="footer-section">
-                <h4>Aide</h4>
-                <a href="#contact">Contact</a>
-                <a href="#faq">FAQ</a>
-                <a href="#guides">Guides</a>
-            </div>
-            <div class="footer-section">
-                <h4>Légal</h4>
-                <a href="/views/cgu.html">CGU</a> <!-- Lien corrigé vers cgu.html -->
-                <a href="#privacy">Confidentialité</a>
-                <a href="#cookies">Cookies</a>
-            </div>
-        </div>
-    </footer>
-
+    <?php include 'footer.html'; ?>
     
 </body>
 </html>

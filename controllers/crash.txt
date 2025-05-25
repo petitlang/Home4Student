@@ -1,70 +1,68 @@
-date/time         : 2025-05-02, 15:01:02, 409ms
-computer name     : MOUZHENGµÄLENOV
-user name         : Mouzheng LI <admin>
-registered owner  : Mouzheng LI
+date/time         : 2025-05-14, 19:42:01, 919ms
+computer name     : LIUYUEFAN
+user name         : anton <admin>
+registered owner  : antoninliu520@gmail.com / HP Inc.
 operating system  : Windows NT New Tablet PC x64 build 9200
 system language   : Chinese (Simplified)
-system up time    : 13 days 22 hours
+system up time    : 1 hour 5 minutes
 program up time   : 1 second
-processors        : 6x AMD Ryzen 5 4500U with Radeon Graphics
-physical memory   : 16307/32125 MB (free/total)
-free disk space   : (C:) 47.29 GB (D:) 477.66 GB
-display mode      : 1536x864, 32 bit
-process id        : $9558
-allocated memory  : 23.26 MB
-command line      : "D:\Downloads\Home4Student\sendmail\sendmail.exe" -t
+processors        : 16x 13th Gen Intel(R) Core(TM) i9-13900HX
+physical memory   : 6336/14029 MB (free/total)
+free disk space   : (C:) 77.92 GB (E:) 167.06 GB
+display mode      : 1707x960, 32 bit
+process id        : $3120
+allocated memory  : 30.11 MB
+command line      : "E:\app_web_A1\Home4Student\sendmail\sendmail.exe" -t
 executable        : sendmail.exe
-exec. date/time   : 2025-05-02 14:10
+exec. date/time   : 2025-05-02 22:01
 compiled with     : Delphi 2006/07
 madExcept version : 3.0l
-callstack crc     : $205f8196, $8b06b130, $8b06b130
+callstack crc     : $205f8196, $12a07c3f, $12a07c3f
 exception number  : 1
 exception class   : EInOutError
 exception message : I/O error 105.
 
-main thread ($acb4):
+main thread ($7a70):
 004b675c +18a8 sendmail.exe sendmail        922 +440 initialization
-77d1bbca +000a ntdll.dll                             KiUserExceptionDispatcher
+77b6bcfa +000a ntdll.dll                             KiUserExceptionDispatcher
 0040474d +001d sendmail.exe System          262   +0 @AfterConstruction
 0043ff28 +0008 sendmail.exe IdTCPConnection 576   +0 TIdTCPConnection.RaiseExceptionForLastCmdResult
 004402f4 +003c sendmail.exe IdTCPConnection 751  +10 TIdTCPConnection.CheckResponse
 0043feba +002a sendmail.exe IdTCPConnection 565   +2 TIdTCPConnection.GetResponse
 0043ff87 +005b sendmail.exe IdTCPConnection 585   +4 TIdTCPConnection.SendCmd
-0044020e +0056 sendmail.exe IdTCPConnection 723   +4 TIdTCPConnection.SendCmd
-0045aa16 +0192 sendmail.exe IdSMTP          341  +40 TIdSMTP.Authenticate
-004b5f81 +10cd sendmail.exe sendmail        822 +340 initialization
-759f5d47 +0017 KERNEL32.DLL                          BaseThreadInitThunk
+004b60f3 +123f sendmail.exe sendmail        836 +354 initialization
+769e5d47 +0017 KERNEL32.DLL                          BaseThreadInitThunk
 
-thread $6174:
-759f5d47 +17 KERNEL32.DLL  BaseThreadInitThunk
+thread $3304:
+769e5d47 +17 KERNEL32.DLL  BaseThreadInitThunk
 
-thread $b2c0:
-759f5d47 +17 KERNEL32.DLL  BaseThreadInitThunk
+thread $38d4:
+769e5d47 +17 KERNEL32.DLL  BaseThreadInitThunk
 
-thread $b780:
-759f5d47 +17 KERNEL32.DLL  BaseThreadInitThunk
+thread $27c:
+769e5d47 +17 KERNEL32.DLL  BaseThreadInitThunk
 
 stack dump:
-0019f638  5c 67 4b 00 de fa ed 0e - 01 00 00 00 07 00 00 00  \gK.............
-0019f648  4c f6 19 00 5c 67 4b 00 - e8 ca 61 02 5c 67 4b 00  L...\gK...a.\gK.
-0019f658  5c 67 4b 00 f4 fd 19 00 - 74 ff 19 00 68 f6 19 00  \gK.....t...h...
-0019f668  00 00 00 00 64 30 40 00 - 00 00 00 00 d8 cb 61 02  ....d0@.......a.
-0019f678  5c 67 4b 00 00 00 00 00 - 8f 91 45 00 d8 cb 61 02  \gK.......E...a.
-0019f688  a0 f7 19 00 b4 f6 19 00 - c0 f6 19 00 00 00 00 00  ................
-0019f698  00 00 00 00 00 00 00 00 - b2 1c d5 77 a0 f7 19 00  ...........w....
-0019f6a8  f4 fd 19 00 f0 f7 19 00 - 2c f7 19 00 e8 fc 19 00  ........,.......
-0019f6b8  d0 1c d5 77 f4 fd 19 00 - 88 f7 19 00 84 1c d5 77  ...w...........w
-0019f6c8  a0 f7 19 00 f4 fd 19 00 - f0 f7 19 00 2c f7 19 00  ............,...
-0019f6d8  1c 67 4b 00 f0 f7 19 00 - a0 f7 19 00 00 00 00 00  .gK.............
-0019f6e8  13 e6 d0 77 a0 f7 19 00 - f4 fd 19 00 f0 f7 19 00  ...w............
-0019f6f8  2c f7 19 00 1c 67 4b 00 - 17 02 00 00 00 00 00 00  ,....gK.........
-0019f708  a0 f7 19 00 00 00 c7 00 - 00 00 00 00 f4 fd 19 00  ................
-0019f718  32 00 00 00 00 00 00 00 - 00 c0 19 00 00 00 1a 00  2...............
-0019f728  00 00 00 00 00 00 00 00 - 00 00 c6 00 84 f7 19 00  ................
-0019f738  77 1e ce 77 d0 07 c7 00 - 00 00 00 00 00 00 c6 00  w..w............
-0019f748  70 00 00 00 d0 07 c7 00 - d0 07 c7 00 00 00 00 00  p...............
-0019f758  68 00 00 00 70 00 00 00 - 00 00 c7 00 f0 01 c7 00  h...p...........
-0019f768  f8 08 c7 00 68 00 00 00 - ff ff ff e7 00 00 00 00  ....h...........
+0019f6a8  5c 67 4b 00 de fa ed 0e - 01 00 00 00 07 00 00 00  \gK.............
+0019f6b8  bc f6 19 00 5c 67 4b 00 - d0 ca 50 02 5c 67 4b 00  ....\gK...P.\gK.
+0019f6c8  5c 67 4b 00 f4 fd 19 00 - 74 ff 19 00 d8 f6 19 00  \gK.....t.......
+0019f6d8  00 00 00 00 64 30 40 00 - 00 00 00 00 f0 cb 50 02  ....d0@.......P.
+0019f6e8  5c 67 4b 00 00 00 00 00 - 8f 91 45 00 f0 cb 50 02  \gK.......E...P.
+0019f6f8  10 f8 19 00 24 f7 19 00 - 30 f7 19 00 00 00 00 00  ....$...0.......
+0019f708  00 00 00 00 00 00 00 00 - c2 1f ba 77 10 f8 19 00  ...........w....
+0019f718  f4 fd 19 00 60 f8 19 00 - 9c f7 19 00 58 fd 19 00  ....`.......X...
+0019f728  e0 1f ba 77 f4 fd 19 00 - f8 f7 19 00 94 1f ba 77  ...w...........w
+0019f738  10 f8 19 00 f4 fd 19 00 - 60 f8 19 00 9c f7 19 00  ........`.......
+0019f748  1c 67 4b 00 60 f8 19 00 - 10 f8 19 00 00 00 00 00  .gK.`...........
+0019f758  43 e7 b5 77 10 f8 19 00 - f4 fd 19 00 60 f8 19 00  C..w........`...
+0019f768  9c f7 19 00 1c 67 4b 00 - 29 02 00 00 00 00 00 00  .....gK.).......
+0019f778  10 f8 19 00 bd 2a b8 77 - ff ff ff 00 f4 fd 19 00  .....*.w........
+0019f788  32 00 00 00 00 00 00 00 - 00 c0 19 00 00 00 1a 00  2...............
+0019f798  00 00 00 00 07 02 02 00 - 02 02 00 00 07 02 02 00  ................
+0019f7a8  ff ff ff e7 00 00 00 00 - 00 00 00 08 07 02 02 00  ................
+0019f7b8  ff 03 00 00 78 f8 19 00 - 50 f8 19 00 90 02 9e 76  ....x...P......v
+0019f7c8  88 f8 19 00 98 05 9e 76 - e0 fa 19 00 07 02 02 00  .......v........
+0019f7d8  02 02 00 00 07 02 02 00 - 02 02 00 00 18 f8 19 00  ................
 
 disassembling:
 [...]

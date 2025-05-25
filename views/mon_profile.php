@@ -123,6 +123,12 @@ $role = $user['role'];
           <a href="/views/chat.php"><i class="fas fa-comments"></i> Chat</a>
           <?php endif; ?>
         </div>
+      <?php elseif ($role === 'admin'): ?>
+        <div class="profile-actions">
+          <a href="/views/signalements_list.php" style="display:inline-block; padding:0.75rem 2rem; background:#6b9080; color:#fff; border-radius:6px; font-weight:600; text-decoration:none; margin-top:1rem;">
+            <i class="fas fa-flag"></i> Voir les signalements
+          </a>
+        </div>
       <?php endif; ?>
     </div>
   </div>

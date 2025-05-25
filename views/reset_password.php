@@ -14,12 +14,7 @@ if (isset($_SESSION['user'])) {
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <div class="logo">SeLogerFacilement</div>
-        <nav>
-            <a href="/views/login.html" class="btn btn-secondary">Retour à la connexion</a>
-        </nav>
-    </header>
+    <?php include 'header.php'; ?>
 
     <div class="login-section">
         <div class="login-container">
@@ -58,6 +53,7 @@ if (isset($_SESSION['user'])) {
             echo '<script>alert("session post code est : ' . $_SESSION['POST_CODE'] . ', verification code est ' . $_SESSION['email_verification_code'] . '");</script>';
         ?>
     </div>
+    <?php include 'footer.php'; ?>
 </body>
 </html>
 

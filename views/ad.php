@@ -2,7 +2,7 @@
 session_start(); // 确保session已启动
 /**
  * ad.php — Page de détail pour une annonce
- * Reçoit ?id=xx (optionnellement ?action=show) depuis search.html.
+ * Reçoit ?id=xx (optionnellement ?action=show) depuis search.php.
  * Récupère la ligne via ad_get() puis affiche les infos.
  *
  * Emplacement conseillé : /views/ad.php
@@ -11,8 +11,6 @@ session_start(); // 确保session已启动
 require_once __DIR__ . '/../models/Admodel.php';
 require_once __DIR__ . '/../models/FavorisModel.php';
 require_once __DIR__ . '/../models/UserModel.php';
-
-
 
 $id = isset($_GET['id']) ? (int)$_GET['id'] : null;
 if (!$id) {
@@ -150,33 +148,7 @@ $ownerInfo = UserModel::getProprietaireById($IdProp);
 </script>
 
 <body>
-  <header>
-    <nav class="navbar">
-      <div class="logo">
-        <img src="/views/logo-removebg-preview.png" alt="logo" />
-      </div>
-      <div class="nav-center">
-        <div class="nav-links">
-          <a href="/views/ads_list.php">Offres</a>
-          <a href="/views/chat.php">Messagerie</a>
-          <a href="/views/favoris.php" class="relative">
-            Favoris
-            <?php if ($userId && $favorisCount > 0): ?>
-              <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                <?php echo $favorisCount; ?>
-              </span>
-            <?php endif; ?>
-          </a>
-          <a href="/views/faq_back.html">FAQ</a>
-          <a href="/views/contact.html">Contact</a>
-          <a href="/views/cgu.html">CGU</a>
-        </div>
-      </div>
-      <div class="nav-buttons">
-        <a href="/views/index2.php" class="btn-solid">Page d'accueil</a>
-      </div>
-    </nav>
-  </header>
+<?php include __DIR__ . '/header.php'; ?>
 <div class="main-container">
     <!-- Galerie d'images (réelles) -->
     <div class="gallery">
@@ -285,49 +257,6 @@ $ownerInfo = UserModel::getProprietaireById($IdProp);
     </div>
   </div>
 </div>
-
-<footer>
-  <div class="container">
-      <div class="footer-grid">
-          <div>
-              <div class="logo text-white mb-4">
-                  <i class="fas fa-graduation-cap text-2xl mr-2"></i>
-                  <span class="font-bold text-lg">HomeStudent</span>
-              </div>
-              <div class="social-links">
-                  <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                  <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                  <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
-                  <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
-              </div>
-          </div>
-          <div>
-              <h3 class="footer-heading">L'entreprise</h3>
-              <ul class="footer-links">
-                  <li class="footer-link"><a href="#">Qui sommes-nous ?</a></li>
-                  <li class="footer-link"><a href="/views/contact.html">Nous contacter</a></li>
-              </ul>
-          </div>
-          <div>
-              <h3 class="footer-heading">Services pro</h3>
-              <ul class="footer-links">
-                  <li class="footer-link"><a href="#">Accès client</a></li>
-              </ul>
-          </div>
-          <div>
-              <h3 class="footer-heading">À découvrir</h3>
-              <ul class="footer-links">
-                  <li class="footer-link"><a href="#">Tout l'immobilier</a></li>
-                  <li class="footer-link"><a href="#">Toutes les villes</a></li>
-                  <li class="footer-link"><a href="#">Tous les départements</a></li>
-                  <li class="footer-link"><a href="#">Toutes les régions</a></li>
-              </ul>
-          </div>
-      </div>
-      <div class="copyright">
-          &copy; 2023 HomeStudent - Se loger Facilement. Tous droits réservés.
-      </div>
-  </div>
-</footer>
+<?php include __DIR__ . '/footer.html'; ?>
 </body>
 </html>

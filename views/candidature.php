@@ -39,7 +39,7 @@ $rooms = get_candidatures_by_etudiant($id_etudiant);
             </div>
             <h1 class="text-xl font-semibold text-green-900">Mes réservations</h1>
             <div class="flex gap-3">
-                <a href="/views/search.html" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition flex items-center gap-2"><i class="fas fa-plus"></i> Réserver un logement</a>
+                <a href="/views/search.php" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition flex items-center gap-2"><i class="fas fa-plus"></i> Réserver un logement</a>
                 <a href="/views/index2.php" class="bg-gray-200 hover:bg-green-300 text-green-900 font-bold py-2 px-4 rounded transition flex items-center gap-2"><i class="fas fa-arrow-left"></i> Retour accueil</a>
             </div>
         </div>

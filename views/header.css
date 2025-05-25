@@ -24,7 +24,7 @@ header {
     background-color: var(--primary-color);
 }
 
-header .container {
+header .header-container {
     width: 100%;
     margin: 0;
     padding: 0;

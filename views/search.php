@@ -10,7 +10,9 @@
   
 </head>
 <body>
-  <?php include __DIR__ . '/header.php'; ?>
+  <?php include __DIR__ . '/header.php';  echo "<style> .container {
+    background: #4d6a5c;
+  }</style>"; ?>
   <div class="container search-bg">
     <div class="filters">
       <input type="text" id="search" placeholder="Search services...">

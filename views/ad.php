@@ -58,69 +58,7 @@ $ownerInfo = UserModel::getProprietaireById($IdProp);
   <link rel="stylesheet" href="/views/ad.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <style>
-    .btn-favoris {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.75rem 1.5rem;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: 500;
-      transition: all 0.3s ease;
-      width: 100%;
-      justify-content: center;
-      margin-top: 1rem;
-    }
-    .btn-favoris.add {
-      background-color: #e53e3e;
-      color: white;
-      box-shadow: 0 2px 4px rgba(229, 62, 62, 0.2);
-    }
-    .btn-favoris.add:hover {
-      background-color: #c53030;
-      transform: translateY(-1px);
-      box-shadow: 0 4px 6px rgba(229, 62, 62, 0.3);
-    }
-    .btn-favoris.remove {
-      background-color: #718096;
-      color: white;
-      box-shadow: 0 2px 4px rgba(113, 128, 150, 0.2);
-    }
-    .btn-favoris.remove:hover {
-      background-color: #4a5568;
-      transform: translateY(-1px);
-      box-shadow: 0 4px 6px rgba(113, 128, 150, 0.3);
-    }
-    .btn-favoris i {
-      font-size: 1.1rem;
-    }
-    .btn-favoris:active {
-      transform: translateY(0);
-    }
-    .btn-admin-action {
-      color: #fff;
-      border: none;
-      border-radius: 6px;
-      padding: 0.5rem 1.5rem;
-      font-weight: 500;
-      font-size: 1.1rem;
-      cursor: pointer;
-      margin-left: 0.5rem;
-      text-decoration: none;
-      transition: background 0.2s;
-      display: inline-block;
-      min-width: 100px;
-      text-align: center;
-    }
-    .btn-admin-action:first-child {
-      margin-left: 0;
-    }
-    .btn-admin-action:hover {
-      background: #276749;
-    }
-  </style>
+  <link rel="stylesheet" href="/views/ad.css">
 </head>
 
 <script>

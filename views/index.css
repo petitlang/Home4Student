@@ -16,6 +16,7 @@ body {
     color: var(--text-dark);
     background-color: var(--secondary-color);
     line-height: 1.6;
+    overflow-x: hidden;
 }
 
 .container {

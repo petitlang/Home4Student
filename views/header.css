@@ -12,7 +12,7 @@
 }
 
 header {
-    width: 100vw;
+    width: 100%;
     margin: 0;
     padding: 0;
     background-color: var(--primary-dark);
@@ -27,14 +27,14 @@ header .header-container {
     width: 100%;
     margin: 0;
     padding: 0;
-    background: none;
+    background: #4d6a5c;
     box-shadow: none;
     border-radius: 0;
 }
 
 .navbar {
     width: 100%;
-    max-width: 100vw;
+    max-width: 100%;
     margin: 0;
     padding: 0;
     background: none;
@@ -47,7 +47,6 @@ header .header-container {
     justify-content: space-between;
     flex-wrap: nowrap;
     min-width: 0;
-    overflow-x: auto;
     box-sizing: border-box;
 }
 
@@ -353,4 +352,8 @@ header .header-container {
         width: 30px;
         height: 30px;
     }
+}
+
+body {
+    overflow-x: hidden;
 } 

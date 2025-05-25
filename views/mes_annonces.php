@@ -36,35 +36,7 @@ $totalAds = $result['total'];
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Poppins', sans-serif; background: #f7fdf9; }
-        .pagination {
-            display: flex;
-            justify-content: center;
-            gap: 0.5rem;
-            margin-top: 2rem;
-            margin-bottom: 2rem;
-        }
-        .pagination a, .pagination span {
-            padding: 0.5rem 1rem;
-            border-radius: 0.375rem;
-            background: white;
-            color: #2d3748;
-            text-decoration: none;
-            transition: all 0.2s;
-        }
-        .pagination a:hover {
-            background: #e2e8f0;
-        }
-        .pagination .active {
-            background: #48bb78;
-            color: white;
-        }
-        .pagination .disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-    </style>
+    <link rel="stylesheet" href="/views/mes_annonces.css">
 </head>
 <body class="min-h-screen bg-green-50">
     <header class="bg-green-200 py-3 shadow-sm">

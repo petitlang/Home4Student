@@ -148,7 +148,7 @@ $user = $_SESSION['user'];
                             </div>
                         </div>
                         <div class="cta">
-                            <a href="/views/deposit_ad.php" class="btn btn-primary btn-icon">
+                            <a href="/views/mes_annonces.php" class="btn btn-primary btn-icon">
                                 <span>Déposer une annonce</span>
                                 <i class="fas fa-upload ml-2"></i>
                             </a>

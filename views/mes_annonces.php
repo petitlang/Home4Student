@@ -9,6 +9,12 @@ if (!$userId) {
     exit;
 }
 
+if ($user['role'] !== 'proprietaire') {
+    //echo "<script>alert('Accès refusé. Vous n\'êtes pas autorisé à accéder à cette page.');</script>";
+    header('Location: /views/login.html');
+    exit;
+}
+
 // 获取当前页码
 $page = isset($_GET['page']) ? max(1, intval($_GET['page'])) : 1;
 $perPage = 9;

@@ -1,4 +1,5 @@
 <?php
+session_start(); // 确保session已启动
 /**
  * ad.php — Page de détail pour une annonce
  * Reçoit ?id=xx (optionnellement ?action=show) depuis search.html.
@@ -9,16 +10,10 @@
 
 require_once __DIR__ . '/../models/Admodel.php';
 require_once __DIR__ . '/../models/FavorisModel.php';
+require_once __DIR__ . '/../models/UserModel.php';
 
 
-session_start();
-$_SESSION['user'] = [
-  'nom' => 'Zabala',
-  'prenom' => 'Danaé',
-  'role' => 'admin'
-];
 
-$id = 1;
 $id = isset($_GET['id']) ? (int)$_GET['id'] : null;
 if (!$id) {
     http_response_code(400);
@@ -36,7 +31,7 @@ if (!$ad) {
 
 $user = $_SESSION['user'] ?? null;
 $userId = $user['id'] ?? null;
-$role = $_SESSION['role'] ?? 'etudiant';
+$role = $_SESSION['role'] ?? null; // 不要默认'etudiant'，以免误判
 $isFavoris = $userId ? is_favoris($userId, $id, $role) : false;
 $favorisCount = $userId ? get_favoris_count($userId, $role) : 0;
 
@@ -53,6 +48,7 @@ $Descriptions = htmlspecialchars($ad['Descriptions'] ?? '', ENT_QUOTES | ENT_SUB
 $IdProp       = (int)($ad['IdProprietaire']          ?? 0);
 
 $adresse      = trim("$rue, $postal $ville, $pays", ', ');
+$ownerInfo = UserModel::getProprietaireById($IdProp);
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -104,6 +100,21 @@ $adresse      = trim("$rue, $postal $ville, $pays", ', ');
     }
     .btn-favoris:active {
       transform: translateY(0);
+    }
+    .btn-admin-action {
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 0.5rem 1.2rem;
+      font-weight: 500;
+      cursor: pointer;
+      margin-left: 0.5rem;
+      text-decoration: none;
+      transition: background 0.2s;
+      display: inline-block;
+    }
+    .btn-admin-action:hover {
+      background: #276749;
     }
   </style>
 </head>
@@ -191,7 +202,16 @@ $adresse      = trim("$rue, $postal $ville, $pays", ', ');
 
   <!-- Boîte d'action (prix + candidature) -->
   <div class="action-box">
-    <div class="price"><?= $Prix ?> € / mois</div>
+    <div style="display: flex; align-items: center; gap: 0.5rem;">
+      <div class="price"><?= $Prix ?> € / mois</div>
+      <?php if ($role === 'admin'): ?>
+        <a href="/views/edit_ad.php?id=<?= $id ?>" class="btn-admin-action" style="background:#38a169;">Edit</a>
+        <form method="post" action="/controllers/DeleteAdController.php" style="display:inline;">
+          <input type="hidden" name="id_annonce" value="<?= $id ?>">
+          <button type="submit" class="btn-admin-action" style="background:#38a169;" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette annonce ?');">Delete</button>
+        </form>
+      <?php endif; ?>
+    </div>
     <form method="post" action="/controllers/CandidatureController.php" style="display:flex;flex-direction:column;gap:1rem;">
       <input type="hidden" name="id_annonce" value="<?= $id ?>">
       <div class="date-select">
@@ -222,13 +242,18 @@ $adresse      = trim("$rue, $postal $ville, $pays", ', ');
         <i class="fas fa-heart"></i>
         Se connecter pour ajouter aux favoris
       </a>
-    <?php endif; ?>
-    <?php if ($userId && $role === 'etudiant'): ?>
-      <div style="margin-top: 1rem; text-align: center;">
-        <a href="/views/signalement.php?id_annonce=<?= $id ?>" class="btn-favoris add" style="display:inline-block; width:auto;">
-          <i class="fas fa-flag"></i> Signaler
+      <?php if (
+        isset(
+          
+          
+          $role
+        ) && $role === 'etudiant'
+      ): ?>
+        <a href="/views/signalement.php?id_annonce=<?= $id ?>" class="btn-favoris add" style="text-decoration: none; margin-top: 1rem; display: block; text-align: center;">
+          <i class="fas fa-flag"></i>
+          Signaler
         </a>
-      </div>
+      <?php endif; ?>
     <?php endif; ?>
   </div>
 </div>
@@ -250,8 +275,13 @@ $adresse      = trim("$rue, $postal $ville, $pays", ', ');
     </div>
 
     <div class="owner">
-      <p><span>Id du propriétaire :</span> <?= $IdProp ?></p>
-      <!-- Ici vous pouvez faire un JOIN pour récupérer email / tél. si nécessaire -->
+      <?php if ($ownerInfo): ?>
+        <p><span>Propriétaire :</span> <?= htmlspecialchars($ownerInfo['nom'] . ' ' . $ownerInfo['prenom']) ?></p>
+        <p><span>Email :</span> <?= htmlspecialchars($ownerInfo['Email']) ?></p>
+        <p><span>Téléphone :</span> <?= htmlspecialchars($ownerInfo['Tele']) ?></p>
+      <?php else: ?>
+        <p>Informations du propriétaire indisponibles.</p>
+      <?php endif; ?>
     </div>
   </div>
 </div>

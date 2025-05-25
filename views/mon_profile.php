@@ -52,7 +52,7 @@ $role = $user['role'];
     </div>
     <div class="name"><?php echo htmlspecialchars($user['prenom']) . ' ' . htmlspecialchars($user['nom']); ?></div>
     <div class="role">
-      <?php echo ($role === 'etudiant') ? 'Étudiante' : (($role === 'proprietaire') ? 'Propriétaire' : 'Admin'); ?>
+      <?php echo ($role === 'etudiant') ? 'Étudiant' : (($role === 'proprietaire') ? 'Propriétaire' : 'Admin'); ?>
     </div>
 
     <div class="info">

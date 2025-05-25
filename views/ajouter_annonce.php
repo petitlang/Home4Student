@@ -46,6 +46,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$titre, $prix, $rue, $ville, $codepostal, $type, $description, $userId]);
     
+    // 新增：获取新插入的IdAnnonce
+    $idAnnonce = $pdo->lastInsertId();
+    
+    // 新增：插入图片路径到 photoannonce 表
+    $sqlPhoto = "INSERT INTO PhotoAnnonce (chemin, IdAnnonce) VALUES (?, ?)";
+    $stmtPhoto = $pdo->prepare($sqlPhoto);
+    $stmtPhoto->execute([$imagePath, $idAnnonce]);
+    
     $_SESSION['success_message'] = 'Annonce publiée avec succès!';
     header('Location: /views/mes_annonces.php');
     exit;

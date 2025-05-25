@@ -83,7 +83,8 @@ $totalAds = $result['total'];
                 <a href="#add-ad-form" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition flex items-center gap-2">
                     <i class="fas fa-plus"></i> Publier une annonce
                 </a>
-                <a href="/views/index2.php" class="bg-gray-200 hover:bg-green-300 text-green-900 font-bold py-2 px-4 rounded transition flex items-center gap-2"><i class="fas fa-arrow-left"></i> Page d'accueil</a>
+                <a href="/views/search.php" class="bg-gray-200 hover:bg-green-300 text-green-900 font-bold py-2 px-4 rounded transition flex items-center gap-2"><i class="fas fa-arrow-left"></i> Retour à la recherche</a>
+                <a href="/views/index2.php" class="bg-gray-200 hover:bg-green-300 text-green-900 font-bold py-2 px-4 rounded transition flex items-center gap-2"><i class="fas fa-home"></i> Page d'accueil</a>
             </div>
         </div>
     </header>

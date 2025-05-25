@@ -158,19 +158,14 @@ $ownerInfo = UserModel::getProprietaireById($IdProp);
         <i class="fas fa-heart"></i>
         Se connecter pour ajouter aux favoris
       </a>
-      <?php if (
-        isset(
-          
-          
-          $role
-        ) && $role === 'etudiant'
-      ): ?>
+      
+    <?php endif; ?>
+    <?php if ($role === 'etudiant'): ?>
         <a href="/views/signalement.php?id_annonce=<?= $id ?>" class="btn-favoris add" style="text-decoration: none; margin-top: 1rem; display: block; text-align: center;">
           <i class="fas fa-flag"></i>
           Signaler
         </a>
-      <?php endif; ?>
-    <?php endif; ?>
+     <?php endif; ?>
   </div>
 </div>
 

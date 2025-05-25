@@ -2,11 +2,6 @@
 session_start();
 
 // Simuler un utilisateur admin pour test
-$_SESSION['user'] = [
-    'nom' => 'Zabala',
-    'prenom' => 'Danaé',
-    'role' => 'admin'
-];
 
 // Connexion DB
 $pdo = new PDO('mysql:host=localhost;dbname=home4student', 'root', 'root');

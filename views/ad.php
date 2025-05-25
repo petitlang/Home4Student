@@ -103,13 +103,19 @@ $ownerInfo = UserModel::getProprietaireById($IdProp);
       color: #fff;
       border: none;
       border-radius: 6px;
-      padding: 0.5rem 1.2rem;
+      padding: 0.5rem 1.5rem;
       font-weight: 500;
+      font-size: 1.1rem;
       cursor: pointer;
       margin-left: 0.5rem;
       text-decoration: none;
       transition: background 0.2s;
       display: inline-block;
+      min-width: 100px;
+      text-align: center;
+    }
+    .btn-admin-action:first-child {
+      margin-left: 0;
     }
     .btn-admin-action:hover {
       background: #276749;

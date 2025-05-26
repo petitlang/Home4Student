@@ -95,78 +95,73 @@ $ownerInfo = UserModel::getProprietaireById($IdProp);
 <?php include __DIR__ . '/header.php'; ?>
 <div class="main-container">
     <!-- Galerie d'images (réelles) -->
-    <div class="gallery">
+    <div class="gallery-and-actions">
+      <div class="gallery">
         <?php if ($photos): ?>
-            <!-- ① photo principale -->
-            <img src="/<?= htmlspecialchars($photos[0], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>"
-                 alt="Photo annonce">
-
-            <!-- ② miniatures supplémentaires -->
-            <?php if (count($photos) > 1): ?>
-                <div style="display:grid; gap:1rem;">
-                    <?php foreach (array_slice($photos, 1) as $p): ?>
-                        <img src="/<?= htmlspecialchars($p, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>"
-                             alt="Photo annonce miniature">
-                    <?php endforeach; ?>
-                </div>
-            <?php endif; ?>
+          <img src="/<?= htmlspecialchars($photos[0], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>"
+               alt="Photo annonce">
+          <?php if (count($photos) > 1): ?>
+            <div style="display:grid; gap:1rem;">
+              <?php foreach (array_slice($photos, 1) as $p): ?>
+                <img src="/<?= htmlspecialchars($p, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>"
+                     alt="Photo annonce miniature">
+              <?php endforeach; ?>
+            </div>
+          <?php endif; ?>
         <?php else: ?>
-            <!-- Fallback : si aucune image n'est trouvée -->
-            <img src="https://picsum.photos/800/600?grayscale&random=1" alt="Placeholder">
+          <img src="https://picsum.photos/800/600?grayscale&random=1" alt="Placeholder">
         <?php endif; ?>
-    </div>
-
-  <!-- Boîte d'action (prix + candidature) -->
-  <div class="action-box">
-    <div style="display: flex; align-items: center; gap: 0.5rem;">
-      <div class="price"><?= $Prix ?> € / mois</div>
-      <?php if ($role === 'admin' || $role === 'proprietaire'): ?>
-        <a href="/views/edit_ad.php?id=<?= $id ?>" class="btn-admin-action" style="background: #f97316; color: white; padding: 8px 16px; border-radius: 8px; text-decoration: none; margin-right: 10px; transition: all 0.3s ease; border: none; cursor: pointer;">Edit</a>
-        <form method="post" action="/controllers/DeleteAdController.php" style="display:inline;">
+      </div>
+      <div class="action-box">
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+          <div class="price"><?= $Prix ?> € / mois</div>
+          <?php if ($role === 'admin' || $role === 'proprietaire'): ?>
+            <a href="/views/edit_ad.php?id=<?= $id ?>" class="btn-admin-action" style="background: #f97316; color: white; padding: 8px 16px; border-radius: 8px; text-decoration: none; margin-right: 10px; transition: all 0.3s ease; border: none; cursor: pointer;">Edit</a>
+            <form method="post" action="/controllers/DeleteAdController.php" style="display:inline;">
+              <input type="hidden" name="id_annonce" value="<?= $id ?>">
+              <button type="submit" class="btn-admin-action" style="background:#38a169;" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette annonce ?');">Delete</button>
+            </form>
+          <?php endif; ?>
+        </div>
+        <form method="post" action="/controllers/CandidatureController.php" style="display:flex;flex-direction:column;gap:1rem;">
           <input type="hidden" name="id_annonce" value="<?= $id ?>">
-          <button type="submit" class="btn-admin-action" style="background:#38a169;" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette annonce ?');">Delete</button>
+          <div class="date-select">
+            <label>Date de début</label>
+            <input type="date" name="debut" required>
+          </div>
+          <div class="date-select">
+            <label>Date de fin</label>
+            <input type="date" name="fin" required>
+          </div>
+          <div class="people-select">
+            <label>Nombre de personnes</label>
+            <input type="number" name="nb_personnes" min="1" max="10" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Candidat(e)</button>
         </form>
-      <?php endif; ?>
+        <?php if ($userId): ?>
+          <form method="post" action="/controllers/FavorisController.php" style="margin-top: 1rem;">
+            <input type="hidden" name="action" value="<?= $isFavoris ? 'remove' : 'add' ?>">
+            <input type="hidden" name="id_annonce" value="<?= $id ?>">
+            <button type="submit" class="btn-favoris <?= $isFavoris ? 'remove' : 'add' ?>">
+              <i class="fas <?= $isFavoris ? 'fa-heart-broken' : 'fa-heart' ?>"></i>
+              <?= $isFavoris ? 'Retirer des favoris' : 'Ajouter aux favoris' ?>
+            </button>
+          </form>
+        <?php else: ?>
+          <a href="/views/favoris.php?redirect=<?= urlencode($_SERVER['REQUEST_URI']) ?>" class="btn-favoris add" style="text-decoration: none; margin-top: 1rem;">
+            <i class="fas fa-heart"></i>
+            Se connecter pour ajouter aux favoris
+          </a>
+        <?php endif; ?>
+        <?php if ($role === 'etudiant'): ?>
+          <a href="/views/signalement.php?id_annonce=<?= $id ?>" class="btn-favoris add" style="text-decoration: none; margin-top: 1rem; display: block; text-align: center;">
+            <i class="fas fa-flag"></i>
+            Signaler
+          </a>
+        <?php endif; ?>
+      </div>
     </div>
-    <form method="post" action="/controllers/CandidatureController.php" style="display:flex;flex-direction:column;gap:1rem;">
-      <input type="hidden" name="id_annonce" value="<?= $id ?>">
-      <div class="date-select">
-        <label>Date de début</label>
-        <input type="date" name="debut" required>
-      </div>
-      <div class="date-select">
-        <label>Date de fin</label>
-        <input type="date" name="fin" required>
-      </div>
-      <div class="people-select">
-        <label>Nombre de personnes</label>
-        <input type="number" name="nb_personnes" min="1" max="10" required>
-      </div>
-      <button type="submit" class="btn btn-primary">Candidat(e)</button>
-    </form>
-    <?php if ($userId): ?>
-      <form method="post" action="/controllers/FavorisController.php" style="margin-top: 1rem;">
-        <input type="hidden" name="action" value="<?= $isFavoris ? 'remove' : 'add' ?>">
-        <input type="hidden" name="id_annonce" value="<?= $id ?>">
-        <button type="submit" class="btn-favoris <?= $isFavoris ? 'remove' : 'add' ?>">
-          <i class="fas <?= $isFavoris ? 'fa-heart-broken' : 'fa-heart' ?>"></i>
-          <?= $isFavoris ? 'Retirer des favoris' : 'Ajouter aux favoris' ?>
-        </button>
-      </form>
-    <?php else: ?>
-      <a href="/views/favoris.php?redirect=<?= urlencode($_SERVER['REQUEST_URI']) ?>" class="btn-favoris add" style="text-decoration: none; margin-top: 1rem;">
-        <i class="fas fa-heart"></i>
-        Se connecter pour ajouter aux favoris
-      </a>
-      
-    <?php endif; ?>
-    <?php if ($role === 'etudiant'): ?>
-        <a href="/views/signalement.php?id_annonce=<?= $id ?>" class="btn-favoris add" style="text-decoration: none; margin-top: 1rem; display: block; text-align: center;">
-          <i class="fas fa-flag"></i>
-          Signaler
-        </a>
-     <?php endif; ?>
-  </div>
 </div>
 
 <!-- Détails de l'annonce -->

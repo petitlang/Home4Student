@@ -148,7 +148,7 @@ $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
 
     <!-- Pied de page -->
-    <?php include __DIR__ . '/footer.php'; ?>
+    <?php include __DIR__ . '/footer.html'; ?>
 
 </body>
 </html>

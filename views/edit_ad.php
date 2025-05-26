@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../models/Admodel.php';
 session_start();
-if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
+if (!isset($_SESSION['role']) || !in_array($_SESSION['role'], ['admin', 'proprietaire'])) {
     http_response_code(403);
     exit('Accès refusé');
 }
@@ -58,6 +58,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <label>Descriptions <textarea name="Descriptions" required><?= htmlspecialchars($ad['Descriptions']) ?></textarea></label>
         <button type="submit">Enregistrer</button>
     </form>
-    <?php include __DIR__ . '/footer.php'; ?>
+    <?php include __DIR__ . '/footer.html'; ?>
 </body>
 </html> 

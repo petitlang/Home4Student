@@ -116,10 +116,10 @@ $ownerInfo = UserModel::getProprietaireById($IdProp);
         <div style="display: flex; align-items: center; gap: 0.5rem;">
           <div class="price"><?= $Prix ?> € / mois</div>
           <?php if ($role === 'admin' || $role === 'proprietaire'): ?>
-            <a href="/views/edit_ad.php?id=<?= $id ?>" class="btn-admin-action" style="background: #f97316; color: white; padding: 8px 16px; border-radius: 8px; text-decoration: none; margin-right: 10px; transition: all 0.3s ease; border: none; cursor: pointer;">Edit</a>
+            <a href="/views/edit_ad.php?id=<?= $id ?>" class="btn-admin-action" style="background: #f97316; color: white; padding: 8px 16px; border-radius: 8px; text-decoration: none; margin-right: 10px; transition: all 0.3s ease; border: none; cursor: pointer;">Editer</a>
             <form method="post" action="/controllers/DeleteAdController.php" style="display:inline;">
               <input type="hidden" name="id_annonce" value="<?= $id ?>">
-              <button type="submit" class="btn-admin-action" style="background:#38a169;" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette annonce ?');">Delete</button>
+              <button type="submit" class="btn-admin-action" style="background:#38a169;" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette annonce ?');">Supprimer</button>
             </form>
           <?php endif; ?>
         </div>

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="fr"> 
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Espace Administrateur - Forum Étudiant</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet" />
+  <style>
+    
+    :root {
+      --primary-color: #6b9080;
+      --primary-dark: #4d6a5c;
+      --primary-light: #a4c3b2;
+      --secondary-color: #f6fff8;
+      --text-dark: #2c3e50;
+      --text-light: #7f8c8d;
+      --white: #ffffff;
+      --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+      --danger: #e74c3c;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--secondary-color);
+      color: var(--text-dark);
+      margin: 0;
+      padding: 2rem;
+    }
+
+    h1 {
+      text-align: center;
+      color: var(--primary-dark);
+    }
+
+    .login-container, .admin-panel {
+      max-width: 700px;
+      margin: 2rem auto;
+      background: white;
+      padding: 2rem;
+      box-shadow: var(--shadow);
+      border-radius: 10px;
+    }
+
+    input[type="password"], input[type="text"] {
+      width: 100%;
+      padding: 1rem 3rem 1rem 1rem; /* espace pour bouton oeil */
+      margin-bottom: 1rem;
+      font-size: 1rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      position: relative;
+    }
+
+    .password-wrapper {
+      position: relative;
+      width: 100%;
+    }
+
+    .toggle-password {
+      position: absolute;
+      top: 50%;
+      right: 1rem;
+      transform: translateY(-50%);
+      cursor: pointer;
+      font-size: 1.2rem;
+      color: var(--primary-dark);
+      user-select: none;
+    }
+
+    .btn {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+
+    .btn:hover {
+      background-color: var(--primary-dark);
+    }
+
+    .btn-danger {
+      background-color: var(--danger);
+    }
+
+    .btn-danger:hover {
+      background-color: #c0392b;
+    }
+
+    .question-card {
+      background-color: var(--white);
+      border-left: 5px solid var(--primary-light);
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--shadow);
+      border-radius: 8px;
+    }
+
+    .question-title {
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    .question-author {
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+
+    .answer {
+      margin-top: 0.5rem;
+      padding-left: 1rem;
+      border-left: 3px solid var(--primary-light);
+    }
+
+    .answer-author {
+      font-size: 0.85rem;
+      color: var(--text-light);
+    }
+
+    .logout {
+      text-align: center;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container" id="login-form">
+    <h1>Connexion Administrateur</h1>
+    <div class="password-wrapper">
+      <input type="password" id="adminCode" placeholder="Entrez le code administrateur" />
+      <span id="togglePassword" class="toggle-password" title="Afficher / Cacher le mot de passe">👁️</span>
+    </div>
+    <button class="btn" onclick="checkAdminCode()">Se connecter</button>
+  </div>
+
+  <div class="admin-panel" id="admin-panel" style="display: none;">
+    <h1>Espace Administrateur</h1>
+    <div id="adminQuestions"></div>
+    <div class="logout">
+      <button class="btn btn-danger" onclick="logout()">Se déconnecter</button>
+    </div>
+  </div>
+
+  <script>
+ 
+    async function sha256(message) {
+      const msgBuffer = new TextEncoder().encode(message);
+      const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    const ADMIN_HASH = "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918";
+
+    async function checkAdminCode() {
+      const codeInput = document.getElementById("adminCode").value.trim();
+      const hashedInput = await sha256(codeInput);
+
+      if (hashedInput === ADMIN_HASH) {
+        document.getElementById("login-form").style.display = "none";
+        document.getElementById("admin-panel").style.display = "block";
+        loadQuestions();
+      } else {
+        alert("Code incorrect !");
+      }
+    }
+
+    function logout() {
+      document.getElementById("admin-panel").style.display = "none";
+      document.getElementById("login-form").style.display = "block";
+      document.getElementById("adminCode").value = "";
+    }
+
+    
+    const togglePassword = document.getElementById("togglePassword");
+    const passwordInput = document.getElementById("adminCode");
+    togglePassword.addEventListener("click", () => {
+      if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        togglePassword.textContent = "🙈";
+      } else {
+        passwordInput.type = "password";
+        togglePassword.textContent = "👁️";
+      }
+    });
+
+    function loadQuestions() {
+      const container = document.getElementById("adminQuestions");
+      const questions = JSON.parse(localStorage.getItem("questions")) || [];
+      container.innerHTML = "";
+
+      if (questions.length === 0) {
+        container.innerHTML = "<p><em>Aucune question enregistrée.</em></p>";
+        return;
+      }
+
+      questions.forEach((q, index) => {
+        const div = document.createElement("div");
+        div.className = "question-card";
+        div.innerHTML = `
+          <div class="question-title">${q.titre}</div>
+          <div class="question-author">Posté par: ${q.auteur}</div>
+          <p>${q.contenu}</p>
+          ${q.reponses && q.reponses.length > 0 ? `
+            <div class="answers">
+              ${q.reponses.map(a => `
+                <div class="answer">
+                  <p>${a.contenu}</p>
+                  <p class="answer-author">Réponse de: ${a.auteur} à ${a.heure}</p>
+                </div>`).join("")}
+            </div>
+          ` : "<em>Aucune réponse.</em>"}
+          <button class="btn btn-danger" onclick="deleteQuestion(${index})">Supprimer la question</button>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function deleteQuestion(index) {
+      const questions = JSON.parse(localStorage.getItem("questions")) || [];
+      const confirmation = confirm("Voulez-vous vraiment supprimer cette question ?");
+      if (confirmation) {
+        questions.splice(index, 1);
+        localStorage.setItem("questions", JSON.stringify(questions));
+        loadQuestions();
+      }
+    }
+  </script>
+</body>
+</html>

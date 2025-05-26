@@ -30,7 +30,7 @@
                 ?>
                 <a href="/views/faq_back.php" class="nav-link">FAQ</a>
                 <a href="/views/contact.php" class="nav-link">Contact</a>
-                <a href="/views/forum.php" class="nav-link">Forum</a>
+                <a href="/views/Forum.html" class="nav-link">Forum</a>
             </div>
 
             <div class="user-section">
